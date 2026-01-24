@@ -1,0 +1,39 @@
+{
+  "name": "@your-scope/handover",
+  "version": "1.0.0",
+  "description": "跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "agent-skill-installer install",
+    "preuninstall": "agent-skill-installer uninstall",
+    "test": "agent-skill-installer install --dry-run && echo 'Installation test completed'",
+    "lint": "echo 'Add your linting commands here'"
+  },
+  "files": [
+    "SKILL.md"
+  ],
+  "dependencies": {
+    "@agentskill/installer": "^1.0.0"
+  },
+  "keywords": [
+    "claude-code",
+    "skill",
+    "handover",
+    "session-management",
+    "context-transfer"
+  ],
+  "author": "YOUR NAME <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR-USERNAME/my-agent-skills.git",
+    "directory": "skills/handover"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR-USERNAME/my-agent-skills/issues"
+  },
+  "homepage": "https://github.com/YOUR-USERNAME/my-agent-skills#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
