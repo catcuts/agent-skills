@@ -12,13 +12,13 @@
 ### 作为 NPM 包安装（推荐）
 
 ```bash
-npm install -g @your-scope/handover
+npm install -g @catcuts/handover
 ```
 
 ### 通过技能管理工具安装
 
 ```bash
-npx skills install YOUR-USERNAME/my-agent-skills
+npx skills install catcuts/agent-skills
 # 然后选择 handover 技能
 ```
 

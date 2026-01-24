@@ -8,15 +8,15 @@
 读取 staged 代码差异，自动生成符合 Conventional Commits 规范的提交文本。
 
 **安装方式**：
-- 通过 add-skill: `npx skills install YOUR-USERNAME/my-agent-skills`
+- 通过 add-skill: `npx skills install catcuts/agent-skills`
 - 选择 commit 技能
 
 ### 2. handover
 跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。
 
 **安装方式**：
-- 作为 NPM 包: `npm install -g @your-scope/handover`
-- 通过 add-skill: `npx skills install YOUR-USERNAME/my-agent-skills`
+- 作为 NPM 包: `npm install -g @catcuts/handover`
+- 通过 add-skill: `npx skills install catcuts/agent-skills`
 
 ## 技能管理工具
 

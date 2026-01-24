@@ -1,5 +1,5 @@
 {
-  "name": "@your-scope/handover",
+  "name": "@catcuts/handover",
   "version": "1.0.0",
   "description": "跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。",
   "main": "index.js",
@@ -22,17 +22,17 @@
     "session-management",
     "context-transfer"
   ],
-  "author": "YOUR NAME <your.email@example.com>",
+  "author": "catcuts",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR-USERNAME/my-agent-skills.git",
+    "url": "https://github.com/catcuts/agent-skills.git",
     "directory": "skills/handover"
   },
   "bugs": {
-    "url": "https://github.com/YOUR-USERNAME/my-agent-skills/issues"
+    "url": "https://github.com/catcuts/agent-skills/issues"
   },
-  "homepage": "https://github.com/YOUR-USERNAME/my-agent-skills#readme",
+  "homepage": "https://github.com/catcuts/agent-skills#readme",
   "engines": {
     "node": ">=14.0.0"
   }
