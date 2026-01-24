@@ -1,0 +1,9 @@
+{
+  "name": "my-agent-skills",
+  "version": "1.0.0",
+  "description": "Collection of AI agent skills",
+  "private": true,
+  "workspaces": [
+    "skills/*"
+  ]
+}
