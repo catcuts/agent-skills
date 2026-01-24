@@ -1,7 +1,7 @@
 {
-  "name": "@catcuts/handover",
+  "name": "@catcheers/handover",
   "version": "1.0.0",
-  "description": "跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。",
+  "description": "跨会话工作交接工具。支持归档当前进度和恢复历史进度两个模式。",
   "main": "index.js",
   "scripts": {
     "postinstall": "agent-skill-installer install",

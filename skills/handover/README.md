@@ -12,7 +12,7 @@
 ### 作为 NPM 包安装（推荐）
 
 ```bash
-npm install -g @catcuts/handover
+npm install -g @catcheers/handover
 ```
 
 ### 通过技能管理工具安装

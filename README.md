@@ -15,7 +15,7 @@
 跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。
 
 **安装方式**：
-- 作为 NPM 包: `npm install -g @catcuts/handover`
+- 作为 NPM 包: `npm install -g @catcheers/handover`
 - 通过 add-skill: `npx skills install catcuts/agent-skills`
 
 ## 技能管理工具
