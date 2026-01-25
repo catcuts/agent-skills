@@ -3,3 +3,4 @@ node_modules/
 .handover/
 *.log
 ref/
+.claude/
