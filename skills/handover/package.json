@@ -1,19 +1,22 @@
 {
   "name": "@catcheers/handover",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "跨会话工作交接工具。支持归档当前进度和恢复历史进度两个模式。",
   "main": "index.js",
   "scripts": {
-    "postinstall": "agent-skill-installer install",
-    "preuninstall": "agent-skill-installer uninstall",
-    "test": "agent-skill-installer install --dry-run && echo 'Installation test completed'",
+    "postinstall": "node scripts/install-skill.js",
+    "preuninstall": "node scripts/uninstall-skill.js",
+    "test": "node scripts/install-skill.js --dry-run",
+    "install:global": "SKILL_SCOPE=GLOBAL node scripts/install-skill.js",
+    "install:local": "SKILL_SCOPE=LOCAL node scripts/install-skill.js",
     "lint": "echo 'Add your linting commands here'"
   },
   "files": [
-    "SKILL.md"
+    "SKILL.md",
+    "scripts/"
   ],
-  "dependencies": {
-    "@agentskill/installer": "^1.0.0"
+  "optionalDependencies": {
+    "add-skill": "^1.0.29"
   },
   "keywords": [
     "claude-code",
@@ -34,6 +37,6 @@
   },
   "homepage": "https://github.com/catcuts/agent-skills#readme",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }

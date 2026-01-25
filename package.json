@@ -5,5 +5,8 @@
   "private": true,
   "workspaces": [
     "skills/*"
-  ]
+  ],
+  "devDependencies": {
+    "add-skill": "^1.0.29"
+  }
 }
