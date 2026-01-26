@@ -7,8 +7,8 @@
     "postinstall": "node scripts/install-skill.js",
     "preuninstall": "node scripts/uninstall-skill.js",
     "test": "node scripts/install-skill.js --dry-run",
-    "install:global": "SKILL_SCOPE=GLOBAL node scripts/install-skill.js",
-    "install:local": "SKILL_SCOPE=LOCAL node scripts/install-skill.js",
+    "install:global": "node scripts/install-skill.js --global",
+    "install:local": "node scripts/install-skill.js --local",
     "lint": "echo 'Add your linting commands here'"
   },
   "files": [

@@ -4,13 +4,13 @@
  * Handover Skill 安装脚本
  * 使用 add-skill 将 skill 安装到 Claude Code
  *
- * 环境变量:
- * - SKILL_SCOPE: 安装范围,可选值: GLOBAL(全局) 或 LOCAL(项目级),默认: GLOBAL
- *
- * 命令行参数:
+ * 命令行参数 (推荐):
  * --dry-run: 测试模式,只显示将要执行的命令,不实际安装
  * --global: 强制全局安装
  * --local: 强制项目级安装
+ *
+ * 环境变量 (备用):
+ * - SKILL_SCOPE: 安装范围,可选值: GLOBAL(全局) 或 LOCAL(项目级),默认: GLOBAL
  */
 
 const { execSync } = require('child_process');

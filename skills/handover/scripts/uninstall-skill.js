@@ -4,7 +4,11 @@
  * Handover Skill 卸载脚本
  * 从 Claude Code 中移除 skill
  *
- * 环境变量:
+ * 命令行参数 (推荐):
+ * --global: 强制全局卸载
+ * --local: 强制项目级卸载
+ *
+ * 环境变量 (备用):
  * - SKILL_SCOPE: 安装范围,可选值: GLOBAL(全局) 或 LOCAL(项目级),默认: GLOBAL
  */
 
@@ -12,8 +16,21 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
+// 解析命令行参数
+const args = process.argv.slice(2);
+const forceGlobal = args.includes('--global');
+const forceLocal = args.includes('--local');
+
 // 确定安装范围
-const scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
+let scope;
+if (forceGlobal) {
+  scope = 'GLOBAL';
+} else if (forceLocal) {
+  scope = 'LOCAL';
+} else {
+  scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
+}
+
 const isGlobal = scope === 'GLOBAL';
 
 // 日志函数
