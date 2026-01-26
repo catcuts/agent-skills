@@ -16,7 +16,8 @@ my-skill/
 ├── LICENSE                   # 许可证文件（推荐）
 └── scripts/
     ├── install-skill.js      # 安装脚本（必需）
-    └── uninstall-skill.js    # 卸载脚本（必需）
+    ├── uninstall-skill.js    # 卸载脚本（必需）
+    └── usage-guide.js        # 使用指南生成器（推荐）
 ```
 
 ### 完整结构（工程化技能）
@@ -33,7 +34,8 @@ my-skill/
 │       └── ci.yml            # CI/CD 配置（可选）
 └── scripts/
     ├── install-skill.js      # 安装脚本
-    └── uninstall-skill.js    # 卸载脚本
+    ├── uninstall-skill.js    # 卸载脚本
+    └── usage-guide.js        # 使用指南生成器（推荐）
 ```
 
 **说明**：
@@ -303,7 +305,140 @@ removeSkill(localDir);
 
 ---
 
-### 5. README.md
+### 5. scripts/usage-guide.js
+
+使用指南生成器，在安装成功后显示友好的使用提示。
+
+#### 为什么需要 usage-guide.js？
+
+当用户执行 `npm install` 安装技能时，npm 只会显示 `added xxx packages in xxx s`，用户不知道如何使用已安装的技能。`usage-guide.js` 在安装成功后自动显示：
+- 技能名称和功能描述
+- 如何触发/调用该技能
+- 更多信息的链接
+
+#### 核心功能
+
+```javascript
+#!/usr/bin/env node
+
+const path = require('path');
+const fs = require('fs');
+
+/**
+ * 读取 package.json 中的信息
+ */
+function getPackageInfo() {
+    const packageRoot = path.resolve(__dirname, '..');
+    const packageJsonPath = path.join(packageRoot, 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+
+    return {
+        name: packageJson.name.split('/')[1] || packageJson.name,
+        description: packageJson.description,
+        homepage: packageJson.homepage || '',
+        repository: packageJson.repository?.url || '',
+    };
+}
+
+/**
+ * 读取 SKILL.md 中的触发指令
+ */
+function getSkillInstructions() {
+    const packageRoot = path.resolve(__dirname, '..');
+    const skillMdPath = path.join(packageRoot, 'SKILL.md');
+
+    if (!fs.existsSync(skillMdPath)) {
+        return null;
+    }
+
+    const content = fs.readFileSync(skillMdPath, 'utf-8');
+    // 匹配 description 行中的指令说明
+    const match = content.match(/^description:\s*(.+)$/m);
+    return match ? match[1].trim() : null;
+}
+
+/**
+ * 打印使用指南
+ */
+function printUsageGuide() {
+    const pkg = getPackageInfo();
+    const instructions = getSkillInstructions();
+
+    // 如果 SKILL.md 中有指令说明，使用它；否则使用 package.json 的 description
+    const usageInfo = instructions || pkg.description;
+
+    const guide = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🎉 技能安装成功！
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 技能名称:    ${pkg.name}
+📝 功能描述:    ${pkg.description}
+
+🚀 如何使用:
+   ${usageInfo}
+
+📖 更多信息:
+   ${pkg.homepage ? `   文档: ${pkg.homepage}` : ''}
+   ${pkg.repository ? `   仓库: ${pkg.repository}` : ''}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`;
+
+    console.log(guide);
+}
+
+module.exports = { printUsageGuide };
+```
+
+#### 在 install-skill.js 中调用
+
+在安装脚本的成功位置调用使用指南：
+
+```javascript
+const { printUsageGuide } = require('./usage-guide');
+
+// ... 安装逻辑 ...
+
+log('\n安装成功!', 'success');
+
+// 显示使用指南
+printUsageGuide();
+```
+
+#### 安装后输出效果
+
+```
+✓ 安装成功!
+✓ Skill 已安装到: ~/.claude/skills/my-skill
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🎉 技能安装成功！
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 技能名称:    my-skill
+📝 功能描述:    技能功能描述
+
+🚀 如何使用:
+   在 Claude Code 中说"帮我做 xxx"或"执行 xxx"
+
+📖 更多信息:
+   文档: https://github.com/username/repo#readme
+   仓库: git+https://github.com/username/repo.git
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+#### 最佳实践
+
+- **自动化信息提取**: 从 `package.json` 和 `SKILL.md` 自动读取信息，避免硬编码
+- **友好的格式**: 使用符号（🎉、📦、🚀）和分隔线让输出更醒目
+- **清晰的使用说明**: 明确告诉用户如何触发技能
+- **提供更多信息**: 包含文档和仓库链接，方便深入了解
+
+---
+
+### 6. README.md
 
 使用文档，向用户说明技能的功能、安装和使用方法。
 
@@ -362,6 +497,7 @@ MIT License
 - [x] `SKILL.md` - 技能定义文件
 - [x] `scripts/install-skill.js` - 安装脚本
 - [x] `scripts/uninstall-skill.js` - 卸载脚本
+- [x] `scripts/usage-guide.js` - 使用指南生成器（推荐）
 
 ### 发布时推荐（npm 自动包含）
 
@@ -431,6 +567,8 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 - [ ] `package.json` 包含所有必需字段
 - [ ] `SKILL.md` 包含有效的 YAML frontmatter
 - [ ] `scripts/install-skill.js` 支持 `--dry-run` 参数
+- [ ] `scripts/install-skill.js` 在安装成功后调用 `printUsageGuide()`
+- [ ] `scripts/usage-guide.js` 自动提取信息并生成使用指南
 - [ ] `scripts/uninstall-skill.js` 正确删除文件
 - [ ] `README.md` 提供清晰的使用说明
 
