@@ -232,7 +232,7 @@ cat .github/workflows/ci.yml
 
 ## 🆘 获取帮助
 
-- **开发问题**: 查看 [06-troubleshooting.md](../06-trtroubleshooting.md)
+- **开发问题**: 查看 [06-troubleshooting.md](../06-troubleshooting.md)
 - **编写参考**: 查看 [05-skills-reference.md](../05-skills-reference.md)
 - **GitHub Issues**: [提交问题](https://github.com/catcuts/agent-skills/issues)
 
