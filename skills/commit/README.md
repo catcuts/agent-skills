@@ -17,7 +17,7 @@
 
 ### 快速安装
 
-从 npm 安装包时会自动将 skill 注册到 Claude Code：
+从 npm 安装包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。感谢 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill) 🌹
 
 ```bash
 # 全局安装（推荐）
@@ -50,8 +50,6 @@ npx add-skill . -a claude-code -g -y
 # 项目级安装
 npx add-skill . -a claude-code -y
 ```
-
-**支持平台**: 基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
 
 ### 测试安装
 

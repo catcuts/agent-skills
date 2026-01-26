@@ -1,5 +1,5 @@
 {
-  "name": "@<your-username>/commit",
+  "name": "@catcuts-skills/commit",
   "version": "1.0.0",
   "description": "读取 staged 代码差异，自动生成符合 Conventional Commits 规范的提交文本",
   "main": "index.js",
@@ -24,16 +24,17 @@
     "commit",
     "conventional-commits"
   ],
-  "author": "<your-name>",
+  "author": "catcuts",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/<your-username>/<your-repo>.git"
+    "url": "git+https://github.com/catcuts/agent-skills.git",
+    "directory": "skills/commit"
   },
   "bugs": {
-    "url": "https://github.com/<your-username>/<your-repo>/issues"
+    "url": "https://github.com/catcuts/agent-skills/issues"
   },
-  "homepage": "https://github.com/<your-username>/<your-repo>#readme",
+  "homepage": "https://github.com/catcuts/agent-skills#readme",
   "engines": {
     "node": ">=18.0.0"
   }

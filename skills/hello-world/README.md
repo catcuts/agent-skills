@@ -21,14 +21,14 @@
 
 ### 快速安装
 
-从 npm 安装包时会自动注册 skill 到 Claude Code：
+从 npm 安装包时会自动注册 skill 到 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。感谢 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill) 🌹
 
 ```bash
 # 全局安装（推荐）
-npm install -g @catcheers/hello-world
+npm install -g @catcuts-skills/hello-world
 
 # 项目级安装
-npm install @catcheers/hello-world
+npm install @catcuts-skills/hello-world
 ```
 
 ### 本地开发安装
@@ -72,10 +72,10 @@ npm test
 
 ```bash
 # 全局卸载
-npm uninstall -g @catcheers/hello-world
+npm uninstall -g @catcuts-skills/hello-world
 
 # 项目级卸载
-npm uninstall @catcheers/hello-world
+npm uninstall @catcuts-skills/hello-world
 ```
 
 卸载时会自动清理 skill 文件。

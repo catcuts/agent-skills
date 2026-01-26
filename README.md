@@ -19,7 +19,7 @@
 
 **安装方式**：
 
-- 作为 NPM 包: `npm install -g @catcheers/handover`
+- 作为 NPM 包: `npm install -g @catcuts-skills/handover`
 - 通过 add-skill: `npx skills install catcuts/agent-skills`
 
 ## 技能管理工具

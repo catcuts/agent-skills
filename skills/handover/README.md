@@ -11,14 +11,14 @@
 
 ### 自动安装（推荐）
 
-安装本 npm 包时会自动将 skill 注册到 Claude Code：
+安装本 npm 包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。感谢 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill) 🌹
 
 ```bash
 # 全局安装（默认）
-npm install -g @catcheers/handover
+npm install -g @catcuts-skills/handover
 
 # 项目级安装
-SKILL_SCOPE=LOCAL npm install @catcheers/handover
+SKILL_SCOPE=LOCAL npm install @catcuts-skills/handover
 ```
 
 **环境变量 `SKILL_SCOPE`**:
@@ -38,8 +38,6 @@ npx add-skill . -a claude-code -g -y
 npx add-skill . -a claude-code -y
 ```
 
-**支持平台**: 基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
-
 ### 测试安装
 
 运行测试以验证安装配置（不会实际安装）：
@@ -52,10 +50,10 @@ npm test
 
 ```bash
 # 全局卸载
-npm uninstall -g @catcheers/handover
+npm uninstall -g @catcuts-skills/handover
 
 # 项目级卸载
-npm uninstall @catcheers/handover
+npm uninstall @catcuts-skills/handover
 ```
 
 卸载时会自动清理 skill 文件。
