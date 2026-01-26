@@ -1,0 +1,40 @@
+{
+  "name": "@<your-username>/commit",
+  "version": "1.0.0",
+  "description": "读取 staged 代码差异，自动生成符合 Conventional Commits 规范的提交文本",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/install-skill.js",
+    "preuninstall": "node scripts/uninstall-skill.js",
+    "test": "node scripts/install-skill.js --dry-run",
+    "install:global": "node scripts/install-skill.js --global",
+    "install:local": "node scripts/install-skill.js --local"
+  },
+  "files": [
+    "SKILL.md",
+    "scripts/"
+  ],
+  "optionalDependencies": {
+    "add-skill": "^1.0.29"
+  },
+  "keywords": [
+    "claude-code",
+    "skill",
+    "git",
+    "commit",
+    "conventional-commits"
+  ],
+  "author": "<your-name>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<your-username>/<your-repo>.git"
+  },
+  "bugs": {
+    "url": "https://github.com/<your-username>/<your-repo>/issues"
+  },
+  "homepage": "https://github.com/<your-username>/<your-repo>#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
