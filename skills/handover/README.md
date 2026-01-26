@@ -22,6 +22,7 @@ SKILL_SCOPE=LOCAL npm install @catcheers/handover
 ```
 
 **环境变量 `SKILL_SCOPE`**:
+
 - `GLOBAL`（默认）: 安装到用户目录 `~/.claude/skills/handover`
 - `LOCAL`: 安装到项目目录 `.claude/skills/handover`
 
@@ -60,11 +61,13 @@ npm uninstall @catcheers/handover
 ## 使用
 
 **导出工作状态：**
+
 ```
 请帮我交接当前工作
 ```
 
 **恢复工作状态：**
+
 ```
 请接手之前的 xx 工作
 ```
@@ -77,10 +80,12 @@ npm uninstall @catcheers/handover
 ### 安装路径
 
 **全局安装 (SKILL_SCOPE=GLOBAL)**:
+
 - 实际存储: `~/.agents/skills/handover/`
 - Claude Code 链接: `~/.claude/skills/handover/` (符号链接)
 
 **项目级安装 (SKILL_SCOPE=LOCAL)**:
+
 - 实际存储: `.agents/skills/handover/`
 - Claude Code 链接: `.claude/skills/handover/` (符号链接)
 

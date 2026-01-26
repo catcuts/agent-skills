@@ -24,85 +24,85 @@ const forceLocal = args.includes('--local');
 // 确定安装范围
 let scope;
 if (forceGlobal) {
-  scope = 'GLOBAL';
+    scope = 'GLOBAL';
 } else if (forceLocal) {
-  scope = 'LOCAL';
+    scope = 'LOCAL';
 } else {
-  scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
+    scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
 }
 
 const isGlobal = scope === 'GLOBAL';
 
 // 日志函数
 function log(message, type = 'info') {
-  const prefix = {
-    info: '✓',
-    success: '✓',
-    warning: '⚠',
-    error: '✗'
-  }[type] || '✓';
+    const prefix =
+        {
+            info: '✓',
+            success: '✓',
+            warning: '⚠',
+            error: '✗',
+        }[type] || '✓';
 
-  console.log(`${prefix} ${message}`);
+    console.log(`${prefix} ${message}`);
 }
 
 // 递归删除目录
 function removeDirectory(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    return false;
-  }
+    if (!fs.existsSync(dirPath)) {
+        return false;
+    }
 
-  try {
-    fs.rmSync(dirPath, { recursive: true, force: true });
-    return true;
-  } catch (error) {
-    log(`删除 ${dirPath} 失败: ${error.message}`, 'error');
-    return false;
-  }
+    try {
+        fs.rmSync(dirPath, { recursive: true, force: true });
+        return true;
+    } catch (error) {
+        log(`删除 ${dirPath} 失败: ${error.message}`, 'error');
+        return false;
+    }
 }
 
 try {
-  log(`开始卸载 Hello World Skill...`, 'info');
-  log(`卸载范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
+    log(`开始卸载 Hello World Skill...`, 'info');
+    log(`卸载范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
 
-  let removedCount = 0;
+    let removedCount = 0;
 
-  if (isGlobal) {
-    // 全局卸载
-    const homeDir = os.homedir();
-    const paths = [
-      path.join(homeDir, '.claude', 'skills', 'hello-world'),
-      path.join(homeDir, '.agents', 'skills', 'hello-world')
-    ];
+    if (isGlobal) {
+        // 全局卸载
+        const homeDir = os.homedir();
+        const paths = [
+            path.join(homeDir, '.claude', 'skills', 'hello-world'),
+            path.join(homeDir, '.agents', 'skills', 'hello-world'),
+        ];
 
-    paths.forEach(dirPath => {
-      if (removeDirectory(dirPath)) {
-        log(`已删除: ${dirPath}`, 'success');
-        removedCount++;
-      }
-    });
-  } else {
-    // 项目级卸载
-    const cwd = process.cwd();
-    const paths = [
-      path.join(cwd, '.claude', 'skills', 'hello-world'),
-      path.join(cwd, '.agents', 'skills', 'hello-world')
-    ];
+        paths.forEach((dirPath) => {
+            if (removeDirectory(dirPath)) {
+                log(`已删除: ${dirPath}`, 'success');
+                removedCount++;
+            }
+        });
+    } else {
+        // 项目级卸载
+        const cwd = process.cwd();
+        const paths = [
+            path.join(cwd, '.claude', 'skills', 'hello-world'),
+            path.join(cwd, '.agents', 'skills', 'hello-world'),
+        ];
 
-    paths.forEach(dirPath => {
-      if (removeDirectory(dirPath)) {
-        log(`已删除: ${dirPath}`, 'success');
-        removedCount++;
-      }
-    });
-  }
+        paths.forEach((dirPath) => {
+            if (removeDirectory(dirPath)) {
+                log(`已删除: ${dirPath}`, 'success');
+                removedCount++;
+            }
+        });
+    }
 
-  if (removedCount > 0) {
-    log(`\n卸载成功! 已删除 ${removedCount} 个目录`, 'success');
-  } else {
-    log('\n未找到已安装的 skill 文件', 'warning');
-  }
-
+    if (removedCount > 0) {
+        log(`\n卸载成功! 已删除 ${removedCount} 个目录`, 'success');
+    } else {
+        log('\n未找到已安装的 skill 文件', 'warning');
+    }
 } catch (error) {
-  log(`卸载失败: ${error.message}`, 'error');
-  process.exit(1);
+    log(`卸载失败: ${error.message}`, 'error');
+    process.exit(1);
 }

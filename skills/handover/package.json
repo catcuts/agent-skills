@@ -1,42 +1,42 @@
 {
-  "name": "@catcheers/handover",
-  "version": "1.0.2",
-  "description": "跨会话工作交接工具。支持归档当前进度和恢复历史进度两个模式。",
-  "main": "index.js",
-  "scripts": {
-    "postinstall": "node scripts/install-skill.js",
-    "preuninstall": "node scripts/uninstall-skill.js",
-    "test": "node scripts/install-skill.js --dry-run",
-    "install:global": "node scripts/install-skill.js --global",
-    "install:local": "node scripts/install-skill.js --local",
-    "lint": "echo 'Add your linting commands here'"
-  },
-  "files": [
-    "SKILL.md",
-    "scripts/"
-  ],
-  "optionalDependencies": {
-    "add-skill": "^1.0.29"
-  },
-  "keywords": [
-    "claude-code",
-    "skill",
-    "handover",
-    "session-management",
-    "context-transfer"
-  ],
-  "author": "catcuts",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/catcuts/agent-skills.git",
-    "directory": "skills/handover"
-  },
-  "bugs": {
-    "url": "https://github.com/catcuts/agent-skills/issues"
-  },
-  "homepage": "https://github.com/catcuts/agent-skills#readme",
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name": "@catcheers/handover",
+    "version": "1.0.2",
+    "description": "跨会话工作交接工具。支持归档当前进度和恢复历史进度两个模式。",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local",
+        "lint": "echo 'Add your linting commands here'"
+    },
+    "files": [
+        "SKILL.md",
+        "scripts/"
+    ],
+    "optionalDependencies": {
+        "add-skill": "^1.0.29"
+    },
+    "keywords": [
+        "claude-code",
+        "skill",
+        "handover",
+        "session-management",
+        "context-transfer"
+    ],
+    "author": "catcuts",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/catcuts/agent-skills.git",
+        "directory": "skills/handover"
+    },
+    "bugs": {
+        "url": "https://github.com/catcuts/agent-skills/issues"
+    },
+    "homepage": "https://github.com/catcuts/agent-skills#readme",
+    "engines": {
+        "node": ">=18.0.0"
+    }
 }

@@ -1,12 +1,13 @@
 {
-  "name": "my-agent-skills",
-  "version": "1.0.0",
-  "description": "Collection of AI agent skills",
-  "private": true,
-  "workspaces": [
-    "skills/*"
-  ],
-  "devDependencies": {
-    "add-skill": "^1.0.29"
-  }
+    "name": "my-agent-skills",
+    "version": "1.0.0",
+    "description": "Collection of AI agent skills",
+    "private": true,
+    "workspaces": [
+        "skills/*"
+    ],
+    "devDependencies": {
+        "add-skill": "^1.0.29",
+        "prettier": "^3.8.1"
+    }
 }

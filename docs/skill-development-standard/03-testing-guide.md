@@ -33,6 +33,7 @@ node scripts/install-skill.js --dry-run
 ```
 
 **预期输出**：
+
 ```
 ✓ 开始安装 My Skill...
 ✓ 安装范围: 全局(GLOBAL)
@@ -175,6 +176,7 @@ claude
 ```
 
 **预期输出**：
+
 ```
 Available skills:
 - my-skill
@@ -220,11 +222,11 @@ my-skill
 
 推荐在以下平台测试：
 
-| 平台 | Node.js 版本 | 测试命令 |
-|------|-------------|---------|
-| Ubuntu | 18.x, 20.x | `npm run install:local && npm test` |
-| macOS | 18.x, 20.x | `npm run install:local && npm test` |
-| Windows | 18.x, 20.x | `npm run install:local && npm test` |
+| 平台    | Node.js 版本 | 测试命令                            |
+| ------- | ------------ | ----------------------------------- |
+| Ubuntu  | 18.x, 20.x   | `npm run install:local && npm test` |
+| macOS   | 18.x, 20.x   | `npm run install:local && npm test` |
+| Windows | 18.x, 20.x   | `npm run install:local && npm test` |
 
 ---
 
@@ -238,111 +240,111 @@ my-skill
 name: CI
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
 
 jobs:
-  test:
-    name: Test Installation
-    runs-on: ${{ matrix.os }}
+    test:
+        name: Test Installation
+        runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [18.x, 20.x]
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                node-version: [18.x, 20.x]
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+            - name: Setup Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm ci || npm install
+            - name: Install dependencies
+              run: npm ci || npm install
 
-    - name: Run installation test
-      run: npm test
+            - name: Run installation test
+              run: npm test
 
-    - name: Verify SKILL.md format
-      run: |
-        if [ ! -f SKILL.md ]; then
-          echo "Error: SKILL.md not found"
-          exit 1
-        fi
-        # Check for required frontmatter
-        if ! grep -q "^---$" SKILL.md; then
-          echo "Error: SKILL.md missing frontmatter"
-          exit 1
-        fi
-      shell: bash
+            - name: Verify SKILL.md format
+              run: |
+                  if [ ! -f SKILL.md ]; then
+                    echo "Error: SKILL.md not found"
+                    exit 1
+                  fi
+                  # Check for required frontmatter
+                  if ! grep -q "^---$" SKILL.md; then
+                    echo "Error: SKILL.md missing frontmatter"
+                    exit 1
+                  fi
+              shell: bash
 
-    - name: Verify required files
-      run: |
-        required_files=(
-          "package.json"
-          "SKILL.md"
-        )
-        for file in "${required_files[@]}"; do
-          if [ ! -f "$file" ]; then
-            echo "Error: Required file $file not found"
-            exit 1
-          fi
-        done
-      shell: bash
+            - name: Verify required files
+              run: |
+                  required_files=(
+                    "package.json"
+                    "SKILL.md"
+                  )
+                  for file in "${required_files[@]}"; do
+                    if [ ! -f "$file" ]; then
+                      echo "Error: Required file $file not found"
+                      exit 1
+                    fi
+                  done
+              shell: bash
 
-  validate-skill:
-    name: Validate Skill Structure
-    runs-on: ubuntu-latest
+    validate-skill:
+        name: Validate Skill Structure
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.x'
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
 
-    - name: Validate SKILL.md structure
-      run: |
-        echo "Validating SKILL.md structure..."
+            - name: Validate SKILL.md structure
+              run: |
+                  echo "Validating SKILL.md structure..."
 
-        # Check for frontmatter
-        if ! head -n 1 SKILL.md | grep -q "^---$"; then
-          echo "Error: SKILL.md must start with frontmatter delimiter (---)"
-          exit 1
-        fi
+                  # Check for frontmatter
+                  if ! head -n 1 SKILL.md | grep -q "^---$"; then
+                    echo "Error: SKILL.md must start with frontmatter delimiter (---)"
+                    exit 1
+                  fi
 
-        # Extract frontmatter
-        frontmatter=$(sed -n '/^---$/,/^---$/p' SKILL.md | head -n -1 | tail -n +2)
+                  # Extract frontmatter
+                  frontmatter=$(sed -n '/^---$/,/^---$/p' SKILL.md | head -n -1 | tail -n +2)
 
-        # Check for required fields
-        if ! echo "$frontmatter" | grep -q "^name:"; then
-          echo "Error: SKILL.md frontmatter missing 'name' field"
-          exit 1
-        fi
+                  # Check for required fields
+                  if ! echo "$frontmatter" | grep -q "^name:"; then
+                    echo "Error: SKILL.md frontmatter missing 'name' field"
+                    exit 1
+                  fi
 
-        if ! echo "$frontmatter" | grep -q "^description:"; then
-          echo "Error: SKILL.md frontmatter missing 'description' field"
-          exit 1
-        fi
+                  if ! echo "$frontmatter" | grep -q "^description:"; then
+                    echo "Error: SKILL.md frontmatter missing 'description' field"
+                    exit 1
+                  fi
 
-        # Extract name
-        skill_name=$(echo "$frontmatter" | grep "^name:" | cut -d' ' -f2- | tr -d ' ')
+                  # Extract name
+                  skill_name=$(echo "$frontmatter" | grep "^name:" | cut -d' ' -f2- | tr -d ' ')
 
-        # Validate name format (lowercase, hyphens, max 64 chars)
-        if ! echo "$skill_name" | grep -Eq "^[a-z0-9-]{1,64}$"; then
-          echo "Error: Skill name must be lowercase letters, numbers, and hyphens only (max 64 chars)"
-          exit 1
-        fi
+                  # Validate name format (lowercase, hyphens, max 64 chars)
+                  if ! echo "$skill_name" | grep -Eq "^[a-z0-9-]{1,64}$"; then
+                    echo "Error: Skill name must be lowercase letters, numbers, and hyphens only (max 64 chars)"
+                    exit 1
+                  fi
 
-        echo "✅ SKILL.md structure is valid"
-      shell: bash
+                  echo "✅ SKILL.md structure is valid"
+              shell: bash
 ```
 
 ### 4.2 CI 检查清单
@@ -441,6 +443,7 @@ act push
 **原因**: add-skill 未安装或网络问题
 
 **解决方案**:
+
 ```bash
 # 手动安装 add-skill
 npm install -g add-skill
@@ -454,6 +457,7 @@ npx add-skill@latest . -a claude-code -y
 **原因**: YAML frontmatter 格式错误
 
 **解决方案**:
+
 ```bash
 # 检查 frontmatter 格式
 head -n 10 SKILL.md
@@ -471,6 +475,7 @@ allowed-tools: Bash
 **原因**: 路径分隔符或命令差异
 
 **解决方案**:
+
 ```javascript
 // 在脚本中使用 path.join() 处理路径
 const skillDir = path.join(os.homedir(), '.claude', 'skills', name);
@@ -484,6 +489,7 @@ const rmCmd = process.platform === 'win32' ? 'del' : 'rm';
 **原因**: 环境差异（Node.js 版本、权限等）
 
 **解决方案**:
+
 ```bash
 # 检查本地 Node.js 版本
 node --version

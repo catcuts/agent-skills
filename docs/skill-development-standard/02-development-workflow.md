@@ -81,11 +81,11 @@ npm install --save-optional add-skill@^1.0.29
 
 #### 示例
 
-| 用户名 | 技能名称 | 包名 |
-|--------|----------|------|
-| `catcuts` | `hello-world` | `@catcheers/hello-world` |
-| `john-doe` | `code-generator` | `@john-doe/code-generator` |
-| `acme-corp` | `api-helper` | `@acme-corp/api-helper` |
+| 用户名      | 技能名称         | 包名                       |
+| ----------- | ---------------- | -------------------------- |
+| `catcuts`   | `hello-world`    | `@catcheers/hello-world`   |
+| `john-doe`  | `code-generator` | `@john-doe/code-generator` |
+| `acme-corp` | `api-helper`     | `@acme-corp/api-helper`    |
 
 #### 技能名称规则
 
@@ -101,34 +101,27 @@ npm install --save-optional add-skill@^1.0.29
 
 ```json
 {
-  "name": "@catcheers/my-skill",
-  "version": "1.0.0",
-  "description": "技能功能描述",
-  "main": "index.js",
-  "scripts": {
-    "postinstall": "node scripts/install-skill.js",
-    "preuninstall": "node scripts/uninstall-skill.js",
-    "test": "node scripts/install-skill.js --dry-run",
-    "install:global": "node scripts/install-skill.js --global",
-    "install:local": "node scripts/install-skill.js --local"
-  },
-  "files": [
-    "SKILL.md",
-    "scripts/"
-  ],
-  "optionalDependencies": {
-    "add-skill": "^1.0.29"
-  },
-  "keywords": [
-    "claude-code",
-    "skill",
-    "my-skill"
-  ],
-  "author": "catcuts",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name": "@catcheers/my-skill",
+    "version": "1.0.0",
+    "description": "技能功能描述",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local"
+    },
+    "files": ["SKILL.md", "scripts/"],
+    "optionalDependencies": {
+        "add-skill": "^1.0.29"
+    },
+    "keywords": ["claude-code", "skill", "my-skill"],
+    "author": "catcuts",
+    "license": "MIT",
+    "engines": {
+        "node": ">=18.0.0"
+    }
 }
 ```
 
@@ -136,45 +129,37 @@ npm install --save-optional add-skill@^1.0.29
 
 ```json
 {
-  "name": "@catcheers/my-skill",
-  "version": "1.0.0",
-  "description": "技能功能描述",
-  "main": "index.js",
-  "scripts": {
-    "postinstall": "node scripts/install-skill.js",
-    "preuninstall": "node scripts/uninstall-skill.js",
-    "test": "node scripts/install-skill.js --dry-run",
-    "install:global": "node scripts/install-skill.js --global",
-    "install:local": "node scripts/install-skill.js --local",
-    "lint": "echo 'Add your linting commands here'"
-  },
-  "files": [
-    "SKILL.md",
-    "scripts/"
-  ],
-  "optionalDependencies": {
-    "add-skill": "^1.0.29"
-  },
-  "keywords": [
-    "claude-code",
-    "skill",
-    "my-skill",
-    "category-specific"
-  ],
-  "author": "catcuts",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/catcuts/agent-skills.git",
-    "directory": "skills/my-skill"
-  },
-  "bugs": {
-    "url": "https://github.com/catcuts/agent-skills/issues"
-  },
-  "homepage": "https://github.com/catcuts/agent-skills#readme",
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name": "@catcheers/my-skill",
+    "version": "1.0.0",
+    "description": "技能功能描述",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local",
+        "lint": "echo 'Add your linting commands here'"
+    },
+    "files": ["SKILL.md", "scripts/"],
+    "optionalDependencies": {
+        "add-skill": "^1.0.29"
+    },
+    "keywords": ["claude-code", "skill", "my-skill", "category-specific"],
+    "author": "catcuts",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/catcuts/agent-skills.git",
+        "directory": "skills/my-skill"
+    },
+    "bugs": {
+        "url": "https://github.com/catcuts/agent-skills/issues"
+    },
+    "homepage": "https://github.com/catcuts/agent-skills#readme",
+    "engines": {
+        "node": ">=18.0.0"
+    }
 }
 ```
 
@@ -197,12 +182,12 @@ version: 1.0.0
 
 #### 字段说明
 
-| 字段 | 说明 | 示例 | 必需 |
-|------|------|------|------|
-| `name` | 技能名称（与 package.json 中的 skill-name 一致） | `hello-world` | ✅ |
-| `description` | 技能功能描述（清晰、简洁） | `"简单的 Hello World 示例技能"` | ✅ |
-| `allowed-tools` | 允许使用的工具列表（逗号分隔） | `Bash, Read, Write` | ✅ |
-| `version` | 技能版本号（与 package.json version 一致） | `1.0.0` | 推荐 |
+| 字段            | 说明                                             | 示例                            | 必需 |
+| --------------- | ------------------------------------------------ | ------------------------------- | ---- |
+| `name`          | 技能名称（与 package.json 中的 skill-name 一致） | `hello-world`                   | ✅   |
+| `description`   | 技能功能描述（清晰、简洁）                       | `"简单的 Hello World 示例技能"` | ✅   |
+| `allowed-tools` | 允许使用的工具列表（逗号分隔）                   | `Bash, Read, Write`             | ✅   |
+| `version`       | 技能版本号（与 package.json version 一致）       | `1.0.0`                         | 推荐 |
 
 #### allowed-tools 可用值
 
@@ -230,17 +215,19 @@ Claude Code 支持的主要工具：
 当被调用时，执行以下步骤：
 
 1. **步骤一：步骤标题**
-   - 使用 `工具名` 工具执行操作
-   - 说明注意事项
+    - 使用 `工具名` 工具执行操作
+    - 说明注意事项
 
 2. **步骤二：步骤标题**
-   - 继续执行操作
-   - 处理结果
+    - 继续执行操作
+    - 处理结果
 
 3. **输出结果**
-   ```
-   ✓ 任务完成
-   ```
+```
+
+✓ 任务完成
+
+```
 
 ## 附加说明
 
@@ -252,6 +239,7 @@ Claude Code 支持的主要工具：
 ##### 1. 步骤清晰
 
 ✅ **好的写法**：
+
 ```markdown
 1. **读取文件**
    使用 `Read` 工具读取 `package.json` 文件
@@ -261,6 +249,7 @@ Claude Code 支持的主要工具：
 ```
 
 ❌ **不好的写法**：
+
 ```markdown
 1. 读取文件并分析依赖
 ```
@@ -268,12 +257,14 @@ Claude Code 支持的主要工具：
 ##### 2. 明确工具
 
 ✅ **好的写法**：
+
 ```markdown
 使用 `Bash` 工具执行 `npm test` 命令
 使用 `Read` 工具读取 `src/index.js` 文件
 ```
 
 ❌ **不好的写法**：
+
 ```markdown
 执行测试命令
 读取文件
@@ -282,17 +273,23 @@ Claude Code 支持的主要工具：
 ##### 3. 提供示例
 
 ✅ **好的写法**：
+
 ```markdown
 3. **输出结果**
    显示以下信息：
-   ```
-   ✓ 分析完成
-   - 文件数量: 10
-   - 代码行数: 500
-   ```
+```
+
+✓ 分析完成
+
+- 文件数量: 10
+- 代码行数: 500
+
+```
+
 ```
 
 ❌ **不好的写法**：
+
 ```markdown
 3. 输出结果
 ```
@@ -300,12 +297,14 @@ Claude Code 支持的主要工具：
 ##### 4. 友好提示
 
 ✅ **好的写法**：
+
 ```markdown
 如果文件不存在，提示用户：
 "未找到配置文件，是否创建默认配置？"
 ```
 
 ❌ **不好的写法**：
+
 ```markdown
 文件不存在时退出
 ```
@@ -328,23 +327,25 @@ Claude Code 支持的主要工具：
    使用 `Write` 工具创建存档文件
 
 3. **显示结果**
-   ```
-   ✓ 存档已创建
-   路径: .archive/backup.md
-   ```
+```
+
+✓ 存档已创建
+路径: .archive/backup.md
+
+```
 
 ### 模式 B：导入
 
 如果用户说"导入"或"恢复"：
 
 1. **列出存档**
-   使用 `Bash` 工具执行 `ls -d .archive/*/`
+使用 `Bash` 工具执行 `ls -d .archive/*/`
 
 2. **选择存档**
-   询问用户选择要恢复的存档
+询问用户选择要恢复的存档
 
 3. **恢复状态**
-   读取并显示存档内容
+读取并显示存档内容
 ```
 
 ---
@@ -364,6 +365,7 @@ node scripts/install-skill.js --dry-run
 ```
 
 **预期输出**：
+
 ```
 ✓ 开始安装 My Skill...
 ✓ 安装范围: 全局(GLOBAL)
@@ -399,28 +401,32 @@ ls ~/.claude/skills/my-skill/SKILL.md
 #### 在 Claude Code 中测试
 
 1. **启动 Claude Code**
-   ```bash
-   claude
-   ```
+
+    ```bash
+    claude
+    ```
 
 2. **列出已安装技能**
-   ```
-   /skills
-   ```
+
+    ```
+    /skills
+    ```
 
 3. **调用技能**
-   ```
-   my-skill
-   ```
+
+    ```
+    my-skill
+    ```
 
 4. **观察输出**
-   - 检查是否按预期执行
-   - 验证输出格式是否正确
-   - 确认错误处理是否正常
+    - 检查是否按预期执行
+    - 验证输出格式是否正确
+    - 确认错误处理是否正常
 
 #### 调试技巧
 
 **查看安装路径**：
+
 ```bash
 # 全局安装路径
 ls ~/.claude/skills/
@@ -430,12 +436,14 @@ ls .claude/skills/
 ```
 
 **查看 SKILL.md 内容**：
+
 ```bash
 # 确认文件已正确复制
 cat ~/.claude/skills/my-skill/SKILL.md
 ```
 
 **重新安装**：
+
 ```bash
 # 先卸载
 npm run uninstall:local
@@ -462,15 +470,15 @@ npm run install:local
 
 #### Type 类型
 
-| Type | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat: 添加代码生成功能` |
-| `fix` | 修复 bug | `fix: 修复安装路径错误` |
-| `docs` | 文档更新 | `docs: 更新 README.md` |
-| `style` | 代码格式调整 | `style: 统一缩进格式` |
-| `refactor` | 重构代码 | `refactor: 优化安装脚本` |
-| `test` | 测试相关 | `test: 添加单元测试` |
-| `chore` | 构建/工具相关 | `chore: 更新依赖版本` |
+| Type       | 说明          | 示例                     |
+| ---------- | ------------- | ------------------------ |
+| `feat`     | 新功能        | `feat: 添加代码生成功能` |
+| `fix`      | 修复 bug      | `fix: 修复安装路径错误`  |
+| `docs`     | 文档更新      | `docs: 更新 README.md`   |
+| `style`    | 代码格式调整  | `style: 统一缩进格式`    |
+| `refactor` | 重构代码      | `refactor: 优化安装脚本` |
+| `test`     | 测试相关      | `test: 添加单元测试`     |
+| `chore`    | 构建/工具相关 | `chore: 更新依赖版本`    |
 
 #### 示例提交
 
@@ -575,6 +583,7 @@ Closes #123"
 ### Q3: 如何在本地快速测试技能修改？
 
 **A**:
+
 1. 修改 SKILL.md
 2. 重新运行 `npm run install:local`
 3. 在 Claude Code 中测试
@@ -582,6 +591,7 @@ Closes #123"
 ### Q4: 安装脚本失败怎么办？
 
 **A**:
+
 1. 检查 Node.js 版本（>= 18.0.0）
 2. 运行 `npm test` 查看将要执行的命令
 3. 手动运行 `add-skill` 命令查看详细错误信息
@@ -590,6 +600,7 @@ Closes #123"
 ### Q5: 如何调试任务指令？
 
 **A**:
+
 1. 在 Claude Code 中观察执行过程
 2. 添加更多的日志输出（使用 `echo` 或在文本中输出）
 3. 逐步简化任务指令，定位问题

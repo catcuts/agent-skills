@@ -37,6 +37,7 @@ my-skill/
 ```
 
 **说明**：
+
 - **最小化结构**：适合简单技能，无复杂依赖
 - **完整结构**：适合需要 CI/CD 测试的技能
 
@@ -52,54 +53,48 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 
 ```json
 {
-  "name": "@catcheers/my-skill",
-  "version": "1.0.0",
-  "description": "技能功能描述",
-  "main": "index.js",
-  "scripts": {
-    "postinstall": "node scripts/install-skill.js",
-    "preuninstall": "node scripts/uninstall-skill.js",
-    "test": "node scripts/install-skill.js --dry-run",
-    "install:global": "node scripts/install-skill.js --global",
-    "install:local": "node scripts/install-skill.js --local"
-  },
-  "files": [
-    "SKILL.md",
-    "scripts/"
-  ],
-  "optionalDependencies": {
-    "add-skill": "^1.0.29"
-  },
-  "keywords": [
-    "claude-code",
-    "skill"
-  ],
-  "author": "your-name",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name": "@catcheers/my-skill",
+    "version": "1.0.0",
+    "description": "技能功能描述",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local"
+    },
+    "files": ["SKILL.md", "scripts/"],
+    "optionalDependencies": {
+        "add-skill": "^1.0.29"
+    },
+    "keywords": ["claude-code", "skill"],
+    "author": "your-name",
+    "license": "MIT",
+    "engines": {
+        "node": ">=18.0.0"
+    }
 }
 ```
 
 #### 字段说明
 
-| 字段 | 说明 | 示例 | 必需 |
-|------|------|------|------|
-| `name` | 包名，使用 npm scope | `@catcheers/my-skill` | ✅ |
-| `version` | 当前版本号（语义化版本） | `1.0.0` | ✅ |
-| `description` | 包的简短描述 | `"跨会话工作交接工具"` | ✅ |
-| `main` | 入口文件（兼容性） | `"index.js"` | ✅ |
-| `scripts` | NPM 脚本命令 | 见下文 | ✅ |
-| `files` | 发布到 npm 的文件列表 | `["SKILL.md", "scripts/"]` | ✅ |
-| `optionalDependencies` | 可选依赖 | `{"add-skill": "^1.0.29"}` | ✅ |
-| `keywords` | 搜索关键词 | `["claude-code", "skill"]` | ✅ |
-| `author` | 作者信息 | `"catcuts"` | ✅ |
-| `license` | 许可证 | `"MIT"` | ✅ |
-| `repository` | 仓库地址 | 见下文 | 推荐 |
-| `bugs` | 问题追踪地址 | 见下文 | 推荐 |
-| `homepage` | 项目主页 | 见下文 | 推荐 |
-| `engines` | Node.js 版本要求 | `{"node": ">=18.0.0"}` | 推荐 |
+| 字段                   | 说明                     | 示例                       | 必需 |
+| ---------------------- | ------------------------ | -------------------------- | ---- |
+| `name`                 | 包名，使用 npm scope     | `@catcheers/my-skill`      | ✅   |
+| `version`              | 当前版本号（语义化版本） | `1.0.0`                    | ✅   |
+| `description`          | 包的简短描述             | `"跨会话工作交接工具"`     | ✅   |
+| `main`                 | 入口文件（兼容性）       | `"index.js"`               | ✅   |
+| `scripts`              | NPM 脚本命令             | 见下文                     | ✅   |
+| `files`                | 发布到 npm 的文件列表    | `["SKILL.md", "scripts/"]` | ✅   |
+| `optionalDependencies` | 可选依赖                 | `{"add-skill": "^1.0.29"}` | ✅   |
+| `keywords`             | 搜索关键词               | `["claude-code", "skill"]` | ✅   |
+| `author`               | 作者信息                 | `"catcuts"`                | ✅   |
+| `license`              | 许可证                   | `"MIT"`                    | ✅   |
+| `repository`           | 仓库地址                 | 见下文                     | 推荐 |
+| `bugs`                 | 问题追踪地址             | 见下文                     | 推荐 |
+| `homepage`             | 项目主页                 | 见下文                     | 推荐 |
+| `engines`              | Node.js 版本要求         | `{"node": ">=18.0.0"}`     | 推荐 |
 
 #### repository 字段（推荐）
 
@@ -124,6 +119,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 ```
 
 **说明**：
+
 - `postinstall` / `preuninstall`：npm 钩子，自动执行安装/卸载脚本
 - `test`：测试模式（`--dry-run`），不实际安装
 - `install:global` / `install:local`：手动安装命令
@@ -139,6 +135,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 ```
 
 **说明**：
+
 - 只包含运行时必需的文件
 - 减小 npm 包体积
 - README 和 LICENSE 会自动包含
@@ -162,12 +159,12 @@ version: 1.0.0
 
 #### 字段说明
 
-| 字段 | 说明 | 示例 | 必需 |
-|------|------|------|------|
-| `name` | 技能名称（小写，连字符） | `hello-world` | ✅ |
-| `description` | 技能功能描述 | `"简单的 Hello World 示例技能"` | ✅ |
-| `allowed-tools` | 允许使用的工具列表 | `Bash, Read, Write` | ✅ |
-| `version` | 技能版本号 | `1.0.0` | 推荐 |
+| 字段            | 说明                     | 示例                            | 必需 |
+| --------------- | ------------------------ | ------------------------------- | ---- |
+| `name`          | 技能名称（小写，连字符） | `hello-world`                   | ✅   |
+| `description`   | 技能功能描述             | `"简单的 Hello World 示例技能"` | ✅   |
+| `allowed-tools` | 允许使用的工具列表       | `Bash, Read, Write`             | ✅   |
+| `version`       | 技能版本号               | `1.0.0`                         | 推荐 |
 
 #### 任务指令示例
 
@@ -179,20 +176,24 @@ version: 1.0.0
 当被调用时，执行以下步骤：
 
 1. **步骤一**
-   - 使用 `Bash` 工具执行命令
-   - 显示结果
+    - 使用 `Bash` 工具执行命令
+    - 显示结果
 
 2. **步骤二**
-   - 使用 `Read` 工具读取文件
-   - 分析内容
+    - 使用 `Read` 工具读取文件
+    - 分析内容
 
 3. **输出结果**
-   ```
-   ✓ 任务完成
-   ```
+```
+
+✓ 任务完成
+
+```
+
 ```
 
 **编写要点**：
+
 - 步骤清晰，编号列表
 - 明确指定使用的工具
 - 提供示例输出
@@ -224,24 +225,20 @@ const forceLocal = args.includes('--local');
 // 确定安装范围
 let scope;
 if (forceGlobal) {
-  scope = 'GLOBAL';
+    scope = 'GLOBAL';
 } else if (forceLocal) {
-  scope = 'LOCAL';
+    scope = 'LOCAL';
 } else {
-  scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
+    scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
 }
 
 const isGlobal = scope === 'GLOBAL';
 
 // 构建 add-skill 命令
-const commandParts = [
-  'npx',
-  'add-skill',
-  `"${packageRoot}"`,
-];
+const commandParts = ['npx', 'add-skill', `"${packageRoot}"`];
 
 if (isGlobal) {
-  commandParts.push('-g');
+    commandParts.push('-g');
 }
 
 commandParts.push('-y'); // 非交互模式
@@ -250,23 +247,23 @@ const command = commandParts.join(' ');
 
 // 执行安装
 if (!dryRun) {
-  execSync(command, { stdio: 'inherit', cwd: packageRoot });
-  console.log('✓ 安装成功!');
+    execSync(command, { stdio: 'inherit', cwd: packageRoot });
+    console.log('✓ 安装成功!');
 }
 ```
 
 #### 命令行参数
 
-| 参数 | 说明 | 示例 |
-|------|------|------|
-| `--dry-run` | 测试模式，不实际安装 | `npm test` |
-| `--global` | 强制全局安装 | `npm run install:global` |
-| `--local` | 强制项目级安装 | `npm run install:local` |
+| 参数        | 说明                 | 示例                     |
+| ----------- | -------------------- | ------------------------ |
+| `--dry-run` | 测试模式，不实际安装 | `npm test`               |
+| `--global`  | 强制全局安装         | `npm run install:global` |
+| `--local`   | 强制项目级安装       | `npm run install:local`  |
 
 #### 环境变量
 
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
+| 变量          | 说明                        | 默认值   |
+| ------------- | --------------------------- | -------- |
 | `SKILL_SCOPE` | 安装范围（GLOBAL 或 LOCAL） | `GLOBAL` |
 
 ---
@@ -293,10 +290,10 @@ const localDir = path.join(process.cwd(), '.claude', 'skills', skillName);
 
 // 删除函数
 function removeSkill(dir) {
-  if (fs.existsSync(dir)) {
-    fs.rmSync(dir, { recursive: true, force: true });
-    console.log(`✓ 已删除: ${dir}`);
-  }
+    if (fs.existsSync(dir)) {
+        fs.rmSync(dir, { recursive: true, force: true });
+        console.log(`✓ 已删除: ${dir}`);
+    }
 }
 
 // 执行删除
@@ -418,6 +415,7 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 ```
 
 **说明**：
+
 - `add-skill` 会创建符号链接
 - 删除符号链接不影响实际文件
 - 卸载 npm 包时会自动清理
@@ -466,6 +464,7 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 ### Q3: 如何在本地测试安装脚本？
 
 **A**: 使用 `--dry-run` 参数：
+
 ```bash
 npm test
 # 或
@@ -475,6 +474,7 @@ node scripts/install-skill.js --dry-run
 ### Q4: 全局安装和项目级安装有什么区别？
 
 **A**:
+
 - **全局**: 所有项目都可用，安装到 `~/.claude/skills/`
 - **项目级**: 仅当前项目可用，安装到 `.claude/skills/`
 

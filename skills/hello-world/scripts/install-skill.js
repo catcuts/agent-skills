@@ -29,72 +29,78 @@ const forceLocal = args.includes('--local');
 // 确定安装范围
 let scope;
 if (forceGlobal) {
-  scope = 'GLOBAL';
+    scope = 'GLOBAL';
 } else if (forceLocal) {
-  scope = 'LOCAL';
+    scope = 'LOCAL';
 } else {
-  scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
+    scope = (process.env.SKILL_SCOPE || 'GLOBAL').toUpperCase();
 }
 
 const isGlobal = scope === 'GLOBAL';
 
 // 日志函数
 function log(message, type = 'info') {
-  const prefix = {
-    info: '✓',
-    success: '✓',
-    warning: '⚠',
-    error: '✗'
-  }[type] || '✓';
+    const prefix =
+        {
+            info: '✓',
+            success: '✓',
+            warning: '⚠',
+            error: '✗',
+        }[type] || '✓';
 
-  console.log(`${prefix} ${message}`);
+    console.log(`${prefix} ${message}`);
 }
 
 // 错误处理
 function handleError(error) {
-  log(`安装失败: ${error.message}`, 'error');
-  log('\n您可以尝试手动安装:', 'warning');
-  log(`  npx add-skill "${packageRoot}" -a claude-code ${isGlobal ? '-g' : ''} -y`);
-  process.exit(1);
+    log(`安装失败: ${error.message}`, 'error');
+    log('\n您可以尝试手动安装:', 'warning');
+    log(`  npx add-skill "${packageRoot}" -a claude-code ${isGlobal ? '-g' : ''} -y`);
+    process.exit(1);
 }
 
 try {
-  log(`开始安装 Hello World Skill...`, 'info');
-  log(`安装范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
+    log(`开始安装 Hello World Skill...`, 'info');
+    log(`安装范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
 
-  // 构建 add-skill 命令
-  const commandParts = [
-    'npx',
-    'add-skill',
-    `"${packageRoot}"`,
-    // '-a', 'claude-code'  // 由 add-skill 自动检测，如果检测失败那么会自动弹出菜单让用户手动选择
-  ];
+    // 构建 add-skill 命令
+    const commandParts = [
+        'npx',
+        'add-skill',
+        `"${packageRoot}"`,
+        // '-a', 'claude-code'  // 由 add-skill 自动检测，如果检测失败那么会自动弹出菜单让用户手动选择
+    ];
 
-  if (isGlobal) {
-    commandParts.push('-g');
-  }
+    if (isGlobal) {
+        commandParts.push('-g');
+    }
 
-  commandParts.push('-y'); // 非交互模式
+    commandParts.push('-y'); // 非交互模式
 
-  const command = commandParts.join(' ');
+    const command = commandParts.join(' ');
 
-  if (dryRun) {
-    log('\n[DRY-RUN] 将要执行的命令:', 'warning');
-    console.log(`  ${command}`);
-    log('\n测试通过 - 实际安装请运行: npm run install:global 或 npm run install:local', 'success');
-    process.exit(0);
-  }
+    if (dryRun) {
+        log('\n[DRY-RUN] 将要执行的命令:', 'warning');
+        console.log(`  ${command}`);
+        log(
+            '\n测试通过 - 实际安装请运行: npm run install:global 或 npm run install:local',
+            'success'
+        );
+        process.exit(0);
+    }
 
-  // 执行安装
-  log('\n正在执行 add-skill...', 'info');
-  execSync(command, {
-    stdio: 'inherit',
-    cwd: packageRoot
-  });
+    // 执行安装
+    log('\n正在执行 add-skill...', 'info');
+    execSync(command, {
+        stdio: 'inherit',
+        cwd: packageRoot,
+    });
 
-  log('\n安装成功!', 'success');
-  log(`Skill 已安装到: ${isGlobal ? '~/.claude/skills/hello-world' : '.claude/skills/hello-world'}`, 'info');
-
+    log('\n安装成功!', 'success');
+    log(
+        `Skill 已安装到: ${isGlobal ? '~/.claude/skills/hello-world' : '.claude/skills/hello-world'}`,
+        'info'
+    );
 } catch (error) {
-  handleError(error);
+    handleError(error);
 }

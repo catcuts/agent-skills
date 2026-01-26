@@ -5,6 +5,7 @@
 ## 项目简介
 
 这是一个入门级的 Claude Code 技能示例，旨在帮助新用户：
+
 - 验证技能系统是否正常工作
 - 了解技能的基本结构和安装流程
 - 检查开发环境配置（Node.js、npm）
@@ -55,6 +56,7 @@ npx add-skill . -a claude-code -y
 ```
 
 **安装范围说明**:
+
 - **全局**: 安装到用户目录 `~/.claude/skills/hello-world`，所有项目可用
 - **项目级**: 安装到项目目录 `.claude/skills/hello-world`，仅当前项目可用
 
@@ -87,6 +89,7 @@ hello-world
 ```
 
 **预期输出**：
+
 ```
 ✨ Hello World Skill 已成功安装！
 
@@ -118,13 +121,14 @@ npm 版本: 10.x.x
 安装成功的标志：
 
 1. **文件存在**：检查技能文件是否已安装
-   ```bash
-   # 全局安装
-   ls ~/.claude/skills/hello-world/SKILL.md
 
-   # 项目级安装
-   ls .claude/skills/hello-world/SKILL.md
-   ```
+    ```bash
+    # 全局安装
+    ls ~/.claude/skills/hello-world/SKILL.md
+
+    # 项目级安装
+    ls .claude/skills/hello-world/SKILL.md
+    ```
 
 2. **Claude Code 识别**：在 Claude Code 中输入 `/skills` 应该能看到 `hello-world` 技能
 
@@ -143,10 +147,12 @@ npm 版本: 10.x.x
 ### 安装路径
 
 **全局安装**:
+
 - 实际存储: `~/.agents/skills/hello-world/`
 - Claude Code 链接: `~/.claude/skills/hello-world/` (符号链接)
 
 **项目级安装**:
+
 - 实际存储: `.agents/skills/hello-world/`
 - Claude Code 链接: `.claude/skills/hello-world/` (符号链接)
 
@@ -173,18 +179,18 @@ skills/hello-world/
 ## 下一步学习建议
 
 1. **探索更多技能**
-   - 访问 [agent-skills 仓库](https://github.com/catcuts/agent-skills) 查看更多技能示例
-   - 尝试 `handover` 技能学习跨会话工作交接
+    - 访问 [agent-skills 仓库](https://github.com/catcuts/agent-skills) 查看更多技能示例
+    - 尝试 `handover` 技能学习跨会话工作交接
 
 2. **创建自定义技能**
-   - 参考 `SKILL.md` 的 YAML frontmatter 格式
-   - 学习如何使用 `allowed-tools` 声明需要的工具
-   - 编写清晰的技能指令
+    - 参考 `SKILL.md` 的 YAML frontmatter 格式
+    - 学习如何使用 `allowed-tools` 声明需要的工具
+    - 编写清晰的技能指令
 
 3. **深入学习 Claude Code**
-   - 阅读 [Claude Code 官方文档](https://claude.com/claude-code)
-   - 了解技能开发最佳实践
-   - 参与社区讨论
+    - 阅读 [Claude Code 官方文档](https://claude.com/claude-code)
+    - 了解技能开发最佳实践
+    - 参与社区讨论
 
 ## 开发
 

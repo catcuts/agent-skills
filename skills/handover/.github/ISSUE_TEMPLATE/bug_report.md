@@ -34,6 +34,7 @@ What actually happened.
 ## Additional Context
 
 Add any other context about the problem here. Include:
+
 - Screenshots (if applicable)
 - Log output
 - Configuration files

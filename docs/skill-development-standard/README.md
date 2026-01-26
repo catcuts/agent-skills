@@ -55,29 +55,31 @@ my-skill/
 ### 5 分钟创建技能
 
 1. **复制模板**
-   ```bash
-   cp -r ref/agent-skill-npm-boilerplate@catcuts my-skill
-   cd my-skill
-   ```
+
+    ```bash
+    cp -r ref/agent-skill-npm-boilerplate@catcuts my-skill
+    cd my-skill
+    ```
 
 2. **修改 package.json**
-   - 修改 `name` 为 `@your-username/my-skill`
-   - 修改 `description` 描述技能功能
-   - 修改 `repository.url` 指向你的仓库
+    - 修改 `name` 为 `@your-username/my-skill`
+    - 修改 `description` 描述技能功能
+    - 修改 `repository.url` 指向你的仓库
 
 3. **编写 SKILL.md**
-   - 定义 YAML frontmatter（name, description, allowed-tools）
-   - 编写任务指令
+    - 定义 YAML frontmatter（name, description, allowed-tools）
+    - 编写任务指令
 
 4. **本地测试**
-   ```bash
-   npm run install:local
-   ```
+
+    ```bash
+    npm run install:local
+    ```
 
 5. **发布到 npm**
-   ```bash
-   npm publish
-   ```
+    ```bash
+    npm publish
+    ```
 
 ---
 
@@ -85,19 +87,19 @@ my-skill/
 
 ### 核心文档
 
-| 文档 | 说明 | 优先级 |
-|------|------|--------|
-| [01-project-structure.md](./01-project-structure.md) | 项目结构规范、必需文件、配置详解 | ⭐⭐⭐ 必读 |
-| [02-development-workflow.md](./02-development-workflow.md) | 开发流程、命名约定、本地调试 | ⭐⭐⭐ 必读 |
-| [03-testing-guide.md](./03-testing-guide.md) | 测试流程、验证清单、CI/CD 集成 | ⭐⭐ 推荐 |
-| [04-publishing-workflow.md](./04-publishing-workflow.md) | 发布流程、版本管理、发布后验证 | ⭐⭐ 推荐 |
+| 文档                                                       | 说明                             | 优先级      |
+| ---------------------------------------------------------- | -------------------------------- | ----------- |
+| [01-project-structure.md](./01-project-structure.md)       | 项目结构规范、必需文件、配置详解 | ⭐⭐⭐ 必读 |
+| [02-development-workflow.md](./02-development-workflow.md) | 开发流程、命名约定、本地调试     | ⭐⭐⭐ 必读 |
+| [03-testing-guide.md](./03-testing-guide.md)               | 测试流程、验证清单、CI/CD 集成   | ⭐⭐ 推荐   |
+| [04-publishing-workflow.md](./04-publishing-workflow.md)   | 发布流程、版本管理、发布后验证   | ⭐⭐ 推荐   |
 
 ### 参考文档
 
-| 文档 | 说明 | 优先级 |
-|------|------|--------|
+| 文档                                               | 说明                                  | 优先级  |
+| -------------------------------------------------- | ------------------------------------- | ------- |
 | [05-skills-reference.md](./05-skills-reference.md) | 技能编写参考、YAML 字段详解、示例对比 | ⭐ 推荐 |
-| [06-troubleshooting.md](./06-trroubleshooting.md) | 常见问题排查、安装失败、版本兼容性 | ⭐ 选读 |
+| [06-troubleshooting.md](./06-trroubleshooting.md)  | 常见问题排查、安装失败、版本兼容性    | ⭐ 选读 |
 
 ### 学习资源
 
@@ -177,11 +179,13 @@ my-skill/
 ### 未来规划
 
 **1.0.1** (计划中)
+
 - 开发 `create-skill` CLI 工具
 - 交互式模板生成
 - 自动化规范验证
 
 **1.1.0** (远期规划)
+
 - 支持更多 AI 编程工具
 - 国际化支持
 - 技能市场和版本管理

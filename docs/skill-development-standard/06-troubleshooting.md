@@ -20,6 +20,7 @@
 ### 1.1 add-skill 安装失败
 
 **错误信息**:
+
 ```
 Error: Cannot find module 'add-skill'
 ```
@@ -44,6 +45,7 @@ npx add-skill@latest . -a claude-code -y
 ### 1.2 安装脚本执行失败
 
 **错误信息**:
+
 ```
 postinstall: `node scripts/install-skill.js`
 Exit status 1
@@ -70,6 +72,7 @@ chmod +x scripts/install-skill.js
 ### 1.3 SKILL.md 未正确安装
 
 **错误信息**:
+
 ```
 Error: SKILL.md not found
 ```
@@ -125,6 +128,7 @@ ls ~/.agents/skills/my-skill/SKILL.md
 ### 2.1 Windows 路径问题
 
 **错误信息**:
+
 ```
 Error: ENOENT: no such file or directory, open 'E:\path\to\file'
 ```
@@ -145,7 +149,7 @@ const filePath = 'E:\\path\\to\\SKILL.md';
 const packageRoot = path.resolve(__dirname, '..');
 
 // 处理带空格的路径
-const command = `"${packageRoot}"`;  // 用引号包裹
+const command = `"${packageRoot}"`; // 用引号包裹
 ```
 
 ### 2.2 相对路径问题
@@ -196,6 +200,7 @@ npm run install:global
 ### 3.1 Node.js 版本不兼容
 
 **错误信息**:
+
 ```
 Error: Node.js version too old. Requires >=18.0.0
 ```
@@ -225,6 +230,7 @@ nvm use 20
 ### 3.2 npm 版本不兼容
 
 **错误信息**:
+
 ```
 npm ERR! notsup Not compatible with your version of npm
 ```
@@ -247,6 +253,7 @@ npm install -g npm@9.0.0
 ### 3.3 add-skill 版本问题
 
 **错误信息**:
+
 ```
 Error: add-skill version incompatible
 ```
@@ -282,8 +289,8 @@ const path = require('path');
 const filePath = path.join('users', 'documents', 'file.txt');
 
 // ❌ 不好的做法：硬编码路径分隔符
-const filePath = 'users/documents/file.txt';      // Linux/macOS
-const filePath = 'users\\documents\\file.txt';    // Windows
+const filePath = 'users/documents/file.txt'; // Linux/macOS
+const filePath = 'users\\documents\\file.txt'; // Windows
 ```
 
 ### 4.2 命令差异
@@ -334,6 +341,7 @@ chmod +x scripts/uninstall-skill.js
 ### 5.1 包名已被占用
 
 **错误信息**:
+
 ```
 npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@catcheers/my-skill
 ```
@@ -361,6 +369,7 @@ npm view @catcheers/my-skill
 ### 5.2 版本号未更新
 
 **错误信息**:
+
 ```
 npm ERR! 403 Forbidden - you cannot publish over the existing version
 ```
@@ -385,6 +394,7 @@ npm version major   # 1.0.0 → 2.0.0
 ### 5.3 发布失败 "402 Payment Required"
 
 **错误信息**:
+
 ```
 npm ERR! 402 Payment Required
 ```
@@ -408,6 +418,7 @@ npm publish --access public
 ### 5.4 npm token 失效
 
 **错误信息**:
+
 ```
 npm ERR! 401 Unauthorized - Bad authorization
 ```
@@ -473,23 +484,24 @@ npm run install:global
 ## 检查清单
 
 1. **YAML frontmatter**
-   - [ ] allowed-tools 包含所有需要的工具
-   - [ ] name 字段与技能名称一致
+    - [ ] allowed-tools 包含所有需要的工具
+    - [ ] name 字段与技能名称一致
 
 2. **任务指令**
-   - [ ] 步骤清晰，编号列表
-   - [ ] 明确指定使用的工具
-   - [ ] 包含友好的提示信息
+    - [ ] 步骤清晰，编号列表
+    - [ ] 明确指定使用的工具
+    - [ ] 包含友好的提示信息
 
 3. **测试验证**
-   - [ ] 在 Claude Code 中测试技能
-   - [ ] 观察输出是否符合预期
-   - [ ] 检查是否有错误信息
+    - [ ] 在 Claude Code 中测试技能
+    - [ ] 观察输出是否符合预期
+    - [ ] 检查是否有错误信息
 ```
 
 ### 6.3 工具调用失败
 
 **错误信息**:
+
 ```
 Error: Tool 'Bash' not allowed
 ```

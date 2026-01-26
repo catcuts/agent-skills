@@ -102,11 +102,11 @@ rm -f *.log
 
 #### 示例
 
-| 版本变化 | 类型 | 说明 |
-|---------|------|------|
+| 版本变化          | 类型  | 说明                           |
+| ----------------- | ----- | ------------------------------ |
 | `1.0.0` → `2.0.0` | MAJOR | 重构任务指令结构，不兼容旧版本 |
-| `1.0.0` → `1.1.0` | MINOR | 新增功能，保持向下兼容 |
-| `1.0.0` → `1.0.1` | PATCH | 修复 bug，不影响功能 |
+| `1.0.0` → `1.1.0` | MINOR | 新增功能，保持向下兼容         |
+| `1.0.0` → `1.0.1` | PATCH | 修复 bug，不影响功能           |
 
 ### 2.2 版本更新命令
 
@@ -131,7 +131,7 @@ npm version <new-version>
 name: my-skill
 description: 技能功能描述
 allowed-tools: Bash, Read, Write
-version: 1.0.1  # 与 package.json 一致
+version: 1.0.1 # 与 package.json 一致
 ---
 ```
 
@@ -147,17 +147,21 @@ All notable changes to this project will be documented in this file.
 ## [1.0.1] - 2026-01-26
 
 ### Added
+
 - 添加新功能 A
 
 ### Fixed
+
 - 修复安装路径问题
 
 ### Changed
+
 - 更新 README.md 文档
 
 ## [1.0.0] - 2026-01-20
 
 ### Added
+
 - 初始版本发布
 - 实现基本功能 X、Y、Z
 ```
@@ -177,6 +181,7 @@ npm pack
 ```
 
 **预期输出示例**：
+
 ```
 npm notice
 npm notice 📦 @catcheers/my-skill@1.0.0
@@ -356,11 +361,11 @@ claude
 
 建议在不同平台测试安装：
 
-| 平台 | 测试命令 | 状态 |
-|------|---------|------|
-| Ubuntu | `npm install -g @catcheers/my-skill` | ⬜ |
-| macOS | `npm install -g @catcheers/my-skill` | ⬜ |
-| Windows | `npm install -g @catcheers/my-skill` | ⬜ |
+| 平台    | 测试命令                             | 状态 |
+| ------- | ------------------------------------ | ---- |
+| Ubuntu  | `npm install -g @catcheers/my-skill` | ⬜   |
+| macOS   | `npm install -g @catcheers/my-skill` | ⬜   |
+| Windows | `npm install -g @catcheers/my-skill` | ⬜   |
 
 ### 5.3 文档更新
 
@@ -417,6 +422,7 @@ npm publish
 **原因**: 包名已被占用或权限不足
 
 **解决方案**:
+
 ```bash
 # 检查包名是否可用
 npm view @catcheers/my-skill
@@ -432,6 +438,7 @@ npm view @catcheers/my-skill
 **原因**: 包已存在且版本号未更新
 
 **解决方案**:
+
 ```bash
 # 更新版本号
 npm version patch
@@ -445,12 +452,10 @@ npm publish
 **原因**: files 字段格式错误或路径不正确
 
 **解决方案**:
+
 ```json
 {
-  "files": [
-    "SKILL.md",
-    "scripts/"
-  ]
+    "files": ["SKILL.md", "scripts/"]
 }
 ```
 
@@ -459,6 +464,7 @@ npm publish
 **原因**: SKILL.md 格式错误或脚本问题
 
 **解决方案**:
+
 ```bash
 # 本地测试安装
 npm pack
@@ -473,6 +479,7 @@ npm install -g @catcheers/my-skill --verbose
 **原因**: npm token 未配置或权限不足
 
 **解决方案**:
+
 ```bash
 # 在 GitHub Settings 中添加 NPM_TOKEN
 # Settings → Secrets and variables → Actions → New repository secret
@@ -575,6 +582,7 @@ npm publish
 **开始发布**: 运行 `npm publish` 发布你的技能
 
 **示例发布命令**:
+
 ```bash
 # 更新版本
 npm version patch
