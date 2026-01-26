@@ -1,0 +1,42 @@
+{
+  "name": "@catcheers/hello-world",
+  "version": "1.0.0",
+  "description": "简单的 Hello World 示例技能，用于验证技能安装是否成功。显示欢迎信息、环境信息和使用示例。",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/install-skill.js",
+    "preuninstall": "node scripts/uninstall-skill.js",
+    "test": "node scripts/install-skill.js --dry-run",
+    "install:global": "node scripts/install-skill.js --global",
+    "install:local": "node scripts/install-skill.js --local",
+    "lint": "echo 'Add your linting commands here'"
+  },
+  "files": [
+    "SKILL.md",
+    "scripts/"
+  ],
+  "optionalDependencies": {
+    "add-skill": "^1.0.29"
+  },
+  "keywords": [
+    "claude-code",
+    "skill",
+    "hello-world",
+    "getting-started",
+    "environment-check"
+  ],
+  "author": "catcuts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catcuts/agent-skills.git",
+    "directory": "skills/hello-world"
+  },
+  "bugs": {
+    "url": "https://github.com/catcuts/agent-skills/issues"
+  },
+  "homepage": "https://github.com/catcuts/agent-skills#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
