@@ -1,6 +1,6 @@
 {
   "name": "@catcuts-skills/commit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "读取 staged 代码差异，自动生成符合 Conventional Commits 规范的提交文本",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/catcuts/agent-skills/issues"
   },
-  "homepage": "https://github.com/catcuts/agent-skills#readme",
+  "homepage": "https://github.com/catcuts/agent-skills/tree/main/skills/commit#readme",
   "engines": {
     "node": ">=18.0.0"
   }

@@ -15,6 +15,7 @@
 
 const { execSync } = require('child_process');
 const path = require('path');
+const { printUsageGuide } = require('./usage-guide');
 
 // Get package root directory
 const packageRoot = path.resolve(__dirname, '..');
@@ -96,6 +97,9 @@ try {
 
     log('\nInstallation successful!', 'success');
     log(`Skill installed to: ${isGlobal ? `~/.claude/skills/${skillName}` : `.claude/skills/${skillName}`}`, 'info');
+
+    // 显示使用指南
+    printUsageGuide();
 
 } catch (error) {
     handleError(error);

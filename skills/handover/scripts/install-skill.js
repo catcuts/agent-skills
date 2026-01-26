@@ -16,6 +16,7 @@
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const { printUsageGuide } = require('./usage-guide');
 
 // 获取包根目录
 const packageRoot = path.resolve(__dirname, '..');
@@ -101,6 +102,9 @@ try {
         `Skill 已安装到: ${isGlobal ? '~/.claude/skills/handover' : '.claude/skills/handover'}`,
         'info'
     );
+
+    // 显示使用指南
+    printUsageGuide();
 } catch (error) {
     handleError(error);
 }

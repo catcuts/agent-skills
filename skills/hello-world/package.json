@@ -35,7 +35,7 @@
     "bugs": {
         "url": "https://github.com/catcuts/agent-skills/issues"
     },
-    "homepage": "https://github.com/catcuts/agent-skills#readme",
+    "homepage": "https://github.com/catcuts/agent-skills/tree/main/skills/hello-world#readme",
     "engines": {
         "node": ">=18.0.0"
     }
