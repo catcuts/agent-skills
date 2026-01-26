@@ -343,7 +343,7 @@ chmod +x scripts/uninstall-skill.js
 **错误信息**:
 
 ```
-npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@catcheers/my-skill
+npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@<your-org>/my-skill
 ```
 
 **原因**: 包名已被其他人使用
@@ -352,12 +352,12 @@ npm ERR! 403 Forbidden - PUT https://registry.npmjs.org/@catcheers/my-skill
 
 ```bash
 # 检查包名是否可用
-npm view @catcheers/my-skill
+npm view @<your-org>/my-skill
 
 # 如果包名已存在，更换包名
 # 修改 package.json 中的 name 字段
 {
-  "name": "@catcheers/my-skill-v2"  // 添加后缀
+  "name": "@<your-org>/my-skill-v2"  // 添加后缀
 }
 
 # 或使用你的 npm 用户名
@@ -525,7 +525,7 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 
 ```bash
 # npm 安装时显示详细日志
-npm install -g @catcheers/my-skill --verbose
+npm install -g @<your-org>/my-skill --verbose
 
 # 查看 add-skill 执行过程
 npx add-skill . -a claude-code -g -y --verbose
@@ -592,7 +592,7 @@ npm run install:local
 
 ```bash
 # 在 GitHub 上搜索问题
-https://github.com/catcuts/agent-skills/issues
+https://github.com/<your-username>/<your-repo>/issues
 
 # 在 npm 上搜索类似包
 https://www.npmjs.com/search?q=claude-code+skill
@@ -609,7 +609,7 @@ https://www.npmjs.com/search?q=claude-code+skill
 
 ### 8.4 社区支持
 
-- [GitHub Discussions](https://github.com/catcuts/agent-skills/discussions)
+- [GitHub Discussions](https://github.com/<your-username>/<your-repo>/discussions)
 - [Claude Code 官方文档](https://claude.com/claude-code)
 
 ---
@@ -645,10 +645,10 @@ https://www.npmjs.com/search?q=claude-code+skill
 
 ## 🔗 相关资源
 
-- [开发模板](../../ref/agent-skill-npm-boilerplate@catcuts/) - 完整的项目模板
+- [开发模板](../../ref/agent-skill-npm-boilerplate@<your-org>/) - 完整的项目模板
 - [示例项目](../skill-development-standard/examples/) - 简单和复杂示例
-- [GitHub Issues](https://github.com/catcuts/agent-skills/issues) - 问题追踪
+- [GitHub Issues](https://github.com/<your-username>/<your-repo>/issues) - 问题追踪
 
 ---
 
-**需要帮助?** 提交 [Issue](https://github.com/catcuts/agent-skills/issues)
+**需要帮助?** 提交 [Issue](https://github.com/<your-username>/<your-repo>/issues)

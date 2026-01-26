@@ -26,7 +26,7 @@
 
 ```bash
 # 1. 复制模板
-cp -r ref/agent-skill-npm-boilerplate@catcuts my-skill
+cp -r ref/agent-skill-npm-boilerplate@<your-org> my-skill
 cd my-skill
 
 # 2. 修改包名和描述
@@ -83,7 +83,7 @@ npm install --save-optional add-skill@^1.0.29
 
 | 用户名      | 技能名称         | 包名                       |
 | ----------- | ---------------- | -------------------------- |
-| `catcuts`   | `hello-world`    | `@catcheers/hello-world`   |
+| `<your-name>`   | `hello-world`    | `@<your-org>/hello-world`   |
 | `john-doe`  | `code-generator` | `@john-doe/code-generator` |
 | `acme-corp` | `api-helper`     | `@acme-corp/api-helper`    |
 
@@ -101,7 +101,7 @@ npm install --save-optional add-skill@^1.0.29
 
 ```json
 {
-    "name": "@catcheers/my-skill",
+    "name": "@<your-org>/my-skill",
     "version": "1.0.0",
     "description": "技能功能描述",
     "main": "index.js",
@@ -117,7 +117,7 @@ npm install --save-optional add-skill@^1.0.29
         "add-skill": "^1.0.29"
     },
     "keywords": ["claude-code", "skill", "my-skill"],
-    "author": "catcuts",
+    "author": "<your-name>",
     "license": "MIT",
     "engines": {
         "node": ">=18.0.0"
@@ -129,7 +129,7 @@ npm install --save-optional add-skill@^1.0.29
 
 ```json
 {
-    "name": "@catcheers/my-skill",
+    "name": "@<your-org>/my-skill",
     "version": "1.0.0",
     "description": "技能功能描述",
     "main": "index.js",
@@ -146,17 +146,17 @@ npm install --save-optional add-skill@^1.0.29
         "add-skill": "^1.0.29"
     },
     "keywords": ["claude-code", "skill", "my-skill", "category-specific"],
-    "author": "catcuts",
+    "author": "<your-name>",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/catcuts/agent-skills.git",
+        "url": "git+https://github.com/<your-username>/<your-repo>.git",
         "directory": "skills/my-skill"
     },
     "bugs": {
-        "url": "https://github.com/catcuts/agent-skills/issues"
+        "url": "https://github.com/<your-username>/<your-repo>/issues"
     },
-    "homepage": "https://github.com/catcuts/agent-skills#readme",
+    "homepage": "https://github.com/<your-username>/<your-repo>#readme",
     "engines": {
         "node": ">=18.0.0"
     }
@@ -626,4 +626,4 @@ Closes #123"
 
 ---
 
-**开始开发**: 从 [开发模板](../../ref/agent-skill-npm-boilerplate@catcuts/) 开始创建你的技能
+**开始开发**: 从 [开发模板](../../ref/agent-skill-npm-boilerplate@<your-org>/) 开始创建你的技能

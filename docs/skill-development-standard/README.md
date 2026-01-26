@@ -57,7 +57,7 @@ my-skill/
 1. **复制模板**
 
     ```bash
-    cp -r ref/agent-skill-npm-boilerplate@catcuts my-skill
+    cp -r ref/agent-skill-npm-boilerplate@<your-org> my-skill
     cd my-skill
     ```
 
@@ -103,7 +103,7 @@ my-skill/
 
 ### 学习资源
 
-- **开发模板**: `ref/agent-skill-npm-boilerplate@catcuts/`
+- **开发模板**: `ref/agent-skill-npm-boilerplate@<your-org>/`
 - **简单示例**: `docs/skill-development-standard/examples/simple-skill-example/`
 - **复杂示例**: `docs/skill-development-standard/examples/complex-skill-example/`
 
@@ -145,8 +145,8 @@ my-skill/
 
 ### 示例项目
 
-- **hello-world**: [GitHub](https://github.com/catcuts/agent-skills/tree/main/skills/hello-world) - 简单技能示例
-- **handover**: [GitHub](https://github.com/catcuts/agent-skills/tree/main/skills/handover) - 复杂技能示例
+- **hello-world**: [GitHub](https://github.com/<your-username>/<your-repo>/tree/main/skills/hello-world) - 简单技能示例
+- **handover**: [GitHub](https://github.com/<your-username>/<your-repo>/tree/main/skills/handover) - 复杂技能示例
 
 ### 工具和库
 
@@ -206,8 +206,8 @@ my-skill/
 
 ## ❓ 获取帮助
 
-- **问题反馈**: [GitHub Issues](https://github.com/catcuts/agent-skills/issues)
-- **讨论交流**: [GitHub Discussions](https://github.com/catcuts/agent-skills/discussions)
+- **问题反馈**: [GitHub Issues](https://github.com/<your-username>/<your-repo>/issues)
+- **讨论交流**: [GitHub Discussions](https://github.com/<your-username>/<your-repo>/discussions)
 - **文档更新**: 提交 PR 或 Issue
 
 ---

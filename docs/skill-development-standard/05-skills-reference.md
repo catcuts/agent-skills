@@ -661,8 +661,8 @@ version: 1.0.0
 
 - [01-project-structure.md](./01-project-structure.md) - 项目结构规范
 - [02-development-workflow.md](./02-development-workflow.md) - 开发流程规范
-- [开发模板](../../ref/agent-skill-npm-boilerplate@catcuts/) - SKILL.md 模板
+- [开发模板](../../ref/agent-skill-npm-boilerplate@<your-org>/) - SKILL.md 模板
 
 ---
 
-**开始编写**: 使用 [开发模板](../../ref/agent-skill-npm-boilerplate@catcuts/) 创建你的 SKILL.md
+**开始编写**: 使用 [开发模板](../../ref/agent-skill-npm-boilerplate@<your-org>/) 创建你的 SKILL.md

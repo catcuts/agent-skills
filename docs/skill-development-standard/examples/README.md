@@ -133,7 +133,7 @@ cat .github/workflows/ci.yml
     - 查看 `skills/hello-world/scripts/install-skill.js` - 了解安装脚本
 
 3. **实践创建**
-    - 使用开发模板 `ref/agent-skill-npm-boilerplate@catcuts/`
+    - 使用开发模板 `ref/agent-skill-npm-boilerplate@<your-org>/`
     - 创建你自己的简单技能
     - 本地测试验证
 
@@ -245,7 +245,7 @@ cat .github/workflows/ci.yml
 
 - **开发问题**: 查看 [06-troubleshooting.md](../06-troubleshooting.md)
 - **编写参考**: 查看 [05-skills-reference.md](../05-skills-reference.md)
-- **GitHub Issues**: [提交问题](https://github.com/catcuts/agent-skills/issues)
+- **GitHub Issues**: [提交问题](https://github.com/<your-username>/<your-repo>/issues)
 
 ---
 

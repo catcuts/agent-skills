@@ -184,16 +184,16 @@ npm pack
 
 ```
 npm notice
-npm notice 📦 @catcheers/my-skill@1.0.0
+npm notice 📦 @<your-org>/my-skill@1.0.0
 npm notice === Tarball Contents ===
 npm notice 1.2kB SKILL.md
 npm notice 856B  scripts/install-skill.js
 npm notice 445B  scripts/uninstall-skill.js
 npm notice 1.1kB package.json
 npm notice === Tarball Details ===
-npm notice name: @catcheers/my-skill
+npm notice name: @<your-org>/my-skill
 npm notice version: 1.0.0
-npm notice filename: catcheers-my-skill-1.0.0.tgz
+npm notice filename: <your-org>-my-skill-1.0.0.tgz
 npm notice package size: 3.6 kB
 npm notice unpacked size: 3.6 kB
 npm notice === Tarball Contents ===
@@ -203,10 +203,10 @@ npm notice === Tarball Contents ===
 
 ```bash
 # 解压 tarball 查看内容
-tar -tzf catcheers-my-skill-1.0.0.tgz
+tar -tzf <your-org>-my-skill-1.0.0.tgz
 
 # 或解压到目录
-tar -xzf catcheers-my-skill-1.0.0.tgz
+tar -xzf <your-org>-my-skill-1.0.0.tgz
 cd package/
 ls -la
 ```
@@ -250,7 +250,7 @@ npm login
 
 ```bash
 # 将 scope 关联到你的用户名
-npm profile set org catcuts
+npm profile set org <your-name>
 ```
 
 ### 4.2 发布命令
@@ -288,23 +288,23 @@ npm publish --tag next
 
 ```
 npm notice
-npm notice 📦 @catcheers/my-skill@1.0.0
+npm notice 📦 @<your-org>/my-skill@1.0.0
 npm notice === Tarball Contents ===
 npm notice 1.2kB SKILL.md
 npm notice 856B  scripts/install-skill.js
 npm notice 445B  scripts/uninstall-skill.js
 npm notice 1.1kB package.json
 npm notice === Tarball Details ===
-npm notice name: @catcheers/my-skill
+npm notice name: @<your-org>/my-skill
 npm notice version: 1.0.0
 npm notice package size: 3.6 kB
 npm notice unpacked size: 3.6 kB
 npm notice shasum: abc123...
 npm notice integrity: sha512-...
 npm notice === Tarball URL ===
-npm notice https://registry.npmjs.org/@catcheers/my-skill/-/my-skill-1.0.0.tgz
+npm notice https://registry.npmjs.org/@<your-org>/my-skill/-/my-skill-1.0.0.tgz
 npm notice
-+ @catcheers/my-skill@1.0.0
++ @<your-org>/my-skill@1.0.0
 ```
 
 ### 4.4 发布后验证
@@ -313,22 +313,22 @@ npm notice
 
 ```bash
 # 查看包信息
-npm view @catcheers/my-skill
+npm view @<your-org>/my-skill
 
 # 打开 npm 页面
-npm repo @catcheers/my-skill
+npm repo @<your-org>/my-skill
 ```
 
 #### 测试安装
 
 ```bash
 # 全局安装
-npm install -g @catcheers/my-skill
+npm install -g @<your-org>/my-skill
 
 # 项目级安装
 mkdir /tmp/test-skill
 cd /tmp/test-skill
-npm install @catcheers/my-skill
+npm install @<your-org>/my-skill
 
 # 验证安装
 ls ~/.claude/skills/my-skill/SKILL.md
@@ -363,9 +363,9 @@ claude
 
 | 平台    | 测试命令                             | 状态 |
 | ------- | ------------------------------------ | ---- |
-| Ubuntu  | `npm install -g @catcheers/my-skill` | ⬜   |
-| macOS   | `npm install -g @catcheers/my-skill` | ⬜   |
-| Windows | `npm install -g @catcheers/my-skill` | ⬜   |
+| Ubuntu  | `npm install -g @<your-org>/my-skill` | ⬜   |
+| macOS   | `npm install -g @<your-org>/my-skill` | ⬜   |
+| Windows | `npm install -g @<your-org>/my-skill` | ⬜   |
 
 ### 5.3 文档更新
 
@@ -402,10 +402,10 @@ npm publish
 
 ```bash
 # 方法一：弃用版本（推荐）
-npm deprecate @catcheers/my-skill@1.0.1 "Critical bug, use 1.0.2 instead"
+npm deprecate @<your-org>/my-skill@1.0.1 "Critical bug, use 1.0.2 instead"
 
 # 方法二： unpublish（仅在发布 24 小时内可用）
-npm unpublish @catcheers/my-skill@1.0.1
+npm unpublish @<your-org>/my-skill@1.0.1
 
 # 方法三：发布新版本修复问题
 npm version patch
@@ -425,7 +425,7 @@ npm publish
 
 ```bash
 # 检查包名是否可用
-npm view @catcheers/my-skill
+npm view @<your-org>/my-skill
 
 # 如果包名已被占用，更换包名
 # 修改 package.json 中的 name 字段
@@ -468,10 +468,10 @@ npm publish
 ```bash
 # 本地测试安装
 npm pack
-npm install -g ./catcheers-my-skill-1.0.0.tgz
+npm install -g ./<your-org>-my-skill-1.0.0.tgz
 
 # 查看详细错误
-npm install -g @catcheers/my-skill --verbose
+npm install -g @<your-org>/my-skill --verbose
 ```
 
 ### Q5: CI/CD 发布失败

@@ -53,7 +53,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 
 ```json
 {
-    "name": "@catcheers/my-skill",
+    "name": "@<your-org>/my-skill",
     "version": "1.0.0",
     "description": "技能功能描述",
     "main": "index.js",
@@ -81,7 +81,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 
 | 字段                   | 说明                     | 示例                       | 必需 |
 | ---------------------- | ------------------------ | -------------------------- | ---- |
-| `name`                 | 包名，使用 npm scope     | `@catcheers/my-skill`      | ✅   |
+| `name`                 | 包名，使用 npm scope     | `@<your-org>/my-skill`      | ✅   |
 | `version`              | 当前版本号（语义化版本） | `1.0.0`                    | ✅   |
 | `description`          | 包的简短描述             | `"跨会话工作交接工具"`     | ✅   |
 | `main`                 | 入口文件（兼容性）       | `"index.js"`               | ✅   |
@@ -89,7 +89,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 | `files`                | 发布到 npm 的文件列表    | `["SKILL.md", "scripts/"]` | ✅   |
 | `optionalDependencies` | 可选依赖                 | `{"add-skill": "^1.0.29"}` | ✅   |
 | `keywords`             | 搜索关键词               | `["claude-code", "skill"]` | ✅   |
-| `author`               | 作者信息                 | `"catcuts"`                | ✅   |
+| `author`               | 作者信息                 | `"<your-name>"`           | ✅   |
 | `license`              | 许可证                   | `"MIT"`                    | ✅   |
 | `repository`           | 仓库地址                 | 见下文                     | 推荐 |
 | `bugs`                 | 问题追踪地址             | 见下文                     | 推荐 |
@@ -101,7 +101,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 ```json
 "repository": {
   "type": "git",
-  "url": "git+https://github.com/catcuts/agent-skills.git",
+  "url": "git+https://github.com/<your-username>/<your-repo>.git",
   "directory": "skills/my-skill"
 }
 ```
@@ -328,7 +328,7 @@ removeSkill(localDir);
 ### 快速安装
 
 \`\`\`bash
-npm install -g @catcheers/my-skill
+npm install -g @<your-org>/my-skill
 \`\`\`
 
 ## 使用示例
@@ -388,7 +388,7 @@ MIT License
 
 - **格式**: `@scope/skill-name`
 - **scope**: 使用你的 npm 用户名或组织名
-- **示例**: `@catcheers/hello-world`
+- **示例**: `@<your-org>/hello-world`
 
 ### 文件名
 
@@ -484,7 +484,7 @@ node scripts/install-skill.js --dry-run
 
 - [02-development-workflow.md](./02-development-workflow.md) - 开发流程规范
 - [05-skills-reference.md](./05-skills-reference.md) - 技能编写参考
-- [开发模板](../../ref/agent-skill-npm-boilerplate@catcuts/) - 完整的项目模板
+- [开发模板](../../ref/agent-skill-npm-boilerplate@<your-org>/) - 完整的项目模板
 
 ---
 
