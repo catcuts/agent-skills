@@ -2,5 +2,6 @@ node_modules/
 .DS_Store
 .handover/
 *.log
-ref/
+ref/*
+!ref/agent-skill-npm-boilerplate@catcuts/
 .claude/
