@@ -38,6 +38,8 @@ npx add-skill . -a claude-code -g -y
 npx add-skill . -a claude-code -y
 ```
 
+**支持平台**: 基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
+
 ### 测试安装
 
 运行测试以验证安装配置（不会实际安装）：

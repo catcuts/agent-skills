@@ -2,6 +2,8 @@
 
 本文档提供了 Claude Code 技能的实际示例，帮助你快速理解和应用开发规范。
 
+**支持平台**: 基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，这些技能示例支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
+
 ---
 
 ## 📚 示例列表

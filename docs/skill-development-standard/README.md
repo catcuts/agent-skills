@@ -34,6 +34,10 @@
 3. **自动化**：使用 npm scripts 和 CI/CD 自动化开发流程
 4. **语义化版本**：遵循语义化版本规范（Semantic Versioning）
 
+### 支持平台
+
+基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本规范的技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
+
 ---
 
 ## 🚀 快速开始
