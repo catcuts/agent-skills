@@ -16,6 +16,9 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
+// 技能名称
+const skillName = 'handover';
+
 // 解析命令行参数
 const args = process.argv.slice(2);
 const forceGlobal = args.includes('--global');
@@ -46,18 +49,49 @@ function log(message, type = 'info') {
     console.log(`${prefix} ${message}`);
 }
 
-// 递归删除目录
-function removeDirectory(dirPath) {
-    if (!fs.existsSync(dirPath)) {
-        return false;
-    }
-
+// 安全删除路径（支持符号链接、文件、目录）
+function safeRemovePath(filePath, description) {
     try {
-        fs.rmSync(dirPath, { recursive: true, force: true });
-        return true;
+        if (!fs.existsSync(filePath)) {
+            return { success: true, removed: false, message: '不存在' };
+        }
+
+        const stats = fs.lstatSync(filePath);
+        const isLink = stats.isSymbolicLink();
+        const isDir = stats.isDirectory();
+
+        if (isLink) {
+            fs.unlinkSync(filePath);
+            return {
+                success: true,
+                removed: true,
+                message: `已删除符号链接: ${description}`
+            };
+        } else if (isDir) {
+            fs.rmSync(filePath, { recursive: true, force: true });
+            return {
+                success: true,
+                removed: true,
+                message: `已删除目录: ${description}`
+            };
+        } else {
+            fs.unlinkSync(filePath);
+            return {
+                success: true,
+                removed: true,
+                message: `已删除文件: ${description}`
+            };
+        }
     } catch (error) {
-        log(`删除 ${dirPath} 失败: ${error.message}`, 'error');
-        return false;
+        // 忽略"文件不存在"错误，可能已被并发删除
+        if (error.code === 'ENOENT') {
+            return { success: true, removed: false, message: '已不存在' };
+        }
+        return {
+            success: false,
+            removed: false,
+            message: `删除失败: ${error.message}`
+        };
     }
 }
 
@@ -65,42 +99,72 @@ try {
     log(`开始卸载 Handover Skill...`, 'info');
     log(`卸载范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
 
-    let removedCount = 0;
+    log('\n正在清理技能文件...', 'info');
+
+    const results = [];
 
     if (isGlobal) {
         // 全局卸载
         const homeDir = os.homedir();
-        const paths = [
-            path.join(homeDir, '.claude', 'skills', 'handover'),
-            path.join(homeDir, '.agents', 'skills', 'handover'),
-        ];
 
-        paths.forEach((dirPath) => {
-            if (removeDirectory(dirPath)) {
-                log(`已删除: ${dirPath}`, 'success');
-                removedCount++;
-            }
-        });
+        // 1. 清理规范副本目录（.agents/skills/handover）
+        const canonicalResult = safeRemovePath(
+            path.join(homeDir, '.agents', 'skills', skillName),
+            '规范副本'
+        );
+        results.push(canonicalResult);
+
+        // 2. 清理 Claude Code 全局符号链接
+        const globalResult = safeRemovePath(
+            path.join(homeDir, '.claude', 'skills', skillName),
+            '全局技能链接'
+        );
+        results.push(globalResult);
     } else {
         // 项目级卸载
         const cwd = process.cwd();
-        const paths = [
-            path.join(cwd, '.claude', 'skills', 'handover'),
-            path.join(cwd, '.agents', 'skills', 'handover'),
-        ];
 
-        paths.forEach((dirPath) => {
-            if (removeDirectory(dirPath)) {
-                log(`已删除: ${dirPath}`, 'success');
-                removedCount++;
-            }
-        });
+        // 1. 清理项目级规范副本（如果存在）
+        const canonicalResult = safeRemovePath(
+            path.join(cwd, '.agents', 'skills', skillName),
+            '项目级规范副本'
+        );
+        results.push(canonicalResult);
+
+        // 2. 清理 Claude Code 项目级技能
+        const localResult = safeRemovePath(
+            path.join(cwd, '.claude', 'skills', skillName),
+            '项目级技能'
+        );
+        results.push(localResult);
     }
 
+    // 输出清理结果
+    let removedCount = 0;
+    let errorCount = 0;
+
+    results.forEach((result) => {
+        if (result.removed) {
+            log(`  ✓ ${result.message}`, 'success');
+            removedCount++;
+        } else if (result.success) {
+            log(`  ⊗ ${result.message} (跳过)`, 'info');
+        } else {
+            log(`  ✗ ${result.message}`, 'error');
+            errorCount++;
+        }
+    });
+
+    // 总结
     if (removedCount > 0) {
-        log(`\n卸载成功! 已删除 ${removedCount} 个目录`, 'success');
-    } else {
-        log('\n未找到已安装的 skill 文件', 'warning');
+        log(`\n✓ 卸载成功! 已删除 ${removedCount} 个文件/目录`, 'success');
+    } else if (errorCount === 0) {
+        log('\n⊗ 未找到需要卸载的文件', 'warning');
+    }
+
+    if (errorCount > 0) {
+        log(`\n⚠ 有 ${errorCount} 个项目删除失败，请手动清理`, 'warning');
+        process.exit(1);
     }
 } catch (error) {
     log(`卸载失败: ${error.message}`, 'error');

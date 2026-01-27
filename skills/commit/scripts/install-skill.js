@@ -15,14 +15,31 @@
 
 const { execSync } = require('child_process');
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
 const { printUsageGuide } = require('./usage-guide');
 
 // Get package root directory
 const packageRoot = path.resolve(__dirname, '..');
 
+// Get user home directory
+const homeDir = os.homedir();
+
 // Read package.json to get skill name
 const packageJson = require(path.join(packageRoot, 'package.json'));
 const skillName = packageJson.name.split('/')[1] || packageJson.name;
+
+// Paths to clean
+const pathsToClean = {
+    // skills CLI canonical copy directory (root cause of the issue)
+    canonical: path.join(homeDir, '.agents', 'skills', skillName),
+
+    // Claude Code global skill directory (symlink)
+    claudeGlobal: path.join(homeDir, '.claude', 'skills', skillName),
+
+    // Claude Code project-level skill directory (if exists)
+    claudeLocal: path.join(process.cwd(), '.claude', 'skills', skillName),
+};
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -54,6 +71,97 @@ function log(message, type = 'info') {
     console.log(`${prefix} ${message}`);
 }
 
+// Safely remove a path (supports symlinks, files, directories)
+function safeRemovePath(filePath, description) {
+    try {
+        if (!fs.existsSync(filePath)) {
+            return { success: true, removed: false, message: 'Not found' };
+        }
+
+        const stats = fs.lstatSync(filePath);
+        const isLink = stats.isSymbolicLink();
+        const isDir = stats.isDirectory();
+
+        if (isLink) {
+            fs.unlinkSync(filePath);
+            return {
+                success: true,
+                removed: true,
+                message: `Removed symlink: ${description}`
+            };
+        } else if (isDir) {
+            fs.rmSync(filePath, { recursive: true, force: true });
+            return {
+                success: true,
+                removed: true,
+                message: `Removed directory: ${description}`
+            };
+        } else {
+            fs.unlinkSync(filePath);
+            return {
+                success: true,
+                removed: true,
+                message: `Removed file: ${description}`
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            removed: false,
+            message: `Failed to remove: ${error.message}`
+        };
+    }
+}
+
+// Clean old installation files
+function cleanOldInstallations() {
+    log('\nCleaning up old installation files...', 'info');
+
+    const results = [];
+
+    // 1. Clean canonical copy directory (.agents/skills/<skill>)
+    const canonicalResult = safeRemovePath(
+        pathsToClean.canonical,
+        'canonical copy'
+    );
+    results.push({ path: pathsToClean.canonical, ...canonicalResult });
+
+    // 2. Clean Claude Code global symlink
+    const globalResult = safeRemovePath(
+        pathsToClean.claudeGlobal,
+        'global skill link'
+    );
+    results.push({ path: pathsToClean.claudeGlobal, ...globalResult });
+
+    // 3. Clean Claude Code project-level installation (if exists)
+    const localResult = safeRemovePath(
+        pathsToClean.claudeLocal,
+        'project-level skill'
+    );
+    results.push({ path: pathsToClean.claudeLocal, ...localResult });
+
+    // Output cleanup results
+    let removedCount = 0;
+    results.forEach((result) => {
+        if (result.removed) {
+            log(`  ✓ ${result.message}`, 'success');
+            removedCount++;
+        } else if (result.success) {
+            log(`  ⊗ ${result.message} (skipped)`, 'info');
+        } else {
+            log(`  ✗ ${result.message}`, 'warning');
+        }
+    });
+
+    if (removedCount > 0) {
+        log(`\nCleaned up ${removedCount} old installation(s)`, 'success');
+    } else {
+        log('No old installations found to clean', 'info');
+    }
+
+    return removedCount > 0;
+}
+
 // Error handler
 function handleError(error) {
     log(`Installation failed: ${error.message}`, 'error');
@@ -65,6 +173,9 @@ function handleError(error) {
 try {
     log(`Starting installation of ${skillName}...`, 'info');
     log(`Installation scope: ${isGlobal ? 'Global (GLOBAL)' : 'Project-level (LOCAL)'}`, 'info');
+
+    // Clean old installation files (solves incremental update file residue issue)
+    cleanOldInstallations();
 
     // Build skills command
     const commandParts = [
