@@ -1,6 +1,6 @@
 {
   "name": "@catcuts-skills/commit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "读取 staged 代码差异，自动生成符合 Conventional Commits 规范的提交文本",
   "main": "index.js",
   "scripts": {

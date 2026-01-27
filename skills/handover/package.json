@@ -1,6 +1,6 @@
 {
     "name": "@catcuts-skills/handover",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "跨会话工作交接工具。支持归档当前进度和恢复历史进度两个模式。",
     "main": "index.js",
     "scripts": {
