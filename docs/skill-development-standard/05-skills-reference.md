@@ -14,6 +14,8 @@ name: skill-name
 description: 技能功能描述，一句话说明技能的作用
 allowed-tools: Bash, Read, Write
 version: 1.0.0
+metadata:
+  internal: false  # 可选：设为 true 隐藏该技能
 ---
 
 # 技能名称
@@ -43,6 +45,19 @@ version: 1.0.0
 | 技能标题         | Markdown 标题（# 技能名称）        | 推荐 |
 | 任务指令         | 技能的主要逻辑和步骤               | ✅   |
 | 附加说明         | 补充说明、注意事项、使用建议       | 可选 |
+
+### metadata 字段（可选）
+
+从 v1.1.2 开始，SKILL.md 支持可选的 metadata 字段：
+
+```yaml
+metadata:
+  internal: false  # 设为 true 隐藏该技能
+```
+
+字段说明：
+- `internal`: 布尔值，设为 true 时隐藏该技能（默认为 false）
+- 用于内部技能或开发中的技能
 
 ---
 

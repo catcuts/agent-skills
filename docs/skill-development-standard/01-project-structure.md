@@ -68,7 +68,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
     },
     "files": ["SKILL.md", "scripts/"],
     "optionalDependencies": {
-        "add-skill": "^1.0.29"
+        "skills": "^1.1.2"
     },
     "keywords": ["claude-code", "skill"],
     "author": "your-name",
@@ -89,7 +89,7 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 | `main`                 | 入口文件（兼容性）       | `"index.js"`               | ✅   |
 | `scripts`              | NPM 脚本命令             | 见下文                     | ✅   |
 | `files`                | 发布到 npm 的文件列表    | `["SKILL.md", "scripts/"]` | ✅   |
-| `optionalDependencies` | 可选依赖                 | `{"add-skill": "^1.0.29"}` | ✅   |
+| `optionalDependencies` | 可选依赖                 | `{"skills": "^1.1.2"}` | ✅   |
 | `keywords`             | 搜索关键词               | `["claude-code", "skill"]` | ✅   |
 | `author`               | 作者信息                 | `"<your-name>"`           | ✅   |
 | `license`              | 许可证                   | `"MIT"`                    | ✅   |
@@ -205,7 +205,7 @@ version: 1.0.0
 
 ### 3. scripts/install-skill.js
 
-安装脚本，使用 `add-skill` 工具将 SKILL.md 安装到 Claude Code。
+安装脚本，使用 `skills` 工具将 SKILL.md 安装到 Claude Code。
 
 #### 核心功能
 
@@ -236,8 +236,8 @@ if (forceGlobal) {
 
 const isGlobal = scope === 'GLOBAL';
 
-// 构建 add-skill 命令
-const commandParts = ['npx', 'add-skill', `"${packageRoot}"`];
+// 构建 skills 命令
+const commandParts = ['npx', 'skills', 'add', `"${packageRoot}"`];
 
 if (isGlobal) {
     commandParts.push('-g');
@@ -552,7 +552,7 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 
 **说明**：
 
-- `add-skill` 会创建符号链接
+- `skills` 会创建符号链接
 - 删除符号链接不影响实际文件
 - 卸载 npm 包时会自动清理
 
@@ -577,7 +577,7 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 - [ ] `name` 使用 npm scope 格式（`@username/skill-name`）
 - [ ] `version` 遵循语义化版本规范
 - [ ] `files` 字段只包含必需文件
-- [ ] `optionalDependencies` 包含 `add-skill`
+- [ ] `optionalDependencies` 包含 `skills`
 - [ ] `engines` 指定 Node.js 版本要求
 
 ### 文档检查

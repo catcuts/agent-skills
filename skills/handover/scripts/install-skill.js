@@ -2,7 +2,7 @@
 
 /**
  * Handover Skill 安装脚本
- * 使用 add-skill 将 skill 安装到 Claude Code
+ * 使用 skills 将 skill 安装到 Claude Code
  *
  * 命令行参数 (推荐):
  * --dry-run: 测试模式,只显示将要执行的命令,不实际安装
@@ -56,7 +56,7 @@ function log(message, type = 'info') {
 function handleError(error) {
     log(`安装失败: ${error.message}`, 'error');
     log('\n您可以尝试手动安装:', 'warning');
-    log(`  npx add-skill "${packageRoot}" -a claude-code ${isGlobal ? '-g' : ''} -y`);
+    log(`  npx skills add "${packageRoot}" ${isGlobal ? '-g' : ''} -y`);
     process.exit(1);
 }
 
@@ -64,12 +64,12 @@ try {
     log(`开始安装 Handover Skill...`, 'info');
     log(`安装范围: ${isGlobal ? '全局(GLOBAL)' : '项目级(LOCAL)'}`, 'info');
 
-    // 构建 add-skill 命令
+    // 构建 skills 命令
     const commandParts = [
         'npx',
-        'add-skill',
+        'skills',
+        'add',
         `"${packageRoot}"`,
-        // '-a', 'claude-code'  // 由 add-skill 自动检测，如果检测失败那么会自动弹出菜单让用户手动选择
     ];
 
     if (isGlobal) {
@@ -91,7 +91,7 @@ try {
     }
 
     // 执行安装
-    log('\n正在执行 add-skill...', 'info');
+    log('\n正在执行 skills add...', 'info');
     execSync(command, {
         stdio: 'inherit',
         cwd: packageRoot,

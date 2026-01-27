@@ -2,7 +2,7 @@
 
 /**
  * Commit Skill Installation Script
- * Install skill to Claude Code using add-skill
+ * Install skill to Claude Code using skills
  *
  * Command Line Arguments (Recommended):
  * --dry-run: Test mode, show command without executing
@@ -58,7 +58,7 @@ function log(message, type = 'info') {
 function handleError(error) {
     log(`Installation failed: ${error.message}`, 'error');
     log('\nYou can try manual installation:', 'warning');
-    log(`  npx add-skill "${packageRoot}" -a claude-code ${isGlobal ? '-g' : ''} -y`);
+    log(`  npx skills add "${packageRoot}" ${isGlobal ? '-g' : ''} -y`);
     process.exit(1);
 }
 
@@ -66,10 +66,11 @@ try {
     log(`Starting installation of ${skillName}...`, 'info');
     log(`Installation scope: ${isGlobal ? 'Global (GLOBAL)' : 'Project-level (LOCAL)'}`, 'info');
 
-    // Build add-skill command
+    // Build skills command
     const commandParts = [
         'npx',
-        'add-skill',
+        'skills',
+        'add',
         `"${packageRoot}"`,
     ];
 
@@ -89,7 +90,7 @@ try {
     }
 
     // Execute installation
-    log('\nExecuting add-skill...', 'info');
+    log('\nExecuting skills add...', 'info');
     execSync(command, {
         stdio: 'inherit',
         cwd: packageRoot

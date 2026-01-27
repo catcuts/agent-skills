@@ -7,7 +7,7 @@
         "skills/*"
     ],
     "devDependencies": {
-        "add-skill": "^1.0.29",
-        "prettier": "^3.8.1"
+        "prettier": "^3.8.1",
+        "skills": "^1.1.2"
     }
 }

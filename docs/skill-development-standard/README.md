@@ -36,7 +36,7 @@
 
 ### 支持平台
 
-基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本规范的技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。
+基于 [Vercel 开源的 skills](https://github.com/vercel-labs/skills)，本规范的技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [24 个工具](https://github.com/vercel-labs/skills?tab=readme-ov-file#available-agents)。
 
 ---
 
@@ -144,7 +144,7 @@ my-skill/
 ### 官方文档
 
 - [Claude Code 官方文档](https://claude.com/claude-code)
-- [add-skill 工具文档](https://github.com/vercel/ai-chatbot/tree/add-skill/packages/add-skill)
+- [skills 工具文档](https://github.com/vercel-labs/skills)
 - [npm 发布最佳实践](https://docs.npmjs.com/cli/v9/commands/npm-publish)
 
 ### 示例项目
@@ -154,7 +154,7 @@ my-skill/
 
 ### 工具和库
 
-- **add-skill**: Vercel 开发的技能安装工具
+- **skills**: Vercel 开发的技能管理工具
 - **npx**: npm 包执行器，用于运行安装脚本
 
 ---
@@ -163,7 +163,7 @@ my-skill/
 
 - **运行环境**: Node.js >= 18.0.0
 - **包管理器**: npm >= 9.0.0
-- **安装工具**: add-skill ^1.0.29
+- **安装工具**: skills ^1.1.2
 - **目标平台**: Claude Code CLI
 
 ---
