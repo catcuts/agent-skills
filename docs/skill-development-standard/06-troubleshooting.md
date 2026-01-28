@@ -36,10 +36,8 @@ npm install -g add-skill
 # 方法二：使用 npx（推荐）
 npx skills@latest . -a claude-code -y
 
-# 方法三：在 package.json 中指定版本
-"optionalDependencies": {
-  "add-skill": "^1.0.29"
-}
+# 方法三：使用 npx 自动下载 skills 工具
+npx -y skills add . -a claude-code -y
 ```
 
 ### 1.2 安装脚本执行失败
@@ -262,15 +260,12 @@ Error: add-skill version incompatible
 
 **解决方案**:
 
-```json
-// 在 package.json 中固定版本
-{
-  "optionalDependencies": {
-    "add-skill": "^1.0.29"  // 使用 ^ 允许小版本更新
-    // 或
-    "add-skill": "1.0.29"   // 固定版本
-  }
-}
+```bash
+# 使用 npx 自动下载最新版本的 skills
+npx -y skills add . -a claude-code -y
+
+# 或在 install-skill.js 中使用
+npx -y skills add ...
 ```
 
 ---

@@ -113,9 +113,6 @@ npm install --save-optional add-skill@^1.0.29
         "install:local": "node scripts/install-skill.js --local"
     },
     "files": ["SKILL.md", "scripts/"],
-    "optionalDependencies": {
-        "add-skill": "^1.0.29"
-    },
     "keywords": ["claude-code", "skill", "my-skill"],
     "author": "<your-name>",
     "license": "MIT",
@@ -142,9 +139,6 @@ npm install --save-optional add-skill@^1.0.29
         "lint": "echo 'Add your linting commands here'"
     },
     "files": ["SKILL.md", "scripts/"],
-    "optionalDependencies": {
-        "add-skill": "^1.0.29"
-    },
     "keywords": ["claude-code", "skill", "my-skill", "category-specific"],
     "author": "<your-name>",
     "license": "MIT",

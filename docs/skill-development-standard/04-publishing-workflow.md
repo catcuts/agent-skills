@@ -39,7 +39,6 @@
 - [ ] `version` 遵循语义化版本规范
 - [ ] `description` 清晰描述技能功能
 - [ ] `files` 字段只包含必需文件
-- [ ] `optionalDependencies` 包含 `add-skill`
 - [ ] `keywords` 包含相关搜索词
 - [ ] `repository.url` 指向正确的仓库
 - [ ] `engines.node` 指定版本要求

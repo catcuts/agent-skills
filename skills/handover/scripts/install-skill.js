@@ -189,7 +189,8 @@ try {
     // 构建 skills 命令
     const commandParts = [
         'npx',
-        'skills',
+        '-y',  // 自动确认 npx 安装
+        'skills',  // 始终使用最新版本
         'add',
         `"${packageRoot}"`,
     ];

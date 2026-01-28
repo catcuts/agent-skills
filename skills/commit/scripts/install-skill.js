@@ -180,7 +180,8 @@ try {
     // Build skills command
     const commandParts = [
         'npx',
-        'skills',
+        '-y',  // Auto-confirm npx installation
+        'skills',  // Always use latest version
         'add',
         `"${packageRoot}"`,
     ];
@@ -189,7 +190,7 @@ try {
         commandParts.push('-g');
     }
 
-    commandParts.push('-y'); // Non-interactive mode
+    commandParts.push('-y'); // Non-interactive mode for skills add
 
     const command = commandParts.join(' ');
 

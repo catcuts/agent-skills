@@ -67,9 +67,6 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
         "install:local": "node scripts/install-skill.js --local"
     },
     "files": ["SKILL.md", "scripts/"],
-    "optionalDependencies": {
-        "skills": "^1.1.2"
-    },
     "keywords": ["claude-code", "skill"],
     "author": "your-name",
     "license": "MIT",
@@ -81,22 +78,21 @@ NPM 包的核心配置文件，定义包的元数据和依赖关系。
 
 #### 字段说明
 
-| 字段                   | 说明                     | 示例                       | 必需 |
-| ---------------------- | ------------------------ | -------------------------- | ---- |
-| `name`                 | 包名，使用 npm scope     | `@<your-org>/my-skill`      | ✅   |
-| `version`              | 当前版本号（语义化版本） | `1.0.0`                    | ✅   |
-| `description`          | 包的简短描述             | `"跨会话工作交接工具"`     | ✅   |
-| `main`                 | 入口文件（兼容性）       | `"index.js"`               | ✅   |
-| `scripts`              | NPM 脚本命令             | 见下文                     | ✅   |
-| `files`                | 发布到 npm 的文件列表    | `["SKILL.md", "scripts/"]` | ✅   |
-| `optionalDependencies` | 可选依赖                 | `{"skills": "^1.1.2"}` | ✅   |
-| `keywords`             | 搜索关键词               | `["claude-code", "skill"]` | ✅   |
-| `author`               | 作者信息                 | `"<your-name>"`           | ✅   |
-| `license`              | 许可证                   | `"MIT"`                    | ✅   |
-| `repository`           | 仓库地址                 | 见下文                     | 推荐 |
-| `bugs`                 | 问题追踪地址             | 见下文                     | 推荐 |
-| `homepage`             | 项目主页                 | 见下文                     | 推荐 |
-| `engines`              | Node.js 版本要求         | `{"node": ">=18.0.0"}`     | 推荐 |
+| 字段          | 说明                     | 示例                       | 必需 |
+| ------------- | ------------------------ | -------------------------- | ---- |
+| `name`        | 包名，使用 npm scope     | `@<your-org>/my-skill`      | ✅   |
+| `version`     | 当前版本号（语义化版本） | `1.0.0`                    | ✅   |
+| `description` | 包的简短描述             | `"跨会话工作交接工具"`     | ✅   |
+| `main`        | 入口文件（兼容性）       | `"index.js"`               | ✅   |
+| `scripts`     | NPM 脚本命令             | 见下文                     | ✅   |
+| `files`       | 发布到 npm 的文件列表    | `["SKILL.md", "scripts/"]` | ✅   |
+| `keywords`    | 搜索关键词               | `["claude-code", "skill"]` | ✅   |
+| `author`      | 作者信息                 | `"<your-name>"`           | ✅   |
+| `license`     | 许可证                   | `"MIT"`                    | ✅   |
+| `repository`  | 仓库地址                 | 见下文                     | 推荐 |
+| `bugs`        | 问题追踪地址             | 见下文                     | 推荐 |
+| `homepage`    | 项目主页                 | 见下文                     | 推荐 |
+| `engines`     | Node.js 版本要求         | `{"node": ">=18.0.0"}`     | 推荐 |
 
 #### repository 字段（推荐）
 
@@ -237,7 +233,13 @@ if (forceGlobal) {
 const isGlobal = scope === 'GLOBAL';
 
 // 构建 skills 命令
-const commandParts = ['npx', 'skills', 'add', `"${packageRoot}"`];
+const commandParts = [
+    'npx',
+    '-y',  // 自动确认 npx 安装
+    'skills',  // 始终使用最新版本
+    'add',
+    `"${packageRoot}"`
+];
 
 if (isGlobal) {
     commandParts.push('-g');
@@ -577,7 +579,6 @@ Claude 链接: .claude/skills/{skill-name}/ (符号链接)
 - [ ] `name` 使用 npm scope 格式（`@username/skill-name`）
 - [ ] `version` 遵循语义化版本规范
 - [ ] `files` 字段只包含必需文件
-- [ ] `optionalDependencies` 包含 `skills`
 - [ ] `engines` 指定 Node.js 版本要求
 
 ### 文档检查

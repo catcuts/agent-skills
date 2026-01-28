@@ -17,9 +17,6 @@
         "SKILL.md",
         "scripts/"
     ],
-    "optionalDependencies": {
-        "skills": "^1.1.2"
-    },
     "keywords": [
         "claude-code",
         "skill",
