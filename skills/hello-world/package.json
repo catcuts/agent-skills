@@ -1,6 +1,6 @@
 {
     "name": "@catcuts-skills/hello-world",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "简单的 Hello World 示例技能，用于验证技能安装是否成功。显示欢迎信息、环境信息和使用示例。",
     "main": "index.js",
     "scripts": {
