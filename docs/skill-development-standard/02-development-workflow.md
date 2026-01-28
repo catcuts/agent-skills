@@ -371,7 +371,7 @@ node scripts/install-skill.js --dry-run
 ✓ 安装范围: 全局(GLOBAL)
 
 [DRY-RUN] 将要执行的命令:
-  npx add-skill "E:\my-skill" -g -y
+  npx skills "E:\my-skill" -g -y
 
 ✓ 测试通过 - 实际安装请运行: npm run install:global 或 npm run install:local
 ```

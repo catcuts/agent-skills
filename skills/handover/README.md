@@ -32,10 +32,10 @@ SKILL_SCOPE=LOCAL npm install @catcuts-skills/handover
 
 ```bash
 # 全局安装
-npx add-skill . -a claude-code -g -y
+npx skills . -a claude-code -g -y
 
 # 项目级安装
-npx add-skill . -a claude-code -y
+npx skills . -a claude-code -y
 ```
 
 ### 测试安装

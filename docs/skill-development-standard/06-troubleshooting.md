@@ -34,7 +34,7 @@ Error: Cannot find module 'add-skill'
 npm install -g add-skill
 
 # 方法二：使用 npx（推荐）
-npx add-skill@latest . -a claude-code -y
+npx skills@latest . -a claude-code -y
 
 # 方法三：在 package.json 中指定版本
 "optionalDependencies": {
@@ -528,7 +528,7 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 npm install -g @<your-org>/my-skill --verbose
 
 # 查看 add-skill 执行过程
-npx add-skill . -a claude-code -g -y --verbose
+npx skills . -a claude-code -g -y --verbose
 ```
 
 ### 7.2 本地测试
@@ -538,7 +538,7 @@ npx add-skill . -a claude-code -g -y --verbose
 node scripts/install-skill.js --dry-run
 
 # 手动执行 add-skill 命令
-npx add-skill . -a claude-code -y
+npx skills . -a claude-code -y
 
 # 检查安装结果
 ls .claude/skills/my-skill/SKILL.md

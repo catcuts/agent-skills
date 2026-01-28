@@ -10,8 +10,7 @@
 
 **安装方式**：
 
-- 通过 add-skill: `npx skills install catcuts/agent-skills`
-- 选择 commit 技能
+- 通过 skills: `npx skills install catcuts/agent-skills` 选择 commit 技能
 
 ### 2. handover
 
@@ -20,7 +19,7 @@
 **安装方式**：
 
 - 作为 NPM 包: `npm install -g @catcuts-skills/handover`
-- 通过 add-skill: `npx skills install catcuts/agent-skills`
+- 通过 skills: `npx skills install catcuts/agent-skills` 选择 handover 技能
 
 ## 技能管理工具
 
