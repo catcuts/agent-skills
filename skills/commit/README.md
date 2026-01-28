@@ -206,7 +206,7 @@ skills/commit/
 
 ## 开发
 
-本技能基于 [agent-skill-npm-boilerplate](https://github.com/<your-username>/agent-skill-npm-boilerplate) 开发。
+本技能基于 [agent-skill-npm-boilerplate](https://github.com/catcuts/agent-skill-npm-boilerplate) 开发。
 
 ## 相关资源
 
