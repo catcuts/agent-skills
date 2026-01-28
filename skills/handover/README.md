@@ -11,7 +11,7 @@
 
 ### 自动安装（推荐）
 
-安装本 npm 包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [19 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#available-agents)。感谢 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill) 🌹
+安装本 npm 包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。感谢 [Vercel 开源的 skills 管理工具](https://github.com/vercel-labs/skills)🌹
 
 ```bash
 # 全局安装（默认）
