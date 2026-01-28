@@ -167,7 +167,7 @@ npm 版本: 10.x.x
 
 ### 安装原理
 
-本技能使用 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill) 工具进行安装管理，支持 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。
+本技能使用 [Vercel 开源的 skills](https://github.com/vercel-labs/skills) 工具进行安装管理，支持 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。
 
 1. `package.json` 中的 `postinstall` 钩子自动运行安装脚本
 2. 安装脚本调用 `add-skill` 将 `SKILL.md` 复制到目标目录

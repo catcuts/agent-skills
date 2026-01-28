@@ -26,10 +26,10 @@
 
 本项目兼容以下技能管理工具：
 
-- **[add-skill](https://github.com/vercel-labs/add-skill)** (Vercel): `npx skills install <repo>`
+- **[skills](https://github.com/vercel-labs/skills)** (Vercel): `npx skills install <repo>`
 - **openskills**: `npx openskills install <repo>`
 
-基于 [Vercel 开源的 add-skill](https://github.com/vercel-labs/add-skill)，本项目技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。
+基于 [Vercel 开源的 skills](https://github.com/vercel-labs/skills)，本项目技能支持 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。
 
 ## 开发
 
