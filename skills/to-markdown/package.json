@@ -1,7 +1,7 @@
 {
     "name": "@catcuts-skills/to-markdown",
-    "version": "1.0.0",
-    "description": "将剪贴板中的 HTML 网页内容转换为结构化的 Markdown 文档。当用户需要将网页内容（从浏览器控制台复制的 HTML 块）保存为 Markdown 格式时使用此技能。确保正文内容完整无遗漏、格式规范、结构清晰，支持保留图片、表格和代码块。",
+    "version": "2.0.0",
+    "description": "将 HTML 网页内容转换为结构化的 Markdown 文档。支持三种模式：1) 从剪贴板读取 HTML；2) 从 URL 下载并提取指定标签内容；3) 从 URL 下载并智能分析正文标签。确保正文内容完整无遗漏、格式规范、结构清晰，支持保留图片、表格和代码块。",
     "main": "index.js",
     "scripts": {
         "postinstall": "node scripts/install-skill.js",
@@ -24,7 +24,10 @@
         "markdown",
         "html-to-markdown",
         "converter",
-        "web-scraping"
+        "web-scraping",
+        "url-download",
+        "content-extraction",
+        "intelligent-analysis"
     ],
     "author": "catcuts",
     "license": "MIT",

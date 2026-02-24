@@ -1,5 +1,5 @@
 ---
-name: clipboard-to-markdown
+name: to-markdown
 description: 将剪贴板中的 HTML 网页内容转换为结构化的 Markdown 文档。当用户需要将网页内容（从浏览器控制台复制的 HTML 块）保存为 Markdown 格式时使用此技能。确保正文内容完整无遗漏、格式规范、结构清晰，支持保留图片、表格和代码块。
 ---
 
@@ -35,6 +35,34 @@ description: 将剪贴板中的 HTML 网页内容转换为结构化的 Markdown 
 3. 保持转换规则的一致性和连续性
 4. 确保内容完整，不遗漏任何段落
 
+## 参数模式检测
+
+**在开始任何工作流程之前，必须先检测用户使用的参数模式。**
+
+从用户的原始输入中提取以下参数：
+- `--html_url=<URL>`: 指定要下载的网页 URL
+- `--html_main_content_tag=<CSS选择器>`: 指定正文标签的 CSS 选择器
+
+**三种输入模式**：
+
+1. **模式1**: 用户同时提供了 URL 和标签
+   - 调用信号: `--html_url=xxx --html_main_content_tag=xxx`
+   - 流程: 下载 HTML → 提取标签内容 → 清理 → AI 转换
+
+2. **模式2**: 用户只提供了 URL，未提供标签
+   - 调用信号: `--html_url=xxx` (无 `--html_main_content_tag`)
+   - 流程: 下载 HTML → 智能分析标签 → 用户选择 → 模式1
+
+3. **模式3**: 用户未提供任何参数
+   - 调用信号: 无参数
+   - 流程: 从剪贴板读取 (现有流程)
+
+**参数提取方法**：
+从用户的原始消息中使用正则表达式或字符串匹配提取参数：
+- 检测是否包含 `--html_url=`
+- 检测是否包含 `--html_main_content_tag=`
+- 提取参数值（处理可能的引号和空格）
+
 ## 前置检查
 
 **在开始工作流程之前，必须先检查 Python 依赖是否满足。**
@@ -69,6 +97,24 @@ pip install beautifulsoup4 pyperclip --index-url https://pypi.org/simple/
 | `pyperclip` | 跨平台剪贴板访问（备用） |
 
 **注意**：即使依赖安装失败，技能仍可使用备用方法（PowerShell/系统命令）获取剪贴板内容，只是无法进行 HTML 清理。
+
+## 工作流程路由
+
+根据参数模式选择对应的工作流程：
+
+### 如果是模式1 (URL + 标签)
+
+跳转到 [模式1：URL + 标签工作流程](#模式1-url---标签工作流程)
+
+### 如果是模式2 (URL 无标签)
+
+跳转到 [模式2：URL 智能分析工作流程](#模式2-url-智能分析工作流程)
+
+### 如果是模式3 (无参数)
+
+跳转到 [模式3：剪贴板工作流程](#模式3-剪贴板工作流程) (现有流程)
+
+---
 
 ## 工作流程
 
@@ -439,7 +485,234 @@ powershell -command "Remove-Item 'C:\Users\catcuts\AppData\Local\Temp\clipboard_
 - 无论处理过程成功与否，都应在最后清理临时文件，避免残留临时数据
 - 使用 `-ErrorAction SilentlyContinue` (Windows) 或忽略错误 (macOS/Linux) 避免文件已被删除时报错
 
-## 转换质量标准
+---
+
+## 模式1：URL + 标签工作流程
+
+**触发条件**：用户同时提供了 `--html_url` 和 `--html_main_content_tag` 参数
+
+### 第 1 步：检查 Python 依赖
+
+与[模式3的第0步](#第-0-步检查并安装-python-依赖)相同
+
+### 第 2 步：从 URL 下载 HTML
+
+使用 `download_html.py` 脚本下载 HTML 内容：
+
+```bash
+python "${SKILL_DIR}/scripts/download_html.py" "<URL>"
+```
+
+脚本会：
+1. 下载指定 URL 的 HTML 内容
+2. 自动检测编码（默认 UTF-8）
+3. 保存到唯一的临时文件
+4. 输出临时文件路径
+
+**保存输出**：
+- 记录临时文件路径：`DOWNLOADED_HTML_PATH`
+- 从 stderr 中读取的 URL 信息可用于后续匹配标签规则
+
+**错误处理**：
+- 如果下载失败，提示用户检查网络连接或使用剪贴板模式
+- 如果 URL 无效，提示用户输入正确的 URL
+
+### 第 3 步：提取正文内容
+
+使用 `extract_content.py` 脚本提取指定标签的内容：
+
+```bash
+python "${SKILL_DIR}/scripts/extract_content.py" "${DOWNLOADED_HTML_PATH}" "<CSS选择器>"
+```
+
+脚本会：
+1. 使用 CSS 选择器提取 HTML 中的指定元素
+2. 如果有多个匹配，自动合并所有内容
+3. 生成包含提取内容的独立 HTML 文档
+4. 输出新的临时文件路径
+
+**保存输出**：
+- 记录提取后的文件路径：`EXTRACTED_CONTENT_PATH`
+
+**错误处理**：
+- 如果选择器无效，提示用户：
+  - 使用智能分析功能（模式2）
+  - 手动输入其他选择器
+  - 使用剪贴板模式
+
+### 第 4 步：清理 HTML
+
+与[模式3的第1.5步](#第-15-步清理-html去除无用属性)相同，但使用 `EXTRACTED_CONTENT_PATH` 而不是剪贴板文件路径。
+
+### 第 5 步：智能转换为 Markdown
+
+与[模式3的第2步](#第-2-步智能转换为-markdown)相同
+
+### 第 6 步：提取标题并生成文件名
+
+与[模式3的第4步](#第-4-步提取标题并生成文件名)相同，但可以优先使用 URL 的文件名部分。
+
+### 第 7 步：确认保存路径
+
+与[模式3的第5步](#第-5-步确认保存路径)相同
+
+### 第 8 步：保存到文件
+
+与[模式3的第6步](#第-6-步保存到文件)相同
+
+### 第 9 步：清理临时文件
+
+与[模式3的第7步](#第-7-步清理临时文件)相同，但要清理两个临时文件：`DOWNLOADED_HTML_PATH` 和 `EXTRACTED_CONTENT_PATH`
+
+---
+
+## 模式2：URL 智能分析工作流程
+
+**触发条件**：用户只提供了 `--html_url` 参数，未提供 `--html_main_content_tag`
+
+### 第 1 步：检查 Python 依赖
+
+与[模式3的第0步](#第-0-步检查并安装-python-依赖)相同
+
+### 第 2 步：从 URL 下载 HTML
+
+与[模式1的第2步](#第-2-步从-url-下载-html)相同
+
+### 第 3 步：查找正文标签库规则
+
+**首先尝试从标签库查找匹配规则**：
+
+1. 解析 URL 获取域名（如 `mp.weixin.qq.com`）
+2. 读取标签库文件：`${SKILL_DIR}/content-tag-rules.json`
+3. 查找匹配的域名规则
+4. 如果找到匹配规则，按优先级排序，选择优先级最高的
+5. 如果找到规则，使用该规则的选择器，跳转到[模式1的第3步](#第-3-步提取正文内容)
+
+### 第 4 步：智能分析正文标签（如果标签库中未找到）
+
+使用 `analyze_tags.py` 脚本智能分析可能的正文标签：
+
+```bash
+python "${SKILL_DIR}/scripts/analyze_tags.py" "${DOWNLOADED_HTML_PATH}" 5
+```
+
+脚本会：
+1. 分析 HTML 结构，找出所有可能的正文容器
+2. 使用多维度评分算法（文本长度、链接密度、段落数、标签名、属性关键词）
+3. 过滤掉明显的导航、页脚等非正文元素
+4. 返回评分最高的 5 个候选标签
+
+**输出格式**（JSON）：
+```json
+{
+  "candidates": [
+    {
+      "selector": "article",
+      "score": 85,
+      "stats": {
+        "text_length": 2341,
+        "link_count": 3,
+        "link_ratio": 0.08,
+        "paragraph_count": 8,
+        "tag_name": "article"
+      },
+      "preview": "这是正文内容的预览..."
+    }
+  ]
+}
+```
+
+### 第 5 步：用户选择标签
+
+使用 AskUserQuestion 工具展示候选标签：
+
+```javascript
+{
+  "questions": [
+    {
+      "question": "请选择正文内容所在的标签（按得分排序）",
+      "header": "正文标签选择",
+      "multiSelect": false,
+      "options": [
+        {
+          "label": "article (得分: 85)",
+          "description": "包含 8 个段落，约 2341 字，预览：这是正文内容的预览..."
+        },
+        {
+          "label": "#main-content (得分: 72)",
+          "description": "包含 5 个段落，约 1823 字"
+        },
+        {
+          "label": ".post-content (得分: 65)",
+          "description": "包含 4 个段落，约 1521 字"
+        },
+        {
+          "label": "其他（手动输入选择器）",
+          "description": "如果您知道准确的 CSS 选择器，可以选择此项后手动输入"
+        }
+      ]
+    },
+    {
+      "question": "是否将此标签保存到正文标签库？",
+      "header": "保存规则",
+      "multiSelect": false,
+      "options": [
+        {
+          "label": "是，保存规则",
+          "description": "将此网站的标签规则保存，下次访问相同域名时自动使用"
+        },
+        {
+          "label": "否，仅本次使用",
+          "description": "不保存规则，仅本次转换使用"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**注意事项**：
+- 如果用户选择"其他"，需要进一步询问具体的 CSS 选择器
+- 选项中应显示详细的得分统计和内容预览
+- 预览文本限制在 100 字符以内
+
+### 第 6 步：保存标签规则（如果用户选择）
+
+如果用户选择保存规则到标签库：
+
+1. 读取现有的 `content-tag-rules.json`
+2. 解析 URL 获取域名
+3. 添加新规则到 `rules` 数组：
+```json
+{
+  "domain": "example.com",
+  "domain_pattern": "*",
+  "selector": "用户选择的选择器",
+  "description": "用户添加的规则",
+  "priority": 95,
+  "verified": true
+}
+```
+4. 更新 `last_updated` 字段为当前日期
+5. 保存回 `content-tag-rules.json`
+
+**注意**：
+- 用户添加的规则优先级设置为 95（高于默认规则，低于预置规则）
+- 设置 `verified: true` 表示用户确认过
+
+### 第 7 步：继续执行模式1的流程
+
+使用用户选择的标签，继续执行[模式1的第3步](#第-3-步提取正文内容)及后续步骤。
+
+---
+
+## 模式3：剪贴板工作流程
+
+**触发条件**：用户未提供任何参数（现有功能）
+
+此部分为现有的剪贴板转 Markdown 流程，保持不变。
+
+
 
 ### 必须做到
 1. **内容一字不差**：所有正文文字必须完整保留
@@ -521,3 +794,107 @@ print("Hello, World!")
 ````
 
 注意：所有文字内容都完整保留，结构清晰，格式规范。
+
+---
+
+## 正文标签库管理
+
+### 标签规则库位置
+
+`${SKILL_DIR}/content-tag-rules.json`
+
+### 规则库结构
+
+```json
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-24",
+  "rules": [
+    {
+      "domain": "mp.weixin.qq.com",
+      "domain_pattern": "*",
+      "selector": "#img-content",
+      "description": "微信公众号文章",
+      "priority": 100,
+      "verified": true
+    }
+  ]
+}
+```
+
+**字段说明**：
+- `domain`: 网站域名（如 `mp.weixin.qq.com`）
+- `domain_pattern`: 域名匹配模式（`*` 表示通配符）
+- `selector`: CSS 选择器（如 `#img-content`, `.content`, `article`）
+- `description`: 规则描述
+- `priority`: 优先级（数值越大越优先，预置规则通常 85-100，用户规则 95）
+- `verified`: 是否经过验证（`true` 表示人工确认过）
+
+### 域名匹配逻辑
+
+当用户提供 URL 时，系统按以下顺序查找标签规则：
+
+1. **精确匹配**：查找 `domain` 字段与 URL 域名完全一致的规则
+2. **通配符匹配**：查找 `domain` 为 `*` 的通用规则
+3. **优先级排序**：如果有多个规则匹配，选择 `priority` 最高的
+4. **返回选择器**：使用选中规则的 `selector` 字段
+
+### 手动添加规则
+
+用户可以直接编辑 `content-tag-rules.json` 添加新规则：
+
+1. 打开文件：`${SKILL_DIR}/content-tag-rules.json`
+2. 在 `rules` 数组中添加新规则对象
+3. 调整字段值：
+   - 修改 `domain` 为目标网站域名
+   - 修改 `selector` 为正确的 CSS 选择器
+   - 修改 `description` 为规则描述
+   - 设置 `priority`（建议 85-100）
+   - 设置 `verified: true`
+4. 保存文件
+
+**示例**：
+```json
+{
+  "domain": "example.com",
+  "domain_pattern": "*",
+  "selector": "article",
+  "description": "Example.com 博客文章",
+  "priority": 90,
+  "verified": true
+}
+```
+
+### 常用 CSS 选择器示例
+
+- **ID 选择器**：`#content`, `#main`, `#article`
+- **类选择器**：`.content`, `.post-content`, `.article-body`
+- **标签选择器**：`article`, `main`, `section`
+- **组合选择器**：`article.post`, `div#main-content`
+- **属性选择器**：`[role="main"]`, `[itemprop="articleBody"]`
+
+### 预置网站列表
+
+当前预置的网站规则：
+
+| 域名 | 选择器 | 描述 |
+|------|--------|------|
+| mp.weixin.qq.com | `#img-content` | 微信公众号文章 |
+| zhihu.com | `.Post-RichText` | 知乎回答 |
+| zhuanlan.zhihu.com | `.Post-RichText` | 知乎专栏文章 |
+| juejin.cn | `article` | 掘金文章 |
+| csdn.net | `#content_views` | CSDN 博客 |
+| segmentfault.com | `article` | SegmentFault 文章 |
+| jianshu.com | `article` | 简书文章 |
+
+### 通用规则
+
+当找不到特定域名规则时，系统会尝试以下通用规则（按优先级排序）：
+
+1. `article` (优先级 50) - HTML5 语义化标签
+2. `main` (优先级 45) - 主内容区域
+3. `.article-content` (优先级 43) - 文章内容类
+4. `.post-content` (优先级 42) - 帖子内容类
+5. `.content` (优先级 40) - 通用内容类
+6. `#content` (优先级 40) - 通用内容 ID
+

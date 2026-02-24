@@ -17,7 +17,7 @@ const fs = require('fs');
 const os = require('os');
 
 // 技能名称
-const skillName = 'clipboard-to-markdown';
+const skillName = 'to-markdown';
 
 // 解析命令行参数
 const args = process.argv.slice(2);
@@ -107,7 +107,7 @@ try {
         // 全局卸载
         const homeDir = os.homedir();
 
-        // 1. 清理规范副本目录（.agents/skills/clipboard-to-markdown）
+        // 1. 清理规范副本目录（.agents/skills/to-markdown）
         const canonicalResult = safeRemovePath(
             path.join(homeDir, '.agents', 'skills', skillName),
             '规范副本'

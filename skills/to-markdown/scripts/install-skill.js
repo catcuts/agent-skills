@@ -26,7 +26,7 @@ const packageRoot = path.resolve(__dirname, '..');
 const homeDir = os.homedir();
 
 // 技能名称
-const skillName = 'clipboard-to-markdown';
+const skillName = 'to-markdown';
 
 // 需要清理的路径列表
 const pathsToClean = {
@@ -128,7 +128,7 @@ function cleanOldInstallations() {
 
     const results = [];
 
-    // 1. 清理规范副本目录（.agents/skills/clipboard-to-markdown）
+    // 1. 清理规范副本目录（.agents/skills/to-markdown）
     const canonicalResult = safeRemovePath(
         pathsToClean.canonical,
         '规范副本'
@@ -222,7 +222,7 @@ try {
 
     log('\n安装成功!', 'success');
     log(
-        `Skill 已安装到: ${isGlobal ? '~/.claude/skills/clipboard-to-markdown' : '.claude/skills/clipboard-to-markdown'}`,
+        `Skill 已安装到: ${isGlobal ? '~/.claude/skills/to-markdown' : '.claude/skills/to-markdown'}`,
         'info'
     );
 

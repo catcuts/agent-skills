@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-02-24",
+  "rules": [
+    {
+      "domain": "mp.weixin.qq.com",
+      "domain_pattern": "*",
+      "selector": "#img-content",
+      "description": "微信公众号文章",
+      "priority": 100,
+      "verified": true
+    },
+    {
+      "domain": "zhihu.com",
+      "domain_pattern": "*",
+      "selector": ".Post-RichText",
+      "description": "知乎回答",
+      "priority": 90,
+      "verified": true
+    },
+    {
+      "domain": "zhuanlan.zhihu.com",
+      "domain_pattern": "*",
+      "selector": ".Post-RichText",
+      "description": "知乎专栏文章",
+      "priority": 90,
+      "verified": true
+    },
+    {
+      "domain": "juejin.cn",
+      "domain_pattern": "*",
+      "selector": "article",
+      "description": "掘金文章",
+      "priority": 90,
+      "verified": true
+    },
+    {
+      "domain": "csdn.net",
+      "domain_pattern": "*",
+      "selector": "#content_views",
+      "description": "CSDN 博客",
+      "priority": 85,
+      "verified": true
+    },
+    {
+      "domain": "segmentfault.com",
+      "domain_pattern": "*",
+      "selector": "article",
+      "description": "SegmentFault 文章",
+      "priority": 85,
+      "verified": true
+    },
+    {
+      "domain": "jianshu.com",
+      "domain_pattern": "*",
+      "selector": "article",
+      "description": "简书文章",
+      "priority": 85,
+      "verified": true
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": "article",
+      "description": "通用 article 标签",
+      "priority": 50,
+      "verified": false
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": "main",
+      "description": "通用 main 标签",
+      "priority": 45,
+      "verified": false
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": ".content",
+      "description": "通用 .content 类",
+      "priority": 40,
+      "verified": false
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": "#content",
+      "description": "通用 #content ID",
+      "priority": 40,
+      "verified": false
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": ".post-content",
+      "description": "通用 .post-content 类",
+      "priority": 42,
+      "verified": false
+    },
+    {
+      "domain": "*",
+      "domain_pattern": "*",
+      "selector": ".article-content",
+      "description": "通用 .article-content 类",
+      "priority": 43,
+      "verified": false
+    }
+  ]
+}
