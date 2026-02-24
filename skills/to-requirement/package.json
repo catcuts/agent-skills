@@ -1,0 +1,45 @@
+{
+    "name": "@catcuts-skills/to-requirement",
+    "version": "1.0.0",
+    "description": "从文章、文档中智能提炼需求并挖掘潜在需求的技能。输入任意文章文件路径，自动提取显性需求（功能级+系统级），并从技术实现、用户体验、商业价值、风险合规等多维度挖掘隐性需求。",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js || exit 0",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local",
+        "uninstall:global": "node scripts/uninstall-skill.js --global",
+        "uninstall:local": "node scripts/uninstall-skill.js --local",
+        "lint": "echo 'Add your linting commands here'"
+    },
+    "files": [
+        "SKILL.md",
+        "assets/",
+        "references/",
+        "scripts/"
+    ],
+    "keywords": [
+        "claude-code",
+        "skill",
+        "requirement",
+        "requirement-mining",
+        "product-management",
+        "需求分析",
+        "需求挖掘"
+    ],
+    "author": "catcuts",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/catcuts/agent-skills.git",
+        "directory": "skills/to-requirement"
+    },
+    "bugs": {
+        "url": "https://github.com/catcuts/agent-skills/issues"
+    },
+    "homepage": "https://github.com/catcuts/agent-skills/tree/main/skills/to-requirement#readme",
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
