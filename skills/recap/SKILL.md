@@ -1,52 +1,52 @@
 ---
 name: recap
-description: Generate comprehensive daily activity reports from multiple sources. Includes (1) Claude Code usage analysis from history.jsonl showing session count, interaction frequency, active time ranges, and project-based grouping; (2) Chrome browser history analysis showing visited sites, categories, and time-based activity breakdown. Use when user asks "what did I do yesterday/last week", "show my activity history", "recap my work", "check my browser history", "what websites did I visit", or needs to review usage patterns from either Claude Code or Chrome browser.
+description: 生成综合日常活动报告，支持多种数据源分析。包括 (1) Claude Code 使用历史分析，从 history.jsonl 提取会话数、交互频率、活跃时段和项目分组信息；(2) Chrome 浏览器历史分析，显示访问的网站、类别和时段分布。当用户问"我昨天/上周做了什么"、"显示我的活动历史"、"回顾我的工作"、"查看我的浏览器历史"、"我访问了哪些网站"，或需要回顾 Claude Code 或 Chrome 浏览器的使用模式时使用此技能。
 ---
 
-# Daily Activity Recap
+# 日常活动回顾
 
-Generate comprehensive activity reports from multiple data sources to review your work and browsing patterns.
+从多种数据源生成综合活动报告，帮助您回顾工作模式和浏览习惯。
 
-## Overview
+## 概述
 
-This skill provides two types of activity reports:
+此技能提供两种类型的活动报告：
 
-1. **Claude Code Activity Report** - Analyzes your Claude Code usage sessions
-2. **Browser History Report** - Analyzes Chrome browser browsing activity
+1. **Claude Code 活动报告** - 分析您的 Claude Code 使用会话
+2. **浏览器历史报告** - 分析 Chrome 浏览器浏览活动
 
-## Claude Code Activity Report
+## Claude Code 活动报告
 
-Analyze Claude Code usage history from `history.jsonl`.
+分析 `history.jsonl` 中的 Claude Code 使用历史。
 
-### Quick Start
+### 快速开始
 
-Generate a report for yesterday (default):
+生成昨天的报告（默认）：
 
 ```bash
 python scripts/recap.py
 ```
 
-Generate a report for a specific date:
+生成指定日期的报告：
 
 ```bash
 python scripts/recap.py 2026-02-24
 ```
 
-### Report Contents
+### 报告内容
 
-- **Statistics overview**: Total sessions, interaction count, active time range
-- **Activity by project**: All sessions grouped by project directory
-- **Detailed timeline**: Each interaction with timestamp
+- **统计概览**：总会话数、交互次数、活跃时段
+- **按项目分组**：按项目目录分组的所有会话
+- **详细时间线**：每次交互的时间戳
 
-### Script Location
+### 脚本位置
 
-The `scripts/recap.py` script automatically locates `history.jsonl` at:
+`scripts/recap.py` 脚本会自动定位以下位置的 `history.jsonl`：
 - `~/.claude/history.jsonl` (Linux/Mac)
 - `~/AppData/Roaming/Claude/history.jsonl` (Windows)
 
-### Output Format
+### 输出格式
 
-Reports use Markdown format with emoji indicators for readability:
+报告使用 Markdown 格式，带 emoji 指示符以提高可读性：
 
 ```markdown
 ## 📅 Claude Code 活动报告 - 2026-02-24
@@ -58,68 +58,68 @@ Reports use Markdown format with emoji indicators for readability:
 
 ### 📁 /path/to/project
 **会话 abc12345** (5 次交互)
-  [09:15:28] User message here
-  [09:20:31] Another interaction
+  [09:15:28] 用户消息内容
+  [09:20:31] 另一次交互
 ```
 
-## Browser History Report
+## 浏览器历史报告
 
-Analyze Chrome browser history from all active Chrome profiles.
+从所有活跃的 Chrome 配置文件分析 Chrome 浏览器历史。
 
-### Quick Start
+### 快速开始
 
-Generate a report for yesterday (default):
+生成昨天的报告（默认）：
 
 ```bash
 python scripts/browser_history.py
 ```
 
-Generate a report for a specific date:
+生成指定日期的报告：
 
 ```bash
 python scripts/browser_history.py 2026-02-24
 ```
 
-Generate a report for today:
+生成今天的报告：
 
 ```bash
 python scripts/browser_history.py today
 ```
 
-### Report Contents
+### 报告内容
 
-- **Profile detection**: Automatically finds all Chrome profiles (Default, Profile 3, etc.)
-- **Visit statistics**: Total visit count, time distribution
-- **Categorized activity**: Groups visits by category (GitHub, Google, local servers, etc.)
-- **Time-based breakdown**: Shows activity by morning/afternoon/evening/night
+- **配置文件检测**：自动查找所有 Chrome 配置文件（Default、Profile 3 等）
+- **访问统计**：总访问次数、时间分布
+- **分类活动**：按类别分组访问记录（GitHub、Google、本地服务器等）
+- **时段分布**：按上午/下午/晚上/深夜显示活动
 
-### Browser History Locations
+### 浏览器历史位置
 
-The script automatically checks these paths:
+脚本会自动检查以下路径：
 
-**Chrome**:
-- `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Default\History`
-- `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Profile 3\History`
-- `C:\Users\<username>\AppData\Local\Google\Chrome\User Data\Profile 4\History`
-- etc.
+**Chrome**：
+- `C:\Users\<用户名>\AppData\Local\Google\Chrome\User Data\Default\History`
+- `C:\Users\<用户名>\AppData\Local\Google\Chrome\User Data\Profile 3\History`
+- `C:\Users\<用户名>\AppData\Local\Google\Chrome\User Data\Profile 4\History`
+- 等等
 
-**Edge** (not yet fully implemented):
-- `C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default\History`
+**Edge**（尚未完全实现）：
+- `C:\Users\<用户名>\AppData\Local\Microsoft\Edge\User Data\Default\History`
 
-### Important Notes
+### 重要提示
 
-1. **Locked profiles**: If Chrome is currently running, the active profile's history file will be locked. The script will skip locked profiles and report which ones couldn't be read.
+1. **配置文件锁定**：如果 Chrome 当前正在运行，活动配置文件的历史文件将被锁定。脚本会跳过锁定的配置文件并报告哪些文件无法读取。
 
-2. **Close Chrome first**: For complete history including the currently active profile, close all Chrome windows before running the script.
+2. **先关闭 Chrome**：要获取包括当前活动配置文件在内的完整历史，请在运行脚本前关闭所有 Chrome 窗口。
 
-3. **Automatic categorization**: Visits are automatically categorized by domain:
-   - GitHub, GitLab, NPM
-   - Google services (Cloud, Gemini, etc.)
-   - Local development servers (localhost)
-   - Social media (X/Twitter, LinkedIn, YouTube)
-   - And more
+3. **自动分类**：访问记录会按域名自动分类：
+   - GitHub、GitLab、NPM
+   - Google 服务（Cloud、Gemini 等）
+   - 本地开发服务器（localhost）
+   - 社交媒体（X/Twitter、LinkedIn、YouTube）
+   - 以及更多
 
-### Output Format
+### 输出格式
 
 ```markdown
 📱 浏览器活动报告 - 2026-02-24
@@ -142,23 +142,23 @@ The script automatically checks these paths:
     ...
 ```
 
-## Implementation Notes
+## 实现说明
 
 ### recap.py
 
-The script:
-1. Parses JSONL format from `history.jsonl`
-2. Converts millisecond timestamps to readable dates
-3. Groups activities by `sessionId`
-4. Supports cross-platform execution (Windows/Linux/Mac)
-5. Handles UTF-8 encoding for international characters
+脚本功能：
+1. 从 `history.jsonl` 解析 JSONL 格式
+2. 将毫秒时间戳转换为可读日期
+3. 按 `sessionId` 分组活动
+4. 支持跨平台执行（Windows/Linux/Mac）
+5. 处理国际字符的 UTF-8 编码
 
 ### browser_history.py
 
-The script:
-1. Scans all Chrome profile directories
-2. Copies locked history files to temp location for safe reading
-3. Converts Chrome timestamps (microseconds since 1601-01-01) to readable dates
-4. Categorizes URLs by domain patterns
-5. Groups activity by time periods (morning/afternoon/evening/night)
-6. Handles permission errors gracefully for locked profiles
+脚本功能：
+1. 扫描所有 Chrome 配置文件目录
+2. 将锁定历史文件复制到临时位置以安全读取
+3. 转换 Chrome 时间戳（自 1601-01-01 起的微秒数）为可读日期
+4. 按域名模式对 URL 分类
+5. 按时段分组活动（上午/下午/晚上/深夜）
+6. 优雅处理锁定配置文件的权限错误
