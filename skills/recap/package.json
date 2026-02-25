@@ -1,0 +1,44 @@
+{
+    "name": "@catcuts-skills/recap",
+    "version": "1.0.0",
+    "description": "Generate comprehensive daily activity reports from multiple sources. Includes (1) Claude Code usage analysis from history.jsonl showing session count, interaction frequency, active time ranges, and project-based grouping; (2) Chrome browser history analysis showing visited sites, categories, and time-based activity breakdown.",
+    "main": "index.js",
+    "scripts": {
+        "postinstall": "node scripts/install-skill.js",
+        "preuninstall": "node scripts/uninstall-skill.js || exit 0",
+        "test": "node scripts/install-skill.js --dry-run",
+        "install:global": "node scripts/install-skill.js --global",
+        "install:local": "node scripts/install-skill.js --local",
+        "uninstall:global": "node scripts/uninstall-skill.js --global",
+        "uninstall:local": "node scripts/uninstall-skill.js --local",
+        "lint": "echo 'Add your linting commands here'"
+    },
+    "files": [
+        "SKILL.md",
+        "scripts/"
+    ],
+    "keywords": [
+        "claude-code",
+        "skill",
+        "activity-report",
+        "usage-tracking",
+        "history-analysis",
+        "browser-history",
+        "productivity",
+        "活动报告"
+    ],
+    "author": "catcuts",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/catcuts/agent-skills.git",
+        "directory": "skills/recap"
+    },
+    "bugs": {
+        "url": "https://github.com/catcuts/agent-skills/issues"
+    },
+    "homepage": "https://github.com/catcuts/agent-skills/tree/main/skills/recap#readme",
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
