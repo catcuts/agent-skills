@@ -1,0 +1,197 @@
+#!/usr/bin/env node
+/**
+ * 使用 Playwright 下载 HTML（备用方案）
+ *
+ * 支持环境变量配置：
+ * - PLAYWRIGHT_HEADLESS=false - 显示浏览器窗口（调试用）
+ * - PLAYWRIGHT_PROXY=http://host:port - 使用代理
+ * - PLAYWRIGHT_TIMEOUT=60000 - 超时时间（毫秒）
+ * - COOKIE_<域名> - Cookie（域名中的 . 替换为 _）
+ *   例如：COOKIE_x_com、COOKIE_twitter_com
+ */
+
+import { chromium } from 'playwright';
+import fs from 'fs/promises';
+import os from 'os';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * 从 URL 中提取域名
+ */
+function extractDomain(url) {
+    try {
+        const urlObj = new URL(url);
+        return urlObj.hostname; // 例如：x.com, twitter.com
+    } catch (e) {
+        return null;
+    }
+}
+
+/**
+ * 根据域名获取 Cookie 环境变量名
+ */
+function getCookieEnvName(domain) {
+    if (!domain) return null;
+    // 将域名中的 . 替换为 _，例如：x.com -> x_com, twitter.com -> twitter_com
+    return `COOKIE_${domain.replace(/\./g, '_')}`;
+}
+
+/**
+ * 使用 Playwright 下载 HTML
+ */
+async function downloadWithPlaywright(url) {
+    const headless = process.env.PLAYWRIGHT_HEADLESS !== 'false';
+    const timeout = parseInt(process.env.PLAYWRIGHT_TIMEOUT || '60000', 10);
+    const proxy = process.env.PLAYWRIGHT_PROXY || null;
+
+    // 检查是否有 Cookie
+    const domain = extractDomain(url);
+    const cookieEnvName = getCookieEnvName(domain);
+    const cookie = process.env[cookieEnvName];
+
+    if (domain) {
+        if (cookie) {
+            process.stderr.write(`[Cookie] 找到环境变量 ${cookieEnvName}\n`);
+            process.stderr.write(`[Cookie] 使用 Cookie: ${cookie.substring(0, 50)}...\n`);
+        } else {
+            process.stderr.write(`[Cookie] 未找到环境变量 ${cookieEnvName}，不使用 Cookie\n`);
+        }
+    }
+
+    // 启动浏览器配置
+    const launchOptions = {
+        headless,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    };
+
+    // 如果配置了代理
+    if (proxy) {
+        process.stderr.write(`[Playwright] 使用代理: ${proxy}\n`);
+        launchOptions.proxy = { server: proxy };
+    }
+
+    const browser = await chromium.launch(launchOptions);
+
+    // 创建上下文
+    const contextOptions = {
+        viewport: { width: 1920, height: 1080 },
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+    };
+
+    // 如果有 Cookie，添加到上下文
+    if (cookie && domain) {
+        // 解析 Cookie 字符串，格式通常为：name1=value1; name2=value2
+        const cookies = cookie.split(';').map(c => {
+            const [name, value] = c.trim().split('=');
+            return {
+                name: name,
+                value: value || '',
+                domain: domain,
+                path: '/'
+            };
+        }).filter(c => c.name); // 过滤掉空的 cookie
+
+        if (cookies.length > 0) {
+            contextOptions.cookies = cookies;
+        }
+    }
+
+    const context = await browser.newContext(contextOptions);
+
+    const page = await context.newPage();
+
+    try {
+        process.stderr.write(`[Playwright] 正在访问: ${url}\n`);
+        await page.goto(url, {
+            waitUntil: 'domcontentloaded',
+            timeout
+        });
+        process.stderr.write('[Playwright] 页面加载成功，等待内容渲染...\n');
+
+        // 等待页面稳定（等待 JavaScript 渲染完成）
+        await page.waitForTimeout(3000);
+
+        // 尝试等待常见的内容元素（最多等待 5 秒）
+        try {
+            await page.waitForSelector('article, main, .content, #content, body', {
+                timeout: 5000
+            });
+        } catch {
+            // 忽略，继续执行
+        }
+
+        // 获取完整 HTML
+        const html = await page.content();
+        process.stderr.write(`[Playwright] 下载完成，HTML 大小: ${(html.length / 1024).toFixed(2)} KB\n`);
+
+        return html;
+
+    } finally {
+        await browser.close();
+    }
+}
+
+/**
+ * 保存到临时文件
+ */
+async function saveToTempFile(html, prefix = 'downloaded_html') {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+    const randomSuffix = Math.random().toString(36).substring(2, 6);
+    const filename = `${prefix}_${timestamp}_${randomSuffix}.html`;
+
+    // 使用系统临时目录
+    const tempDir = os.tmpdir();
+    const tempPath = path.join(tempDir, filename);
+
+    await fs.writeFile(tempPath, html, 'utf-8');
+
+    return tempPath;
+}
+
+/**
+ * 主函数
+ */
+async function main() {
+    const url = process.argv[2];
+
+    if (!url) {
+        process.stderr.write('ERROR: URL is required\n');
+        process.stderr.write('Usage: node download_html_playwright.js <URL>\n');
+        process.exit(1);
+    }
+
+    // 验证 URL 格式
+    try {
+        new URL(url);
+    } catch {
+        process.stderr.write(`ERROR: Invalid URL: ${url}\n`);
+        process.exit(1);
+    }
+
+    try {
+        // 下载 HTML
+        const html = await downloadWithPlaywright(url);
+
+        // 保存到临时文件
+        const tempPath = await saveToTempFile(html);
+
+        // 输出临时文件路径到 stdout
+        console.log(tempPath);
+        // 输出 URL 到 stderr
+        process.stderr.write(`URL:${url}\n`);
+
+    } catch (error) {
+        process.stderr.write(`ERROR: ${error.message}\n`);
+        process.exit(1);
+    }
+}
+
+// 运行主函数
+main().catch(error => {
+    process.stderr.write(`ERROR: ${error.message}\n`);
+    process.exit(1);
+});

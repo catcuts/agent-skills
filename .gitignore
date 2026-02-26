@@ -5,3 +5,4 @@ node_modules/
 ref/*
 !ref/agent-skill-npm-boilerplate@catcuts/
 .claude/
+__pycache__

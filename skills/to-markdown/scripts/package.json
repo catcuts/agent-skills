@@ -1,0 +1,14 @@
+{
+  "name": "to-markdown-scripts",
+  "version": "1.0.0",
+  "description": "Support scripts for to-markdown skill",
+  "scripts": {
+    "install:playwright": "playwright install chromium"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}

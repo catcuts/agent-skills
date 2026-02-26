@@ -65,7 +65,7 @@ description: 将剪贴板中的 HTML 网页内容转换为结构化的 Markdown 
 
 ## 前置检查
 
-**在开始工作流程之前，必须先检查 Python 依赖是否满足。**
+**在开始工作流程之前，必须先检查依赖是否满足。**
 
 首先确定此 SKILL.md 所在目录为 `SKILL_DIR`。
 
@@ -97,6 +97,61 @@ pip install beautifulsoup4 pyperclip --index-url https://pypi.org/simple/
 | `pyperclip` | 跨平台剪贴板访问（备用） |
 
 **注意**：即使依赖安装失败，技能仍可使用备用方法（PowerShell/系统命令）获取剪贴板内容，只是无法进行 HTML 清理。
+
+### 第 0.5 步：依赖说明（自动安装）
+
+**重要提示**：agent-browser skill 和 Playwright 都是**可选依赖**，系统会在需要时**自动安装**，无需手动操作。
+
+**自动安装机制**：
+
+- 当 urllib 检测到反爬限制时，系统会自动尝试使用 agent-browser skill
+- 如果 agent-browser skill 未安装，系统会自动执行：
+  ```bash
+  npx skills add vercel-labs/agent-browser --skill "agent-browser" -y
+  ```
+- 如果 agent-browser skill 不可用或失败，系统会自动尝试使用 Playwright
+- 如果 Playwright 未安装，系统会自动执行：
+  ```bash
+  cd "${SKILL_DIR}/scripts"
+  npm install
+  npx playwright install chromium
+  ```
+
+**可选依赖说明**：
+
+| 依赖 | 版本要求 | 用途 | 安装方式 | 首次安装时间 |
+|------|---------|------|---------|-------------|
+| agent-browser skill | 任意 | 浏览器自动化（第二降级方案） | 自动安装 | ~1 分钟 |
+| Node.js | >= 18.0.0 | 运行 Playwright 脚本 | 需手动安装 | - |
+| Playwright | ^1.48.0 | 浏览器自动化（第三降级方案） | 自动安装 | ~5-15 分钟 |
+
+**手动检查**（可选）：
+
+如果你想手动检查这些依赖是否已安装：
+
+```bash
+# 检查 agent-browser skill
+ls ~/.claude/skills/ | grep agent-browser
+
+# 检查 Node.js
+node --version
+
+# 检查 Playwright
+cd "${SKILL_DIR}/scripts"
+test -d node_modules/playwright && echo "Playwright 已安装" || echo "Playwright 未安装"
+```
+
+**降级策略说明**：
+
+当 URL 下载遇到反爬限制时，系统会按以下顺序自动尝试：
+1. **首选**：urllib.request（轻量快速）
+2. **第二方案**：agent-browser skill（自动安装）
+3. **第三方案**：Playwright（自动安装）
+
+**注意**：
+- 对于剪贴板模式（模式3），完全不需要这些依赖
+- 首次使用自动安装时需要等待几分钟，请耐心等待
+- 如果自动安装失败，系统会继续尝试下一个方案
 
 ## 工作流程路由
 
@@ -503,19 +558,47 @@ powershell -command "Remove-Item 'C:\Users\catcuts\AppData\Local\Temp\clipboard_
 python "${SKILL_DIR}/scripts/download_html.py" "<URL>"
 ```
 
-脚本会：
-1. 下载指定 URL 的 HTML 内容
-2. 自动检测编码（默认 UTF-8）
-3. 保存到唯一的临时文件
-4. 输出临时文件路径
+**智能自动降级与自动安装**：
+
+脚本采用**三级自动降级**策略，并会**自动安装**所需依赖：
+
+1. **首选方案**：urllib.request
+   - 优点：快速、轻量、无依赖
+   - 适用：大多数普通网站
+
+2. **第二方案**：agent-browser skill（自动安装）
+   - 触发：检测到反爬限制
+   - 自动安装：如果未安装，自动执行 `npx skills add vercel-labs/agent-browser --skill "agent-browser" -y`
+   - 优点：强大的浏览器自动化
+   - 超时：3 分钟安装超时
+
+3. **第三方案**：Playwright（自动安装）
+   - 触发：agent-browser 不可用或失败
+   - 自动安装：如果未安装，自动执行 `npm install` 和 `npx playwright install chromium`
+   - 代理支持：通过环境变量 `PLAYWRIGHT_PROXY` 配置
+   - 优点：完整的浏览器自动化功能
+   - 超时：15 分钟安装超时（npm 5 分钟 + 浏览器 10 分钟）
+
+**脚本会自动**：
+1. 检测反爬限制
+2. 按顺序尝试三种下载方案
+3. 自动安装缺失的依赖
+4. 显示详细的进度信息到 stderr
+5. 输出临时文件路径到 stdout
+6. 输出使用的方法（METHOD 字段）到 stderr
 
 **保存输出**：
-- 记录临时文件路径：`DOWNLOADED_HTML_PATH`
-- 从 stderr 中读取的 URL 信息可用于后续匹配标签规则
+- 临时文件路径：`DOWNLOADED_HTML_PATH`（从 stdout 读取）
+- 使用的方法：从 stderr 读取 `METHOD` 字段（`urllib`、`agent_browser` 或 `playwright`）
 
 **错误处理**：
-- 如果下载失败，提示用户检查网络连接或使用剪贴板模式
-- 如果 URL 无效，提示用户输入正确的 URL
+- 如果所有方案都失败，脚本会输出错误信息并返回退出码 1
+- stderr 会显示详细的降级过程和错误信息
+
+**注意**：
+- 首次使用 agent-browser skill 或 Playwright 时会自动安装，可能需要等待几分钟
+- 安装过程会显示进度，请耐心等待
+- 如果自动安装失败，脚本会继续尝试下一个方案
 
 ### 第 3 步：提取正文内容
 
@@ -794,6 +877,188 @@ print("Hello, World!")
 ````
 
 注意：所有文字内容都完整保留，结构清晰，格式规范。
+
+---
+
+## 反爬限制处理
+
+当访问某些网站（如 x/Twitter、LinkedIn 等）时，可能会遇到反爬虫限制。
+
+### 三级自动降级与自动安装策略
+
+系统采用**三级智能自动降级**策略，并会**自动安装**所需依赖：
+
+1. **首选方案**：urllib.request
+   - 优点：快速、资源占用低
+   - 适用：大多数普通网站
+   - 安装：无需安装
+
+2. **第二方案**：agent-browser skill（自动安装）
+   - 触发：检测到反爬限制时
+   - 自动安装：如果未安装，自动执行 `npx skills add vercel-labs/agent-browser --skill "agent-browser" -y`
+   - 优点：强大的浏览器自动化
+   - 安装时间：约 1 分钟
+
+3. **第三方案**：Playwright（自动安装）
+   - 触发：agent-browser 不可用或失败时
+   - 自动安装：如果未安装，自动执行 `npm install` 和 `npx playwright install chromium`
+   - 代理支持：通过环境变量 `PLAYWRIGHT_PROXY` 设置代理（可选）
+   - 优点：完整的浏览器自动化功能
+   - 安装时间：约 5-15 分钟
+
+### 工作流程
+
+整个降级和安装过程完全自动化，无需用户干预：
+
+```
+download_html.py (urllib)
+    ↓
+检测到反爬限制？
+    ↓ 是
+    检查 agent-browser skill
+    ↓
+    未安装？→ 自动安装（~1 分钟）
+    ↓
+    使用 agent-browser 下载
+    ↓
+    成功？─────────→ 返回 HTML
+    ↓ 否
+    检查 Playwright
+    ↓
+    未安装？→ 自动安装（~5-15 分钟）
+    ↓
+    使用 Playwright 下载
+    ↓
+    成功？─────────→ 返回 HTML
+    ↓ 否
+    返回失败
+```
+
+### 反爬限制检测
+
+系统会自动检测以下情况：
+
+- HTTP 状态码：403（禁止）、429（过多请求）、503（服务不可用）
+- 内容过短：响应内容少于 1000 字符
+- 关键词检测：包含 CAPTCHA、Access Denied、Rate Limit 等关键词
+
+### 降级方案对比
+
+| 方案 | 速度 | 反爬能力 | 自动安装 | 首次安装时间 | 推荐度 |
+|------|------|---------|---------|-------------|--------|
+| urllib.request | < 1 秒 | 弱 | 无需安装 | 0 | ⭐⭐⭐ |
+| agent-browser | 2-5 秒 | 强 | ✓ 自动 | ~1 分钟 | ⭐⭐⭐⭐⭐ |
+| Playwright | 3-6 秒 | 最强 | ✓ 自动 | ~5-15 分钟 | ⭐⭐⭐⭐ |
+
+### 自动安装详情
+
+#### agent-browser skill 自动安装
+
+```bash
+npx skills add vercel-labs/agent-browser --skill "agent-browser" -y
+```
+
+- 安装位置：`~/.claude/skills/agent-browser`
+- 安装超时：3 分钟
+- 依赖：npm、网络连接
+
+#### Playwright 自动安装
+
+```bash
+cd "${SKILL_DIR}/scripts"
+npm install                    # 安装 npm 包（~5 分钟）
+npx playwright install chromium  # 下载浏览器（~10 分钟）
+```
+
+- 安装位置：`scripts/node_modules/`
+- 浏览器大小：约 300MB
+- 安装超时：15 分钟
+- 依赖：Node.js >= 18、网络连接
+
+
+### 环境变量配置（可选）
+
+**重要原则**：所有环境变量必须由**外部设置**，技能和脚本**只负责读取使用**，不会设置或修改任何环境变量。
+
+Playwright 支持通过环境变量自定义行为。
+
+**支持的环境变量**：
+
+| 环境变量 | 默认值 | 说明 |
+|---------|--------|------|
+| `PLAYWRIGHT_HEADLESS` | `true` | 设为 `false` 显示浏览器窗口（调试用） |
+| `PLAYWRIGHT_PROXY` | 无（不使用代理） | 代理服务器地址 |
+| `PLAYWRIGHT_TIMEOUT` | `60000` | 超时时间（毫秒） |
+| `COOKIE_<域名>` | 无（不使用 Cookie） | Cookie 字符串（域名中的 `.` 替换为 `_`） |
+
+**Cookie 配置规则**：
+
+Cookie 环境变量命名格式：`COOKIE_<域名>`（域名中的 `.` 替换为 `_`）
+
+- `x.com` → `COOKIE_x_com`
+- `twitter.com` → `COOKIE_twitter_com`
+- `mp.weixin.qq.com` → `COOKIE_mp_weixin_qq_com`
+
+**用户需要在外部设置环境变量**（示例）：
+
+```bash
+# Windows 用户在命令行设置
+set PLAYWRIGHT_HEADLESS=false
+set PLAYWRIGHT_PROXY=http://proxy.example.com:8080
+set COOKIE_x_com=name1=value1;name2=value2
+
+# macOS/Linux 用户在命令行设置
+export PLAYWRIGHT_HEADLESS=false
+export PLAYWRIGHT_PROXY=http://proxy.example.com:8080
+export COOKIE_x_com="name1=value1;name2=value2"
+```
+
+**注意**：
+- 环境变量必须在调用技能**之前**由用户在外部设置
+- 技能只会读取环境变量，**不会设置或修改**环境变量
+- 如果未设置，技能会使用默认值正常工作
+- Cookie 会自动应用于所有下载方式（urllib、agent-browser、Playwright）
+
+### 常见问题
+
+**Q: 首次使用需要等多久？**
+A: 如果遇到反爬网站，首次使用 agent-browser 需要约 1 分钟，首次使用 Playwright 需要约 5-15 分钟。后续使用会很快（已安装）。
+
+**Q: 可以手动提前安装吗？**
+A: 可以，但不是必须的。系统会在需要时自动安装。如果你想提前安装：
+
+```bash
+# 手动安装 agent-browser skill
+npx skills add vercel-labs/agent-browser --skill "agent-browser" -y
+
+# 手动安装 Playwright
+cd "${SKILL_DIR}/scripts"
+npm install
+npm run install:playwright
+```
+
+**Q: 如何确认使用了哪个方案？**
+A: 查看 stderr 中的 `METHOD` 字段：`urllib`、`agent_browser` 或 `playwright`。
+
+**Q: 自动安装失败怎么办？**
+A: 系统会继续尝试下一个方案。如果所有方案都失败，请检查：
+- 网络连接是否正常
+- npm 和 npx 是否可用（对于 agent-browser 和 Playwright）
+- Node.js 版本是否 >= 18（对于 Playwright）
+
+**Q: 这些方案会泄露隐私吗？**
+A: 不会。所有数据都在临时文件中处理，使用后立即删除。agent-browser 和 Playwright 都使用无头模式（默认），不会保存任何浏览历史或 cookies。
+
+**Q: 如何配置 Playwright 使用代理？**
+A: 在调用技能前，设置环境变量 `PLAYWRIGHT_PROXY` 为代理地址。技能会自动读取该环境变量。
+
+**Q: 如何为特定网站配置 Cookie？**
+A: 设置环境变量 `COOKIE_<域名>`，其中域名中的 `.` 替换为 `_`。例如：
+- 访问 x.com：设置 `COOKIE_x_com`
+- 访问 twitter.com：设置 `COOKIE_twitter_com`
+- 访问 mp.weixin.qq.com：设置 `COOKIE_mp_weixin_qq_com`
+
+技能会自动根据 URL 的域名查找对应的环境变量。
 
 ---
 
