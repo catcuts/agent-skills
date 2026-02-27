@@ -1,7 +1,7 @@
 {
-  "name": "to-markdown-scripts",
+  "name": "to-markdown-utils",
   "version": "1.0.0",
-  "description": "Support scripts for to-markdown skill",
+  "description": "Support utils for to-markdown skill",
   "scripts": {
     "install:playwright": "playwright install chromium"
   },

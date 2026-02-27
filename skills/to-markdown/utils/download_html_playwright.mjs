@@ -32,12 +32,59 @@ function extractDomain(url) {
 }
 
 /**
- * 根据域名获取 Cookie 环境变量名
+ * 获取 Cookie 环境变量名
  */
 function getCookieEnvName(domain) {
     if (!domain) return null;
-    // 将域名中的 . 替换为 _，例如：x.com -> x_com, twitter.com -> twitter_com
+    // 将域名中的 . 替换为 _，作为环境变量名
     return `COOKIE_${domain.replace(/\./g, '_')}`;
+}
+
+/**
+ * 加载网站配置
+ */
+function loadSiteConfig(url) {
+    try {
+        const configPath = path.join(__dirname, '..', 'site-configs.json');
+        const configContent = fs.readFileSync(configPath, 'utf-8');
+        const config = JSON.parse(configContent);
+
+        const domain = extractDomain(url);
+        if (domain && config.sites && config.sites[domain]) {
+            return config.sites[domain];
+        }
+    } catch (e) {
+        // 配置文件不存在或解析失败，返回 null
+    }
+    return null;
+}
+
+/**
+ * 滚动页面加载更多内容
+ */
+async function scrollPage(page, config) {
+    const scrollCount = config.scroll_count || 0;
+    const scrollWait = config.scroll_wait || 1000;
+
+    if (scrollCount === 0) {
+        return;
+    }
+
+    process.stderr.write(`[Playwright] Scrolling to load more content (${scrollCount} times)...\n`);
+
+    for (let i = 0; i < scrollCount; i++) {
+        await page.evaluate(() => {
+            window.scrollBy(0, window.innerHeight);
+        });
+        await page.waitForTimeout(scrollWait);
+    }
+
+    // 滚动回顶部
+    await page.evaluate(() => {
+        window.scrollTo(0, 0);
+    });
+
+    process.stderr.write(`[Playwright] ✓ Scroll complete\n`);
 }
 
 /**
@@ -84,19 +131,32 @@ async function downloadWithPlaywright(url) {
 
     // 如果有 Cookie，添加到上下文
     if (cookie && domain) {
-        // 解析 Cookie 字符串，格式通常为：name1=value1; name2=value2
+        // 解析 Cookie 字符串，格式：name1=value1; name2=value2; ...
+        // 注意：value 中可能包含 = 号（如 base64 编码），所以只分割第一个 =
         const cookies = cookie.split(';').map(c => {
-            const [name, value] = c.trim().split('=');
+            const trimmed = c.trim();
+            if (!trimmed) return null;
+
+            // 只分割第一个 =
+            const firstEqualIndex = trimmed.indexOf('=');
+            if (firstEqualIndex === -1) return null;
+
+            const name = trimmed.substring(0, firstEqualIndex).trim();
+            const value = trimmed.substring(firstEqualIndex + 1).trim();
+
+            if (!name) return null;
+
             return {
                 name: name,
-                value: value || '',
+                value: value,
                 domain: domain,
                 path: '/'
             };
-        }).filter(c => c.name); // 过滤掉空的 cookie
+        }).filter(c => c !== null); // 过滤掉无效的 cookie
 
         if (cookies.length > 0) {
             contextOptions.cookies = cookies;
+            process.stderr.write(`[Cookie] ✓ 已添加 ${cookies.length} 个 cookies\n`);
         }
     }
 
@@ -112,16 +172,26 @@ async function downloadWithPlaywright(url) {
         });
         process.stderr.write('[Playwright] 页面加载成功，等待内容渲染...\n');
 
+        // 读取网站配置
+        const siteConfig = loadSiteConfig(url);
+        const waitTime = siteConfig && siteConfig.wait_after_load ? siteConfig.wait_after_load : 3000;
+
         // 等待页面稳定（等待 JavaScript 渲染完成）
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(waitTime);
 
         // 尝试等待常见的内容元素（最多等待 5 秒）
         try {
-            await page.waitForSelector('article, main, .content, #content, body', {
+            const selector = siteConfig && siteConfig.content_selector ? siteConfig.content_selector : 'article, main, .content, #content, body';
+            await page.waitForSelector(selector, {
                 timeout: 5000
             });
         } catch {
             // 忽略，继续执行
+        }
+
+        // 如果配置需要滚动，执行滚动加载
+        if (siteConfig && siteConfig.requires_scroll) {
+            await scrollPage(page, siteConfig);
         }
 
         // 获取完整 HTML

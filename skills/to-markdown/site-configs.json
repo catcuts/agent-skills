@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "sites": {
+    "x.com": {
+      "name": "X (Twitter)",
+      "download_method": "playwright",
+      "requires_scroll": true,
+      "scroll_count": 5,
+      "scroll_wait": 2000,
+      "wait_after_load": 3000,
+      "content_selector": "article",
+      "cookie_required": true,
+      "cookie_env": "COOKIE_x_com",
+      "proxy_recommended": true
+    },
+    "twitter.com": {
+      "name": "Twitter",
+      "download_method": "playwright",
+      "requires_scroll": true,
+      "scroll_count": 5,
+      "scroll_wait": 2000,
+      "wait_after_load": 3000,
+      "content_selector": "article",
+      "cookie_required": true,
+      "cookie_env": "COOKIE_twitter_com",
+      "proxy_recommended": true
+    },
+    "mp.weixin.qq.com": {
+      "name": "WeChat Official Account",
+      "download_method": "urllib",
+      "requires_scroll": false,
+      "content_selector": "#img-content",
+      "cookie_required": false
+    },
+    "zhihu.com": {
+      "name": "Zhihu",
+      "download_method": "playwright",
+      "requires_scroll": false,
+      "content_selector": ".Post-RichText",
+      "cookie_required": false
+    },
+    "juejin.cn": {
+      "name": "Juejin",
+      "download_method": "urllib",
+      "requires_scroll": false,
+      "content_selector": "article",
+      "cookie_required": false
+    },
+    "csdn.net": {
+      "name": "CSDN",
+      "download_method": "urllib",
+      "requires_scroll": false,
+      "content_selector": "#content_views",
+      "cookie_required": false
+    }
+  }
+}
