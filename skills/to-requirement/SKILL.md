@@ -2,7 +2,11 @@
 name: to-requirement
 description: 从文章、文档中智能提炼需求并挖掘潜在需求的技能。输入任意文章文件路径，自动提取显性需求（功能级+系统级），并从技术实现、用户体验、商业价值、风险合规等多维度挖掘隐性需求。适用于产品规划、技术方案设计、创业项目分析等场景。当用户说"提炼需求"、"挖掘需求"、"分析文章需求"、"从这篇文章提取需求"时使用此技能。
 allowed-tools: Read, Write
-version: 1.0.0
+when_to_use: 用户提供文章/文档路径并要求"提炼需求"、"挖掘需求"或做需求分析时。
+context: fork
+background: false
+metadata:
+  version: 1.0.0
 ---
 
 # Requirement Miner - 需求智能提炼与挖掘

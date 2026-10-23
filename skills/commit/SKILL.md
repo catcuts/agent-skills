@@ -2,7 +2,9 @@
 name: commit
 description: 读取 Git 暂存区代码差异，自动生成符合 Conventional Commits 规范的提交信息。使用时说"提交"、"生成 commit message"或"创建提交"。
 allowed-tools: Bash, Read
-version: 1.0.0
+when_to_use: 用户要求"提交"、"生成 commit message"、"创建提交"或按 Conventional Commits 规范整理提交信息时。
+metadata:
+  version: 1.0.8
 ---
 
 # Commit Skill

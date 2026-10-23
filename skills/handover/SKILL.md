@@ -2,6 +2,9 @@
 name: handover
 description: 跨会话工作交接工具。支持"归档当前进度"和"恢复历史进度"两个模式。使用场景：需要在新会话中恢复之前的工作、需要在多个设备间同步工作上下文、需要保存当前工作状态以便稍后继续。
 allowed-tools: Read, Write, Bash
+when_to_use: 会话上下文接近耗尽、工作需要跨会话或跨设备继续时；用户说"交接"、"归档进度"、"恢复上次的工作"时。
+metadata:
+  version: 1.0.7
 ---
 
 # Handover Skill

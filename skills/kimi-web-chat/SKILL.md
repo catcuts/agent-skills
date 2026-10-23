@@ -2,7 +2,9 @@
 name: kimi-web-chat
 description: 与 Kimi 网页版（kimi.com）自动对话。当用户要求"问 Kimi"、"让 Kimi 回答/分析/总结/写作"或需要利用 Kimi 网页版能力时使用。自动完成输入、发送并取回回复展示到当前会话。
 allowed-tools: Bash, Read
-version: 1.0.0
+when_to_use: 用户要求"问 Kimi"、"让 Kimi 回答/分析/总结/写作"，或希望借用 Kimi 网页版的长文本能力时。
+metadata:
+  version: 1.0.0
 ---
 
 # Kimi Web Chat

@@ -2,7 +2,9 @@
 name: hello-world
 description: 简单的 Hello World 示例技能，用于验证技能安装是否成功。显示欢迎信息、环境信息和使用示例。
 allowed-tools: Bash
-version: 1.0.0
+disable-model-invocation: true
+metadata:
+  version: 1.0.10
 ---
 
 # Hello World Skill

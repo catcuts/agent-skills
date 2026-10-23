@@ -1,6 +1,11 @@
 ---
 name: to-markdown
 description: 将 HTML 网页内容转换为结构化的 Markdown 文档。支持三种模式：(1) URL + CSS选择器下载转换，(2) URL自动分析标签下载转换，(3) 剪贴板HTML直接转换。采用三层下载架构：Python(urllib) → agent-browser → Playwright，确保下载成功率。当用户需要保存网页内容为Markdown时使用。
+when_to_use: 用户要求把网页保存为 Markdown、转换 HTML/剪贴板内容为文档，或 URL 直接下载失败需要多层降级抓取时。
+context: fork
+background: false
+metadata:
+  version: 2.0.0
 ---
 
 # HTML 转 Markdown 技能
