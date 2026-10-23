@@ -21,7 +21,7 @@
 
 ### 快速安装
 
-从 npm 安装包时会自动注册 skill 到 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。感谢 [Vercel 开源的 skills 管理工具](https://github.com/vercel-labs/skills)🌹
+从 npm 安装包时会自动注册 skill 到 Opencode、Claude Code、Codex、Cursor 及其他 [75+ 个工具](https://github.com/vercel-labs/skills)。感谢 [Vercel 开源的 skills 管理工具](https://github.com/vercel-labs/skills)🌹
 
 ```bash
 # 全局安装（推荐）
@@ -167,10 +167,10 @@ npm 版本: 10.x.x
 
 ### 安装原理
 
-本技能使用 [Vercel 开源的 skills](https://github.com/vercel-labs/skills) 工具进行安装管理，支持 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。
+本技能使用 [Vercel 开源的 skills](https://github.com/vercel-labs/skills) 工具进行安装管理，支持 Opencode、Claude Code、Codex、Cursor 及其他 [75+ 个工具](https://github.com/vercel-labs/skills)。
 
 1. `package.json` 中的 `postinstall` 钩子自动运行安装脚本
-2. 安装脚本调用 `add-skill` 将 `SKILL.md` 复制到目标目录
+2. 安装脚本调用 `skills add` 将 `SKILL.md` 复制到目标目录
 3. Claude Code 自动检测并加载技能
 
 ### 安装路径

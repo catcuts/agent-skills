@@ -48,7 +48,7 @@ node scripts/install-skill.js --dry-run
 
 - [ ] 命令行参数正确解析
 - [ ] 安装路径正确显示
-- [ ] add-skill 命令格式正确
+- [ ] skills add 命令格式正确
 - [ ] 无错误信息
 
 ### 1.2 验证必需文件
@@ -438,18 +438,18 @@ act push
 
 ## 6️⃣ 常见测试问题
 
-### Q1: 安装脚本报错 "add-skill not found"
+### Q1: 安装脚本报错 "skills not found"
 
-**原因**: add-skill 未安装或网络问题
+**原因**: skills CLI 未安装或网络问题
 
 **解决方案**:
 
 ```bash
-# 手动安装 add-skill
-npm install -g add-skill
+# 手动安装 skills CLI
+npm install -g skills
 
 # 或使用 npx
-npx skills@latest . -a claude-code -y
+npx skills@latest add . -a claude-code -y
 ```
 
 ### Q2: SKILL.md 验证失败

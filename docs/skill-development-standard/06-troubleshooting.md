@@ -17,24 +17,24 @@
 
 ## 1️⃣ 安装问题
 
-### 1.1 add-skill 安装失败
+### 1.1 skills CLI 安装失败
 
 **错误信息**:
 
 ```
-Error: Cannot find module 'add-skill'
+Error: Cannot find module 'skills'
 ```
 
-**原因**: add-skill 未正确安装
+**原因**: skills CLI 未正确安装
 
 **解决方案**:
 
 ```bash
-# 方法一：手动安装 add-skill
-npm install -g add-skill
+# 方法一：手动安装 skills CLI
+npm install -g skills
 
 # 方法二：使用 npx（推荐）
-npx skills@latest . -a claude-code -y
+npx skills@latest add . -a claude-code -y
 
 # 方法三：使用 npx 自动下载 skills 工具
 npx -y skills add . -a claude-code -y
@@ -248,15 +248,15 @@ npm install -g npm@latest
 npm install -g npm@9.0.0
 ```
 
-### 3.3 add-skill 版本问题
+### 3.3 skills 版本问题
 
 **错误信息**:
 
 ```
-Error: add-skill version incompatible
+Error: skills version incompatible
 ```
 
-**原因**: add-skill 版本过低或过高
+**原因**: skills CLI 版本过低
 
 **解决方案**:
 
@@ -522,8 +522,8 @@ allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 # npm 安装时显示详细日志
 npm install -g @<your-org>/my-skill --verbose
 
-# 查看 add-skill 执行过程
-npx skills . -a claude-code -g -y --verbose
+# 查看 skills add 执行过程
+npx skills add . -a claude-code -g -y --verbose
 ```
 
 ### 7.2 本地测试
@@ -532,8 +532,8 @@ npx skills . -a claude-code -g -y --verbose
 # 测试安装脚本
 node scripts/install-skill.js --dry-run
 
-# 手动执行 add-skill 命令
-npx skills . -a claude-code -y
+# 手动执行 skills add 命令
+npx skills add . -a claude-code -y
 
 # 检查安装结果
 ls .claude/skills/my-skill/SKILL.md
@@ -545,7 +545,7 @@ ls .claude/skills/my-skill/SKILL.md
 # 查看 npm 日志
 npm log
 
-# 查看 add-skill 日志
+# 查看 skills CLI 日志
 # 日志位置：~/.npm/_logs/
 ls ~/.npm/_logs/
 ```

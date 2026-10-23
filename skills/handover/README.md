@@ -11,7 +11,7 @@
 
 ### 自动安装（推荐）
 
-安装本 npm 包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [23 个工具](https://github.com/vercel-labs/add-skill?tab=readme-ov-file#supported-agents)。感谢 [Vercel 开源的 skills 管理工具](https://github.com/vercel-labs/skills)🌹
+安装本 npm 包时会自动将 skill 注册到 Opencode、Claude Code、Codex、Cursor 及其他 [75+ 个工具](https://github.com/vercel-labs/skills)。感谢 [Vercel 开源的 skills 管理工具](https://github.com/vercel-labs/skills)🌹
 
 ```bash
 # 全局安装（默认）
@@ -104,7 +104,7 @@ npm 的 `preuninstall` hook 在全局卸载时**不保证被执行**，这是 np
 ## 技术细节
 
 - 存档保存在项目根目录的 `.handover/` 中
-- 使用 Vercel 的 `add-skill` 工具进行安装管理
+- 使用 Vercel 的 `skills` CLI 进行安装管理
 
 ### 安装路径
 

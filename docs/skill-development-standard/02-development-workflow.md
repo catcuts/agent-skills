@@ -61,7 +61,7 @@ touch SKILL.md README.md LICENSE
 touch scripts/install-skill.js scripts/uninstall-skill.js
 
 # 5. 安装开发依赖
-npm install --save-optional add-skill@^1.0.29
+npm install --save-optional skills@^1.7.4
 
 # 6. 编辑 package.json
 # 参考"项目结构规范"文档配置所有必需字段
@@ -588,7 +588,7 @@ Closes #123"
 
 1. 检查 Node.js 版本（>= 18.0.0）
 2. 运行 `npm test` 查看将要执行的命令
-3. 手动运行 `add-skill` 命令查看详细错误信息
+3. 手动运行 `skills add` 命令查看详细错误信息
 4. 检查 `SKILL.md` 格式是否正确
 
 ### Q5: 如何调试任务指令？
