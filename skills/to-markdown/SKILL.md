@@ -54,6 +54,7 @@ pip install beautifulsoup4 pyperclip
 **第 2 层：agent-browser**（智能、灵活）
 - 触发：Python 失败或检测到反爬
 - 适用：动态网站、需要登录
+- ⚠️ **重要**：直接使用 `agent-browser` 命令，**不要使用** `Skill(agent-browser)` 工具
 
 **第 3 层：Playwright**（完整浏览器）
 - 触发：agent-browser 不可用或失败

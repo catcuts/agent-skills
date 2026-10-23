@@ -68,42 +68,78 @@ python "${SKILL_DIR}/utils/download_html_simple.py" "<URL>"
 
 **工作流程**：
 
-1. **检查并设置 Cookie（如果环境变量存在）**：
-   ```bash
-   # 设置脚本会自动从 URL 提取域名并检查对应的环境变量
-   # 例如：https://x.com/test → 检查 COOKIE_x_com
-   # 例如：https://twitter.com/test → 检查 COOKIE_twitter_com
-   # 例如：https://linkedin.com/in/test → 检查 COOKIE_linkedin_com
-
-   python utils/setup_agent_browser_cookies.py "<目标URL>"
-   ```
-
-   `setup_agent_browser_cookies.py` 脚本会：
-   - 自动从 URL 提取域名
-   - 动态生成环境变量名（格式：`COOKIE_<域名>`，`.` 替换为 `_`）
-   - 检查环境变量是否存在
-   - 如果存在，解析并设置到 agent-browser
-   - 输出设置结果
-
-2. **打开页面**：
+1. **打开页面**：
    ```bash
    agent-browser open "<URL>"
    ```
 
-3. **等待加载**：
+2. **等待加载**：
    ```bash
    agent-browser wait --load 3000
    ```
 
-4. **获取完整 HTML**：
+3. **设置 Cookie（如果环境变量存在）**：
+   ```bash
+   # 先检查环境变量（从 URL 提取域名）
+   # 例如：https://x.com/test → 检查 COOKIE_x_com
+   # 例如：https://twitter.com/test → 检查 COOKIE_twitter_com
+
+   # 获取域名对应的环境变量名
+   domain=$(echo "<URL>" | sed -E 's|https?://([^/]+).*|\1|' | tr '.' '_')
+   env_name="COOKIE_${domain}"
+
+   # 检查环境变量是否存在
+   if env | grep -q "^${env_name}="; then
+     # 使用 JavaScript 在已打开的页面上下文中设置 cookies
+     agent-browser eval --stdin <<'EVALEOF'
+     (function() {
+       // 从环境变量中提取并解析 cookies
+       const cookieString = process.env.COOKIE_x_com || '';
+       if (!cookieString) return 'No cookies found';
+
+       // 解析 cookie 字符串并设置
+       const cookies = cookieString.split(';').map(c => {
+         const [name, value] = c.trim().split('=');
+         return { name, value };
+       });
+
+       const domain = window.location.hostname;
+       let setCount = 0;
+
+       cookies.forEach(cookie => {
+         if (cookie.name && cookie.value) {
+           // 设置 cookie（适用于当前域名）
+           document.cookie = `${cookie.name}=${cookie.value}; domain=.${domain}; path=/`;
+           setCount++;
+         }
+       });
+
+       return `Set ${setCount} cookies for domain .${domain}`;
+     })();
+     EVALEOF
+   fi
+   ```
+
+4. **刷新页面以应用 cookies**：
+   ```bash
+   agent-browser open "<URL>"
+   agent-browser wait --load 3000
+   ```
+
+5. **获取完整 HTML**：
    ```bash
    agent-browser get html body > <temp_file>
    ```
 
-5. **关闭浏览器**：
+6. **关闭浏览器**：
    ```bash
    agent-browser close
    ```
+
+**重要提示**：
+- ❌ **不要使用** `Skill(agent-browser)` 工具调用，这会触发 agent-browser skill 并接管流程
+- ✅ **直接使用** `agent-browser` 命令行工具
+- ✅ Cookie 设置必须在页面已打开后，通过 JavaScript 在页面上下文中设置
 
 **成功**：→ 继续步骤 3
 **失败**：→ 继续 2.3
