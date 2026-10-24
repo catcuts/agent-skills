@@ -13,6 +13,7 @@
 | [recap](skills/recap/) | 从 Claude Code 使用历史与 Chrome 浏览记录生成日常活动报告 |
 | [to-markdown](skills/to-markdown/) | 将 HTML 网页/剪贴板内容转换为结构化 Markdown，三层下载降级架构 |
 | [to-requirement](skills/to-requirement/) | 从文章/文档中智能提炼显性需求并挖掘隐性需求 |
+| [workteam](skills/workteam/) | 按《多会话协作规程》组织 AI 会话团队协作：定档（单点/批量/迭代）、留言板与管控台账、轮纪律驱动多线并行、独立核验、验收与复盘 |
 
 **安装方式**：
 
