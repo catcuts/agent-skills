@@ -148,7 +148,7 @@ var STEPS=[
      [300,function(){treeAdd('　├─ lines/线B-web.md（线B 进度文件·线独写）')}],
      [300,function(){treeAdd('　└─ tmp/（守望基线/心跳·总控专属）')}],
      [400,function(){say('ctrl','n','脚手架完成：迭代目录、各线进度文件、指令台账、管控台账已就绪（见右侧面板）')}],
-     [400,function(){logAdd('守望已部署（总控常驻盯全部留言板）');recAdd('脚手架 T0 完成：迭代目录/各线进度文件/指令台账/管控台账就绪')}],
+     [400,function(){logAdd('守望已部署（总控常驻盯全部留言板）');recAdd('[总控] 脚手架 T0 完成：迭代目录/各线进度文件/指令台账/管控台账就绪')}],
      [400,function(){pSt('A','—','待开批')}],[300,function(){pSt('B','—','待开批')}],[300,function(){pSt('E','—','等联调条件')}],
      [300,function(){logAdd('DC-1：拆线方案二批准；脚手架 T0 完成')}]]}],'B');}},
  act:function(box){box.appendChild(mkLab('在上方对话气泡中点选方案（选错会说明原因，可换一个再选）'));}},
@@ -164,7 +164,7 @@ var STEPS=[
     [700,function(){say('ctrl','a','契约 v2 已补码表（事件类型 80009=跌倒 等）。<b>申请冻结基线版（DC-2）</b>。')}],
     [400,function(){var b2=mkBtn('✅ 批准冻结（DC-2）',function(){b2.remove();seq([
      [400,function(){say('ctrl','n','契约已冻结（DC-2），已下发两线作为开发与 mock 自测依据')}],
-     [300,function(){logAdd('DC-2：契约 v2 冻结');recAdd('DC-2：契约 v2 冻结（下发两线为开发与 mock 自测依据）')}],
+     [300,function(){logAdd('DC-2：契约 v2 冻结');recAdd('[总控] DC-2：契约 v2 冻结（下发两线为开发与 mock 自测依据）')}],
      [300,function(){solve()}]]);});el('wzAct').appendChild(b2);}]]
    );
   }));
@@ -185,7 +185,7 @@ var STEPS=[
       [400,function(){bAdd('A','z2','开始 批#1（T0 环境就绪），15:02');ilSt('I-1','执行中');pSt('A','批#1 环境就绪（会话#1）','执行中')}],
       [500,function(){say('A','a','装依赖（后台执行＋wait_for 轮询结束标志，不傻等）…')}],
       [600,function(){say('A','a','依赖装毕、构建通过；冒烟 node scripts/greet.js 张三 → 输出 你好, 张三！ ✓')}],
-      [500,function(){bAdd('A','z2','批#1 回执：T0 完成，已产出《环境与工具链.md》（工具链/运行命令/冒烟/踩坑）')}],
+      [500,function(){bAdd('A','z2','批#1 回执：T0 完成，已产出《环境与工具链.md》（工具链/运行命令/冒烟/踩坑）');treeAdd('　├─ lines/线A-环境与工具链.md（线A 项目记忆）')}],
       [600,function(){say('ctrl','n','线A T0 三对齐核验通过——环境记录归档为<b>项目记忆</b>，后续每批新会话直接读它')}],
       [400,function(){pSt('A','批#1 环境就绪（会话#1）','已完成·环境就绪✓');ilSt('I-1','完成')}],
       [300,function(){logAdd('线A T0 完成，环境记录归档')}],
@@ -208,7 +208,7 @@ var STEPS=[
      [400,function(){var b2=mkBtn('✅ 批准本批计划',function(){b2.remove();seq([
       [400,function(){say('B','a','开始 T0（过程与线A 同构，后台执行）。')}],
       [400,function(){bAdd('B','z2','开始 批#1（T0），15:05');ilSt('I-2','执行中');pSt('B','批#1 环境就绪＋前端工程装载（会话#1）','执行中')}],
-      [700,function(){bAdd('B','z2','批#1 回执：T0 完成，环境记录已产出')}],
+      [700,function(){bAdd('B','z2','批#1 回执：T0 完成，环境记录已产出');treeAdd('　├─ lines/线B-环境与工具链.md（线B 项目记忆）')}],
       [500,function(){say('ctrl','n','线B T0 核验通过——两线环境就绪，功能批待时机表派发')}],
       [400,function(){pSt('B','批#1 环境就绪＋前端工程装载（会话#1）','已完成·环境就绪✓');ilSt('I-2','完成')}],
       [300,function(){logAdd('线B T0 完成（与线A并行）')}],
@@ -250,7 +250,7 @@ var STEPS=[
 {t:'第 9 步 · QB 决策',sub:'待确认到你这里——在对话气泡中点选，总控已备好选项＋理由＋推荐强度',note:'QA（查得到依据）总控自答；QB（需要拍板）才升级到你；决策落台账成 DC 编号。',
  enter:function(){switchTab('ctrl');if(!W.flags.s9){W.flags.s9=1;bAdd('B','z3','QB-1：greet 返回结构二选一（等人类批复）');ask('ctrl','<b>待确认 QB-1（来自线B）</b>：greet 返回结构二选一——请点选：',[
   {t:'A · 对象式 {code, data, msg}',s:'★★★ 推荐',k:'A',why:'与平台其余接口一致，前端可统一处理',okMsg:'已按 DC-3 下发线B。',
-   follow:[[400,function(){say('ctrl','a','已按 <b>DC-3</b> 批复并下发线B。')}],[400,function(){bAdd('B','z1','（DC-3）#4 返回结构改对象式');bAdd('B','z3','QB-1 已批复（DC-3）✓')}],[300,function(){logAdd('DC-3：QB-1 批复（对象式）');recAdd('DC-3：QB-1 批复（返回结构＝对象式）')}]]},
+   follow:[[400,function(){say('ctrl','a','已按 <b>DC-3</b> 批复并下发线B。')}],[400,function(){bAdd('B','z1','（DC-3）#4 返回结构改对象式');bAdd('B','z3','QB-1 已批复（DC-3）✓')}],[300,function(){logAdd('DC-3：QB-1 批复（对象式）');recAdd('[线B] DC-3：QB-1 批复（返回结构＝对象式）')}]]},
   {t:'B · 平铺式',s:'★',k:'B',why:'少一层嵌套，但破坏全站一致性',noMsg:'省一层嵌套的代价是全站两套解析——总控不推荐即有理由。'}],'A');}},
  act:function(box){box.appendChild(mkLab('在上方对话气泡中点选批复（选错会说明原因，可换）'));}},
 {t:'第 10 步 · 联调批',sub:'总控自动核就绪清单；你开线E批；联调期间其它线冻结',note:'联调条件＝契约自测通过＋部署物齐备；冻结窗口＝联调批独占环境，防脏读互踩；联调缺陷回流对应线修复。',
@@ -266,7 +266,7 @@ var STEPS=[
        [400,function(){say('E','a','联调中…场景 1-3 通过。')}],
        [600,function(){switchTab('ctrl');say('ctrl','n','联调发现 1 缺陷：欢迎页时区显示（归属线B）→ 已回流')}],
        [600,function(){say('ctrl','n','线B 修复批（新会话）完成——冻结期内仅放行该缺陷修复')}],
-       [500,function(){pSt('E','批#1 整体联调（会话#1）','执行中·A/B 冻结');recAdd('线E 联调批开启（线A/B 冻结）')}],
+       [500,function(){pSt('E','批#1 整体联调（会话#1）','执行中·A/B 冻结');recAdd('[线E] 联调批开启（线A/B 冻结）');treeAdd('　├─ lines/线E-联调.md（线E 进度文件·线独写）')}],
        [500,function(){switchTab('E');say('E','a','场景 4-6 复验通过。<b>联调结论：全部绿。</b>')}],
        [300,function(){ilSt('I-5','完成');logAdd('线E 联调通过；期间 A/B 冻结一次')}],[300,function(){solve()}]]);});el('wzAct').appendChild(b3);}]]);});});el('wzAct').appendChild(b2);}]]);}));}},
 {t:'第 11 步 · 复验交付',sub:'总控呈交付清单，你查验后通过——人类唯一的质量动作',note:'复验看交付物本身；三对齐与证据核验总控已做（第 7/12 步）。',
@@ -285,7 +285,7 @@ var STEPS=[
    [500,function(){treeAdd('　├─ 验收报告/验收报告_{{时间戳}}/');treeAdd('　└─ 复盘报告/复盘报告_{{时间戳}}/')}],
    [500,function(){say('ctrl','n','tmp 清点：留档 2 项已挪移，其余删除 ✓')}],
    [500,function(){say('ctrl','n','复盘已存：复盘报告（含最终态规则沉淀检查）✓')}],
-   [400,function(){recAdd('终态：收尾完成（监控清零/tmp 清点/复盘交付）')}],
+   [400,function(){recAdd('[总控] 终态：收尾完成（监控清零/tmp 清点/复盘交付）')}],
    [300,function(){logAdd('收尾完成：监控清零、tmp 清点、复盘交付')}],[300,function(){solve()}]]);}));}},
 {t:'通关！',sub:'你完成了人类角色的全部动作',note:'回顾：你只做了四类事——说话、决策（DC/QB）、开批贴卡、复验；其余（指令生成、核验、自愈、收尾）全部由总控承担。真实开工：对会话说 /workteam。',
  enter:function(){switchTab('ctrl');},

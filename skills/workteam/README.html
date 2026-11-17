@@ -17,7 +17,7 @@
   <p class="sub">Workteam 是一个装给 AI 会话用的技能包（skill，AI 工具的扩展）；它里面装的，是一套教多个 AI 会话像团队一样协作的规则——标题里的"多会话协作规程"，就是这套规则的名字。</p>
   <p class="sub" style="margin-top:12px">为什么需要它？设想你有一摊跨几个项目的活——开发、修文档、联调。一个人开五六个聊天窗口来回切，很快会疯。装上这套规程后，你说一句"开工"：<b>总控</b>（负责调度的 AI 会话，不写业务代码）替你拆活、派活、查收成果；若干条<b>线</b>（每条线守一个项目的开发责任，由按批分配的临时 AI 会话干活）并行推进；它们的全部沟通与状态写在<b>留言板、指令台账、线进度</b>等文件上——任何会话结束或挂掉，进度和待办都不丢。你要做的只剩决策与验收。</p>
   <p class="sub" style="margin-top:12px;color:var(--mut);font-size:15px">本页是这套规程给人的说明书，按"认识角色 → 走一遍流程 → 亲手试玩 → 真实开工"的顺序展开，读下去即可；顶部导航可随时跳转。</p>
-  <div class="authority" style="background:#f8fafc;border-color:var(--line)">本页为图解与演练；规则原文在技能的 references/ 目录，两者不一致时以规则原文为准（内容版本 v0.5.2）。</div>
+  <div class="authority" style="background:#f8fafc;border-color:var(--line)">本页为图解与演练；规则原文在技能的 references/ 目录，两者不一致时以规则原文为准（内容版本 v0.6.0）。</div>
 </div></header>
 
 <section id="arch"><div class="wrap">
@@ -261,7 +261,7 @@
 
 <section id="files"><div class="wrap">
   <h2>附录二 · 目录导览：每个文件怎么支撑这套规程</h2>
-  <p class="lead">到这里，用法已经讲完；以下两节是附录，供需要时查阅，可以随时离开。这一节逐个介绍技能目录里的 29 个文件——点击左侧任意文件，右侧显示它的作用、谁写谁读、对应哪份规范。</p>
+  <p class="lead">到这里，用法已经讲完；以下两节是附录，供需要时查阅，可以随时离开。这一节逐个介绍技能目录里的 33 个文件——点击左侧任意文件，右侧显示它的作用、谁写谁读、对应哪份规范。</p>
   <div class="fm">
     <div class="tree" id="fileTree"></div>
     <div class="card" id="fileInfo"><h4>👆 点击左侧文件</h4><p>先从 <b>SKILL.md</b> 看起——那是 AI 读的入口，人类可以跳过。</p></div>
@@ -277,13 +277,13 @@
     <tr><td>三档徽章 / 定档</td><td>references/规模适配规范.md</td></tr>
     <tr><td>架构总览 / 留言板 / 基线 / 长命令 / 输出契约 / 契约先行与联调 / 指令状态</td><td>references/多会话协作规范.md §1、§3~§10</td></tr>
     <tr><td>快速上手"四问"与流程</td><td>SKILL.md §2 冷启动序列</td></tr>
-    <tr><td>演练场 13 步（含每步文件标注）</td><td>SKILL.md §2~§6 + 多会话协作规范 全部</td></tr>
+    <tr><td>演练场 12 步＋通关屏（含每步文件标注）</td><td>SKILL.md §2~§6 + 多会话协作规范 全部</td></tr>
     <tr><td>两份 README（README.md / README.html）</td><td>references/README措辞标准.md</td></tr>
     <tr><td>工作流程图（八环节及文件标注）</td><td>SKILL.md §2 冷启动→§6 收尾 + 多会话协作规范 §1/§9~§13</td></tr>
     <tr><td>目录导览</td><td>实际文件清单（新增/删除文件时更新本页与 README.md）</td></tr>
     <tr><td>内容版本徽章</td><td>package.json 的 version</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--mut);margin-top:14px">规则以 references/ 为唯一权威源 · 本页为图解与演练 · Workteam v0.5.2 · <a href="https://github.com/catcuts/agent-skills">catcuts/agent-skills</a></p>
+  <p style="font-size:13px;color:var(--mut);margin-top:14px">规则以 references/ 为唯一权威源 · 本页为图解与演练 · Workteam v0.6.0 · <a href="https://github.com/catcuts/agent-skills">catcuts/agent-skills</a></p>
 </div></footer>
 
 <script src="pages/readme/wizard.js"></script>

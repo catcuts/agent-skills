@@ -13,6 +13,7 @@
         "README.html",
         "references/",
         "assets/",
+        "pages/",
         "scripts/"
     ],
     "keywords": [

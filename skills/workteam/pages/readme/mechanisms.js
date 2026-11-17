@@ -97,7 +97,9 @@ var FM={'.':['workteam/','技能根目录：随仓库分发，npx skills add 即
 'references/报告修订规范.md':['排查报告怎么写','.docs/ 命名、代码副本、修订历史（单点档产物）','线 产排查报告时','—'],
 'references/信息记录规范.md':['三表台账','logs/assets/flows CSV：留痕、资产登记、可复用流程','总控写','—'],
 'references/ZCode多会话自驱动工作方案_调研验证与踩坑全记录_2026-10-16.md':['v2 技术储备','自动唤醒会话的实测记录：cron/CLI/app-server 协议与 14 条踩坑','做自动化时','—'],
-'assets/':['模板与脚本（12 件）','冷启动时复制到迭代目录使用','AI 复制使用','—'],
+'assets/':['模板与脚本（13 件）','冷启动时复制到迭代目录使用','AI 复制使用','—'],
+'pages/':['演练场脚本与样式（外置）','wizard.js=演练场引擎、mechanisms.js=规则演示、styles.css=样式——README.html 引用','维护者','—'],
+'assets/指令台账模板.md':['指令台账骨架','两类来源统一留痕（总控/用户直连）：总控发出即登记、用户直连对账后入账','总控发出即登记','规范§16'],
 'assets/环境与工具链记录模板.md':['环境与工具链记录骨架','线级 T0 的产出模板：工具链/运行方式/冒烟验证/踩坑——即本线的"项目记忆"，续接换会话直接读','线 T0 时产出','规范§11'],
 'assets/watch_board.py':['守望脚本','盯留言板，一变就退出唤醒会话；带心跳与平安超时','AI 后台运行','规范§5'],
 'assets/wait_for.py':['结束标志轮询器','长命令后台跑+轮询标志（文件/日志/HTTP），命中即继续','线 执行长命令时','规范§6'],
@@ -117,7 +119,7 @@ html+='<li><span class="dir">📁 scripts/</span><ul><li><span class="f" data-f=
 html+='<li><span class="dir">📁 references/（规程权威源）</span><ul>';
 ['项目协作约定.md','多会话协作规范.md','决策与台账规范.md','规模适配规范.md','沟通规范.md','README措辞标准.md','验收报告规范.md','报告修订规范.md','信息记录规范.md','ZCode多会话自驱动工作方案_调研验证与踩坑全记录_2026-10-16.md'].forEach(function(f){html+='<li><span class="f" data-f="'+f+'">'+f+'</span></li>';});
 html+='</ul></li><li><span class="dir">📁 assets/（模板与脚本）</span><ul>';
-['watch_board.py','wait_for.py','留言板模板.md','管控台账模板.md','启动卡模板.md','续接提示词模板.md','实施记录模板.md','复盘报告模板.md','预估模板.md','兜底心跳提示词模板.md','契约文档模板.md','环境与工具链记录模板.md'].forEach(function(f){html+='<li><span class="f" data-f="'+f+'">'+f+'</span></li>';});
+['watch_board.py','wait_for.py','留言板模板.md','管控台账模板.md','启动卡模板.md','续接提示词模板.md','实施记录模板.md','复盘报告模板.md','预估模板.md','兜底心跳提示词模板.md','契约文档模板.md','环境与工具链记录模板.md','指令台账模板.md'].forEach(function(f){html+='<li><span class="f" data-f="'+f+'">'+f+'</span></li>';});
 html+='</ul></li></ul></li></ul>';t.innerHTML=html;
 t.addEventListener('click',function(e){var f=e.target.closest('.f');if(!f)return;
  t.querySelectorAll('.f').forEach(function(x){x.classList.remove('sel')});f.classList.add('sel');
