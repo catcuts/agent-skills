@@ -1,6 +1,6 @@
 {
     "name": "@catcuts-skills/workteam",
-    "version": "0.1.0",
+    "version": "0.5.2",
     "description": "按《多会话协作规程》组织 AI 会话团队协作：定档、留言板、管控台账、轮纪律、验收与复盘",
     "main": "index.js",
     "scripts": {
@@ -10,6 +10,7 @@
     },
     "files": [
         "SKILL.md",
+        "README.html",
         "references/",
         "assets/",
         "scripts/"
