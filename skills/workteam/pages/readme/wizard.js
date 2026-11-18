@@ -79,6 +79,7 @@ function pSt(L,batch,st){W.prog[L].batch=batch;W.prog[L].st=st;if(AB===L)renderS
 function renderTree(){var h='';for(var i=0;i<W.tree.length;i++){h+='<div class="zi'+(i===W.tree.length-1?' flash':'')+'">'+W.tree[i]+'</div>';}
  el('wzTree').innerHTML=h||'<div class="zi">（DC-1 批准后生长）</div>';}
 function treeAdd(t){W.tree.push(t);renderTree();}
+function treeRelabel(substr,t){for(var i=0;i<W.tree.length;i++){if(W.tree[i].indexOf(substr)>=0){W.tree[i]=t;renderTree();return;}}}
 function logAdd(t){W.log.unshift(t);var h='';for(var i=0;i<W.log.length;i++){h+='<div>· '+W.log[i]+'</div>';}el('wzLog').innerHTML=h;}
 function setNote(html){el('wzNote').innerHTML=html;}
 function seq(steps,done){lock(true);cmpLock='watch';composerOn=false;syncCmp();var i=0;(function nx(){if(i>=steps.length){lock(false);if(done)done();return;}
@@ -148,6 +149,8 @@ var STEPS=[
      [300,function(){treeAdd('　├─ 指令台账.md（总控 T0 产出·追加式）')}],
      [300,function(){treeAdd('　├─ 总控-心跳日志.md（兜底心跳流水·追加式·总控专属）')}],
      [300,function(){treeAdd('　├─ tmp/（守望基线/判活心跳·总控专属）')}],
+     [300,function(){treeAdd('　│　├─ watch_baseline.json（守望基线·附录一"删/不删"的主角）')}],
+     [300,function(){treeAdd('　│　└─ watch_heartbeat.txt（判活心跳·兜底据此判活）')}],
      [300,function(){treeAdd('　├─ 📁 lines/')}],
      [300,function(){treeAdd('　│　├─ 初始提示词-线A.md（总控 T0 产出）')}],
      [300,function(){treeAdd('　│　├─ 初始提示词-线B.md（总控 T0 产出）')}],
@@ -192,7 +195,7 @@ var STEPS=[
       [400,function(){bAdd('A','z2','开始 批#1（T0 环境就绪），15:02');ilSt('I-1','执行中');pSt('A','批#1 环境就绪（会话#1）','执行中')}],
       [500,function(){say('A','a','装依赖（后台执行＋wait_for 轮询结束标志，不傻等）…')}],
       [600,function(){say('A','a','依赖装毕、构建通过；冒烟 node scripts/greet.js 张三 → 输出 你好, 张三！ ✓')}],
-      [500,function(){bAdd('A','z2','批#1 回执：T0 完成，已产出《环境与工具链.md》（工具链/运行命令/冒烟/踩坑）');treeAdd('　├─ lines/线A-环境与工具链.md（线A 项目记忆）')}],
+      [500,function(){bAdd('A','z2','批#1 回执：T0 完成，已产出《环境与工具链.md》（工具链/运行命令/冒烟/踩坑）');treeRelabel('交接-线Ato全线','　│　├─ 交接-线Ato全线.md（跨线共享·线A独写）');treeAdd('　│　└─ 线A-环境与工具链.md（线A 项目记忆）')}],
       [600,function(){say('ctrl','n','线A T0 三对齐核验通过——环境记录归档为<b>项目记忆</b>，后续每批新会话直接读它')}],
       [400,function(){pSt('A','批#1 环境就绪（会话#1）','已完成·环境就绪✓');ilSt('I-1','完成')}],
       [300,function(){logAdd('线A T0 完成，环境记录归档')}],
@@ -215,7 +218,7 @@ var STEPS=[
      [400,function(){var b2=mkBtn('✅ 批准本批计划',function(){b2.remove();seq([
       [400,function(){say('B','a','开始 T0（过程与线A 同构，后台执行）。')}],
       [400,function(){bAdd('B','z2','开始 批#1（T0），15:05');ilSt('I-2','执行中');pSt('B','批#1 环境就绪＋前端工程装载（会话#1）','执行中')}],
-      [700,function(){bAdd('B','z2','批#1 回执：T0 完成，环境记录已产出');treeAdd('　├─ lines/线B-环境与工具链.md（线B 项目记忆）')}],
+      [700,function(){bAdd('B','z2','批#1 回执：T0 完成，环境记录已产出');treeRelabel('线A-环境与工具链','　│　├─ 线A-环境与工具链.md（线A 项目记忆）');treeAdd('　│　└─ 线B-环境与工具链.md（线B 项目记忆）')}],
       [500,function(){say('ctrl','n','线B T0 核验通过——两线环境就绪，功能批待时机表派发')}],
       [400,function(){pSt('B','批#1 环境就绪＋前端工程装载（会话#1）','已完成·环境就绪✓');ilSt('I-2','完成')}],
       [300,function(){logAdd('线B T0 完成（与线A并行）')}],
@@ -273,11 +276,11 @@ var STEPS=[
        [400,function(){say('E','a','联调中…场景 1-3 通过。')}],
        [600,function(){switchTab('ctrl');say('ctrl','n','联调发现 1 缺陷：欢迎页时区显示（归属线B）→ 已回流')}],
        [600,function(){say('ctrl','n','线B 修复批（新会话）完成——冻结期内仅放行该缺陷修复')}],
-       [500,function(){pSt('E','批#1 整体联调（会话#1）','执行中·A/B 冻结');recAdd('[线E] 联调批开启（线A/B 冻结）');treeAdd('　├─ lines/线E-联调.md（线E 进度文件·线独写）')}],
+       [500,function(){pSt('E','批#1 整体联调（会话#1）','执行中·A/B 冻结');recAdd('[线E] 联调批开启（线A/B 冻结）');treeRelabel('线B-环境与工具链','　│　├─ 线B-环境与工具链.md（线B 项目记忆）');treeAdd('　│　└─ 线E-联调.md（线E 进度文件·线独写）')}],
        [500,function(){switchTab('E');say('E','a','场景 4-6 复验通过。<b>联调结论：全部绿。</b>')}],
        [300,function(){ilSt('I-5','完成');logAdd('线E 联调通过；期间 A/B 冻结一次')}],[300,function(){solve()}]]);});el('wzAct').appendChild(b3);}]]);});});el('wzAct').appendChild(b2);}]]);}));}},
 {t:'第 11 步 · 复验交付',sub:'总控呈交付清单，你查验后通过——人类唯一的质量动作',note:'复验看交付物本身；三对齐与证据核验总控已做（第 7/12 步）。',
- enter:function(){switchTab('ctrl');if(!W.flags.s11){W.flags.s11=1;treeAdd('　├─ .docs/greet参数错位排查报告_2026xxxx.md（线A·单点档产物）');say('ctrl','a','<b>交付清单</b>：① greet 修复（实测输出＋diff）② 6 处文档修复 ③ 排查报告（.docs/）④ 契约 v2 冻结版 ⑤ 环境与工具链.md（两线）。请复验。');}},
+ enter:function(){switchTab('ctrl');if(!W.flags.s11){W.flags.s11=1;treeAdd('　└─ .docs/');treeAdd('　　　└─ greet参数错位排查报告_2026xxxx.md（线A·单点档产物）');say('ctrl','a','<b>交付清单</b>：① greet 修复（实测输出＋diff）② 6 处文档修复 ③ 排查报告（.docs/）④ 契约 v2 冻结版 ⑤ 环境与工具链.md（两线）。请复验。');}},
  act:function(box){box.appendChild(mkLab('复验：'));
   var ok=mkBtn('✅ 复验通过',function(){seq([[300,function(){say('ctrl','a','收到。进入收尾（下一步）。')}],[300,function(){solve()}]]);});
   var no=mkBtn('↩ 打回',function(){var f=el('s11fb');f.className='fb show no';f.innerHTML='❌ 本清单已三对齐且证据齐备——真实场景发现问题当然打回，此处预置通过。';miss();},'btn-o');
@@ -289,7 +292,7 @@ var STEPS=[
   box.appendChild(mkBtn('▶ 快进收尾',function(){seq([
    [400,function(){say('ctrl','n','一致性核对：代码/文档/台账/板 双向一致 ✓（含报告头部日期）')}],
    [500,function(){say('ctrl','n','停守望后台任务 ✓；删除定时兜底 ✓')}],
-   [500,function(){treeAdd('　├─ 验收报告/验收报告_{{时间戳}}/');treeAdd('　└─ 复盘报告/复盘报告_{{时间戳}}/')}],
+   [500,function(){treeRelabel('.docs/','　├─ .docs/');treeRelabel('greet参数错位排查报告','　│　└─ greet参数错位排查报告_2026xxxx.md（线A·单点档产物）');treeAdd('　├─ 验收报告/');treeAdd('　│　└─ 验收报告_{{时间戳}}/');treeAdd('　└─ 复盘报告/');treeAdd('　　　└─ 复盘报告_{{时间戳}}/')}],
    [500,function(){say('ctrl','n','tmp 清点：留档 2 项已挪移，其余删除 ✓')}],
    [500,function(){say('ctrl','n','复盘已存：复盘报告（含最终态规则沉淀检查）✓')}],
    [400,function(){recAdd('[总控] 终态：收尾完成（监控清零/tmp 清点/复盘交付）')}],
