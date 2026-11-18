@@ -33,4 +33,4 @@ npx skills add catcuts/agent-skills
 
 ---
 
-*Workteam v0.4.0 · 规则以 `references/` 为权威源 · 本 README 为入口说明，详细展开见 README.html（信息分工，避免两处失同步）*
+*规则以 `references/` 为权威源 · 本 README 为入口说明，详细展开见 README.html（信息分工，避免两处失同步）*
